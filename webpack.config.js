@@ -4,11 +4,13 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
 
 const BACKEND = process.env.BACKEND === "local" ? "http://localhost:9000" : "TODO";
-console.log(`BACKEND: $BACKEND`);
+console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
     entry: {
-        "index": ['./src/index.tsx'],
+        "partier/index": ['./src/partier/index.tsx'],
+        "promoter/index": ['./src/promoter/index.tsx'],
+        "admin/index": ['./src/admin/index.tsx'],
         "bootstrap": ['bootstrap-loader']
     },
     output: {

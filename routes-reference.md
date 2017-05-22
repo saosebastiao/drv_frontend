@@ -2,7 +2,7 @@
 | --- | --- | --- |
 | `/`  | `/` | home page - plain html |
 | `/admin`  | `/admin` | Placeholder |
-| `/venue`  | `/venue` | Placeholder |
+| `/promoter`  | `/promoter` | Placeholder |
 | `/partier` | `/partier` | Partier Login |
 | `/partier/profile` | `/partier/profile` | Partier Profile View |
 | `/partier/profile/edit` | `/partier/profile` | Partier Profile Edit Form |
