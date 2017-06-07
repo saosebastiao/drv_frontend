@@ -8,9 +8,7 @@ console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
     entry: {
-        "partier/index": ['./src/partier/index.tsx'],
-        "promoter/index": ['./src/promoter/index.tsx'],
-        "admin/index": ['./src/admin/index.tsx'],
+        "index": ['./src/index.tsx'],
         "bootstrap": ['bootstrap-loader']
     },
     output: {
