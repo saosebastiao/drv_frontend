@@ -1,39 +1,31 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-import { Link } from "react-router-dom";
+import { Link, matchPath, RouteComponentProps } from "react-router-dom";
 
 import './styles.scss';
 
-const menus = [
-	{
-		linkTo: '/partier/profile',
-		title: 'Profile'
-	},
-	{
-		linkTo: '/partier/squad',
-		title: 'Squads'
-	},
-	{
-		linkTo: '/partier/auction',
-		title: 'Auctions'
+interface RouteName {
+	route: string;
+	label: string
+}
+class NavLink extends React.Component<RouteName,{}>{
+	render(){
+		const curPath = window.location.pathname;
+		const isActive = matchPath(curPath,{path:this.props.route});
+		return <li role="presentation" className={ isActive ? "active" : ""}> 
+			<Link to={this.props.route}>{this.props.label}</Link>
+		</li>;
 	}
-]
+}
 
-@observer
 export default class Header extends React.Component<{}, {}> {
 
 	renderNavs() {
-  	let pathname:string = (this.props as any)["pathname"];
-
 		return (
 			<ul className="nav nav-tabs">
-			{
-				menus.map((item: any) => (
-					<li key={`header_${item.title}`} role="presentation" className={pathname.indexOf(item.linkTo) >= 0 ? "active" : ""}>
-						<Link to={item.linkTo}>{item.title}</Link>
-					</li>
-				))
-			}
+				<NavLink route="/partier/profile" label="Profile"/>
+				<NavLink route="/partier/squad" label="Squads"/>
+				<NavLink route="/partier/auction" label="Auction"/>
 			</ul>
 		)
 	}

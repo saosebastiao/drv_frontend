@@ -7,8 +7,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
-import { profileSelector } from '../../redux/selectors';
-import ProfileActions from '../../redux/actions/ProfileActions';
 import './styles.scss';
 
 @observer
@@ -16,7 +14,6 @@ class _ProfileEdit extends React.Component<RouteComponentProps<any>, {}> {
 
   constructor(props: any) {
     super(props);
-
     this.state = (props as any).profile;
     console.log('profile', this.state);
   }
@@ -51,9 +48,11 @@ class _ProfileEdit extends React.Component<RouteComponentProps<any>, {}> {
   }
 
   clickSave() {
+    /*
     (this.props as any).dispatch(ProfileActions.updateProfile({
       ...this.state
     }));
+    */
     this.props.history.goBack();
   }
 
@@ -128,5 +127,3 @@ class _ProfileEdit extends React.Component<RouteComponentProps<any>, {}> {
   
 }
 
-const mapStateToProps = (state: any) => ({ ...profileSelector(state) });
-export default connect(mapStateToProps, null, null, { withRef: true })(_ProfileEdit as any);

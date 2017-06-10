@@ -1,15 +1,15 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
-
 import './styles.scss';
 
 @observer
-export default class Partier extends React.Component<RouteComponentProps<any>, {}> {
+export default class Login extends React.Component<RouteComponentProps<any>, {}> {
 
   render() {
     return <div className="partier-wrapper">
-    </div>;
+      Logging In...
+    </div>
   }
   
 }

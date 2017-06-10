@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import Home from "./home";
+import Partier from "./partier-app";
+import Promoter from "./promoter-app";
+import Admin from "./admin-app";
 
 import DevTool from "mobx-react-devtools";
 
-import App from "./views/app";
-import store from './redux/store';
 
 import "./styles.scss";
 
@@ -14,13 +15,14 @@ import "./styles.scss";
 class AppRouter extends React.Component<{}, {}> {
   render() {
     return (
-      <Provider store={store}>
         <BrowserRouter>
 					<Switch>
-						<Route path="/" component={App} />
+						<Route exact={true} path="/" component={Home} />
+						<Route path="/partier" component={Partier} />
+						<Route path="/promoter" component={Promoter} />
+						<Route path="/admin" component={Admin} />
 					</Switch>
         </BrowserRouter>
-      </Provider>
     );
   }
 };

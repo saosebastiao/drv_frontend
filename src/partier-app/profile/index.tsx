@@ -3,11 +3,11 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
-import { profileSelector } from '../../redux/selectors';
+//import { profileSelector } from '../../redux/selectors';
 import './styles.scss';
 
 @observer
-class _Profile extends React.Component<RouteComponentProps<any>, {}> {
+export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
 	profile: any = {};
 
 	renderOtherPhotos() {
@@ -63,6 +63,3 @@ class _Profile extends React.Component<RouteComponentProps<any>, {}> {
     </div>;
   }
 }
-
-const mapStateToProps = (state: any) => ({ ...profileSelector(state) });
-export default connect(mapStateToProps, null, null, { withRef: true })(_Profile as any);
