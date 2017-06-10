@@ -7,15 +7,19 @@ import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
+import ProfileModel from "../ProfileModel";
 import './styles.scss';
 
-@observer
-export default class EditProfile extends React.Component<RouteComponentProps<any>, {}> {
+export interface IProfileModel {
+	profile: ProfileModel;
+}
 
-  constructor(props: any) {
-    super(props);
-    this.state = (props as any).profile;
-    console.log('profile', this.state);
+@observer
+export default class EditProfile extends React.Component<IProfileModel, {}> {
+  profile: ProfileModel;
+  constructor(props: IProfileModel) {
+    super();
+    this.profile = props.profile;
   }
 
 	initToggle = (ref: any) => {
@@ -48,37 +52,26 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
   }
 
   clickSave() {
-    /*
-    (this.props as any).dispatch(ProfileActions.updateProfile({
-      ...this.state
-    }));
-    */
-    this.props.history.goBack();
+    //go back
   }
 
   changeName = (event: any) => {
-    this.setState({
-      name: event.target.value,
-    });
+    this.profile.name = event.target.value
   };
 
   changeHome = (event: any) => {
-    this.setState({
-      home: event.target.value,
-    });
+    this.profile.home = event.target.value
   };
 
   changeGender = (event: any) => {
-    this.setState({
-      gender: event.target.value,
-    });
+    this.profile.gender = event.target.value
   }
 
   render() {
     return <div className="profile-edit-wrapper">
     	<div className="profile-edit-contents">
     		<div className="profile-edit-top-contents">
-		    	<div className="photo-container" style={{backgroundImage: `url(${(this.state as any).image})`}} onClick={this.clickPhoto}>
+		    	<div className="photo-container" style={{backgroundImage: `url(${this.profile.photos[0]})`}} onClick={this.clickPhoto}>
 		    	</div>
           <input id="file-selector" type="file" accept="image/*" onChange={(e: any) => this.updatePhoto(e.target.files)} />
 		    	<div className="profile-form">
@@ -88,7 +81,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
               </label>
               <div className="value-col">
                 <input type="text" className="form-control" aria-describedby="input-name"
-                value={(this.state as any).name}
+                value={this.profile.name}
                 onChange={this.changeName} />
               </div>
             </div>
@@ -99,7 +92,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
               </label>
               <div className="value-col">
                 <input type="text" className="form-control" aria-describedby="input-home"
-                value={(this.state as any).home}
+                value={this.profile.home}
                 onChange={this.changeHome} />
               </div>
             </div>
@@ -110,10 +103,10 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
               </label>
               <div className="value-col">
 								<label className="radio-inline">
-								  <input type="radio" name="gender" value="Male" checked={(this.state as any).gender === 'Male'} onChange={this.changeGender.bind(this)} />Male
+								  <input type="radio" name="gender" value="Male" checked={this.profile.gender === 'Male'} onChange={this.changeGender} />Male
 								</label>
 								<label className="radio-inline">
-								  <input type="radio" name="gender" value="Female" checked={(this.state as any).gender === 'Female'} onChange={this.changeGender.bind(this)} />Female
+								  <input type="radio" name="gender" value="Female" checked={this.profile.gender === 'Female'} onChange={this.changeGender} />Female
 								</label>
 							</div>
             </div>
@@ -124,6 +117,5 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
 	    </div>
     </div>;
   }
-  
 }
 

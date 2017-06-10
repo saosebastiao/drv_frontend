@@ -3,12 +3,22 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
+import ProfileModel from "../ProfileModel";
 //import { profileSelector } from '../../redux/selectors';
 import './styles.scss';
 
+
+export interface IProfileModel {
+	profile: ProfileModel;
+}
+
 @observer
-export default class ShowProfile extends React.Component<RouteComponentProps<any>, {}> {
-	profile: any = {};
+export default class ShowProfile extends React.Component<IProfileModel, {}> {
+	profile: ProfileModel;
+	constructor(props: IProfileModel){
+		super();
+		this.profile = props.profile;
+	}
 
 	renderOtherPhotos() {
 		return (
@@ -36,21 +46,25 @@ export default class ShowProfile extends React.Component<RouteComponentProps<any
   render() {
   	this.profile = (this.props as any).profile;
   	console.log('profile', this.profile);
-    return <div className="profile-wrapper">
-    	<div className="profile-contents">
-    		<div className="profile-top-contents">
-		    	<div className="photo-container">
-		    		<Link to={`/partier/profile-edit`}><div className="main-photo" style={{backgroundImage: `url(${this.profile.image})`}} onClick={this.clickPhoto}></div></Link>
-		    		{this.renderOtherPhotos()}
-		    	</div>
-		    	<div className="profile-list">
-		    		{this.profile.name}<br />
-		    		{this.profile.home}<br />
-		    		{this.profile.gender}<br />
-		    	</div>
-		    </div>
-		    <br />
-		    <div className="friend-list">
+	return <div className="profile-wrapper">
+		<div className="profile-contents">
+			<div className="profile-top-contents">
+				<div className="photo-container">
+					<Link to={`/partier/profile/edit`}>
+						<div className="main-photo" 
+							style={{backgroundImage: `url(${this.profile.photos.slice(0)})`}} 
+							onClick={this.clickPhoto}/>
+					</Link>
+					{this.renderOtherPhotos()}
+				</div>
+				<div className="profile-list">
+					{this.profile.name}<br />
+					{this.profile.home}<br />
+					{this.profile.gender}<br />
+				</div>
+			</div>
+			<br />
+			<div className="friend-list">
 					<ul className="list-group">
 					  <li className="list-group-item">Cras justo odio</li>
 					  <li className="list-group-item">Dapibus ac facilisis in</li>
@@ -58,8 +72,8 @@ export default class ShowProfile extends React.Component<RouteComponentProps<any
 					  <li className="list-group-item">Porta ac consectetur ac</li>
 					  <li className="list-group-item">Vestibulum at eros</li>
 					</ul>
-	    	</div>
-	    </div>
-    </div>;
+			</div>
+		</div>
+	</div>;
   }
 }
