@@ -60,9 +60,7 @@ module.exports = {
     devServer: {
         contentBase: "./dist",
         historyApiFallback: {
-            index: '/',
-            partier: '/partier',
-            promoter: '/promoter'
+            index: '/'
         },
         proxy: {
             '/api': {

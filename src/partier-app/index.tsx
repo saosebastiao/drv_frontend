@@ -14,7 +14,7 @@ import DevTool from "mobx-react-devtools";
 
 import "./styles.scss";
 
-const NoMatch = () => <p>No Match</p>;
+const NoMatch = () => <p>404 Page Does Not Exist</p>;
 
 export default class PartierHome extends React.Component<RouteComponentProps<{}>, {}> {
 	render() {
@@ -22,7 +22,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
 			<div>
 				<Header/>
 				<Switch>
-					<Route exact={true} path="/" component={Login} />
+					<Route exact path="/partier" component={Login} />
 					<Route path="/partier/profile" component={Profile} />
 					<Route path="/partier/squad" component={Squad} />
 					<Route path="/partier/auction" component={Auction} />

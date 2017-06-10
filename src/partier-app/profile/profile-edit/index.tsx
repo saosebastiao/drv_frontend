@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import './styles.scss';
 
 @observer
-class _ProfileEdit extends React.Component<RouteComponentProps<any>, {}> {
+export default class EditProfile extends React.Component<RouteComponentProps<any>, {}> {
 
   constructor(props: any) {
     super(props);
