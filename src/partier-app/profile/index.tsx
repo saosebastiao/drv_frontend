@@ -1,36 +1,32 @@
 import * as React from "react";
-import { RouteComponentProps, Route, Link } from 'react-router-dom';
+import { RouteComponentProps, Switch, Route, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
-import ProfileModel from "./ProfileModel";
 import EditProfile from "./edit";
+import ShowProfile from "./default";
 import './styles.scss';
 
 
-export interface IProfileModel {
-	profile: ProfileModel;
-}
 
 @observer
 export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
-	profile = new ProfileModel;
 
 	renderOtherPhotos() {
 		return (
-  		<div className="other-photos-container">
-  			{
-  				_.range(2).map((row_index: number) => (
-		  			<div className="other-photos-row" key={`other_photos_row_${row_index}`}>
-		  			{
-		  				_.range(5).map((col_index: number) => (
-		  					<div className="other-photos-col" key={`other_photos_col_${col_index}`}>
-			  				</div>
-		  				))
-		  			}
-		  			</div>
-		  		))
-	  		}
-  		</div>
+			<div className="other-photos-container">
+				{
+					_.range(2).map((row_index: number) => (
+						<div className="other-photos-row" key={`other_photos_row_${row_index}`}>
+							{
+								_.range(5).map((col_index: number) => (
+									<div className="other-photos-col" key={`other_photos_col_${col_index}`}>
+									</div>
+								))
+							}
+						</div>
+					))
+				}
+			</div>
 		);
 	}
 
@@ -38,36 +34,10 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 
 	}
 
-  render() {
-	return <div className="profile-wrapper">
-		<div className="profile-contents">
-			<div className="profile-top-contents">
-				<div className="photo-container">
-					<Link to={`/partier/profile/edit`}>
-						<div className="main-photo" 
-							style={{backgroundImage: `url(${this.profile.photos.slice(0)})`}} 
-							onClick={this.clickPhoto}/>
-					</Link>
-					{this.renderOtherPhotos()}
-				</div>
-				<div className="profile-list">
-					{this.profile.name}<br />
-					{this.profile.home}<br />
-					{this.profile.gender}<br />
-				</div>
-			</div>
-			<br />
-			<div className="friend-list">
-					<ul className="list-group">
-					  <li className="list-group-item">Cras justo odio</li>
-					  <li className="list-group-item">Dapibus ac facilisis in</li>
-					  <li className="list-group-item">Morbi leo risus</li>
-					  <li className="list-group-item">Porta ac consectetur ac</li>
-					  <li className="list-group-item">Vestibulum at eros</li>
-					</ul>
-			</div>
-		</div>
-			<Route path="/partier/profile/edit" render={(props) => <EditProfile profile={this.profile}/>} />
-	</div>;
-  }
+	render() {
+		return <Switch>
+			<Route exact path="/partier/profile" component={ShowProfile} />
+			<Route path="/partier/profile/edit" component={EditProfile} />
+		</Switch>;
+	}
 }

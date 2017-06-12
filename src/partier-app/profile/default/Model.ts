@@ -1,4 +1,4 @@
-import {observable} from "mobx";
+import { observable } from "mobx";
 
 
 export default class ProfileModel {
@@ -6,7 +6,7 @@ export default class ProfileModel {
     @observable home: string;
     @observable gender: string;
     @observable photos: Array<string>;
-    constructor(){
+    constructor() {
         this.name = "Daniel";
         this.home = "Seattle";
         this.gender = "Male"
