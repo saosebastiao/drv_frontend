@@ -2,8 +2,8 @@ import * as React from "react";
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { observer } from "mobx-react";
 import ProfileModel from "./ProfileModel";
-import ShowProfile from "./profile-show";
-import EditProfile from "./profile-edit";
+import ShowProfile from "./ShowProfile";
+import EditProfile from "./EditProfile";
 import './styles.scss';
 
 @observer
