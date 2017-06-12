@@ -6,10 +6,10 @@
   "devDependencies": {
     "@types/fb": "0.0.22",
     "@types/geojson": "^1.0.1",
-    "@types/jasmine": "^2.5.47",
+    "@types/jasmine": "^2.5.52",
     "@types/jquery": "^2.0.45",
-    "@types/lodash": "^4.14.64",
-    "@types/react": "^15.0.21",
+    "@types/lodash": "^4.14.66",
+    "@types/react": "^15.0.28",
     "@types/react-dom": "^15.5.0",
     "@types/react-router": "^4.0.9",
     "@types/react-router-dom": "^4.0.4",
@@ -47,7 +47,7 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.0",
     "ts-loader": "^2.1.0",
-    "typescript": "^2.2.2",
+    "typescript": "^2.4.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
