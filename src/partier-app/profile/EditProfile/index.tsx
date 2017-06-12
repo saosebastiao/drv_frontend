@@ -1,12 +1,10 @@
 import * as React from "react";
 import { findDOMNode } from 'react-dom';
 import * as $ from 'jquery';
-import { bindActionCreators } from 'redux';
 import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
-import { connect } from 'react-redux';
 import ProfileModel from "../ProfileModel";
 import './styles.scss';
 

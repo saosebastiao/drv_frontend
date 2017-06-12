@@ -1,6 +1,5 @@
 import * as React from "react";
 import { RouteComponentProps, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
 import ProfileModel from "../ProfileModel";

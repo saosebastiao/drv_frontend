@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
 import Login from "./login";
 import Profile from "./profile";
 import Squad from "./squad";
