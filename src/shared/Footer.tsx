@@ -7,9 +7,9 @@ import './styles.scss';
 export default class Footer extends React.Component<{}, {}> {
 
   render() {
-    return <div className="footer-wrapper">
-    	© 2017 Drover Ltd.
-    </div>;
+    return <footer className="footer-wrapper">
+      © 2017 Drover Ltd.
+    </footer>;
   }
-  
+
 }
