@@ -22,7 +22,7 @@ For example
 ## Managing State
 ----------------
 
-I strongly prefer to keep `Redux` out of my code. I don't like the design of the library, the massive amount of boilerplate that it uses to wire up components, and I don't like how you have to keep a large global state container, as that makes things very confusing once you get past a few items in your global state.
+I strongly prefer to keep `Redux` out of my code. I don't like the design of the library, the massive amount of boilerplate that it uses to wire up components, and I don't like how you have to keep a large global state container, as that makes things very confusing once you get past a few items in your global state. Futhermore, it doesn't play nice with typescript, as it relies on a lot of the dynamic aspects of javascript. 
 
 I use Mobx for state management because you really only need to know `@observer` and `@observable` to get things working. I can also quite easily keep the model (data store) as local as possible to the component. Notice, for example, that the `Model.ts` with all of the state for the `/partier/profile` default route is only referenced from the `src/partier-app/profile/default/` directory. There is no reason for other routes to be exposed to this data store, so it stays as close to the component as possible.
 
