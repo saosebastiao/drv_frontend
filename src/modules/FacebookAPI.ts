@@ -1,58 +1,49 @@
 import Logger from "./Logger";
 
-class FacebookAPI {
+Logger.debug("fbclient init");
+FB.init({
+  appId: '1063753666981488',
+  status: true, //listen to status messages somewhere?
+  cookie: true,
+  version: 'v2.8',
+});
 
-  private login() {
-    return new Promise<IFBAuthResponse>((resolve, reject) => {
-      FB.login(res => {
-        if (res.status === "connected") {
-          Logger.debug("Connected to Facebook");
-          resolve(res.authResponse);
-        } else {
-          Logger.error("Could not log into Facebook");
-          reject();
-        }
-      }, { scope: 'email,user_friends' });
-    });
-  }
-
-  private getFBStatus() {
-    return new Promise<IFBAuthResponse>((resolve, reject) => {
-      FB.getLoginStatus(x => {
-        if (x.status !== 'connected') {
-          reject();
-        }
-        resolve(x.authResponse);
-      });
-    });
-  }
-
-  async getStatus() {
-    let res: IFBAuthResponse;
-    try {
-      res = await this.getFBStatus();
-    } catch (err) {
-      Logger.debug("Attempting Facebook Login");
-      res = await this.login();
-    }
-    return res;
-  }
-
-  constructor() {
-    Logger.debug("fbclient init");
-    FB.init({
-      appId: '1063753666981488',
-      status: true, //listen to status messages somewhere?
-      cookie: true,
-      version: 'v2.8',
-    });
-  }
-  setAdmin() { }
-  setVenue1() { }
-  setVenue2() { }
-  setPartier1() { }
-  setPartier2() { }
+function login() {
+  return new Promise<IFBAuthResponse>((resolve, reject) => {
+    FB.login(res => {
+      if (res.status === "connected") {
+        Logger.debug("Connected to Facebook");
+        resolve(res.authResponse);
+      } else {
+        Logger.error("Could not log into Facebook");
+        reject();
+      }
+    }, { scope: 'email,user_friends' });
+  });
 }
+
+function getFBStatus() {
+  return new Promise<IFBAuthResponse>((resolve, reject) => {
+    FB.getLoginStatus(x => {
+      if (x.status !== 'connected') {
+        reject();
+      }
+      resolve(x.authResponse);
+    });
+  });
+}
+
+export async function getStatus() {
+  let res: IFBAuthResponse;
+  try {
+    res = await getFBStatus();
+  } catch (err) {
+    Logger.debug("Attempting Facebook Login");
+    res = await login();
+  }
+  return res;
+}
+
 
 export function getFBUserInfo(userID?: string) {
   let params = { fields: 'first_name,email,gender' };
@@ -87,6 +78,3 @@ export function getMyFriends() {
     });
   });
 }
-
-const API = new FacebookAPI();
-export default API;

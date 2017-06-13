@@ -2,7 +2,7 @@
 
 interface IFBAuthResponse {
   userID: string;
-  accessToken: string;
+  accessToken?: string;
   expiresIn?: number;
   signedRequest?: string;
 }
