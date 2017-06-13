@@ -41,7 +41,7 @@
 			"suppressTaskName": true,
 			"command": "make",
 			"args": [
-				"sass"
+				"scss"
 			],
 			"isBackground": false,
 			"showOutput": "silent",
