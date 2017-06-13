@@ -10,9 +10,6 @@ type DataMethod = "put" | "post" | "patch";
 type NoDataMethod = DataMethod | "get" | "head" | "option" | "delete";
 type DroverUserType = "admin" | "partier" | "promoter";
 
-const axiosClient = axios.create({
-  baseURL: `${window.location.origin}/api`
-});
 
 let USERID: string | null;
 
