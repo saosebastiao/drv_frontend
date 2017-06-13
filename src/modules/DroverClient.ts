@@ -1,6 +1,6 @@
-import axios from "axios";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/dom/ajax";
+import "rxjs/add/operator/toPromise";
 
 import Logger from "./Logger";
 import { getStatus } from "./FacebookAPI";
@@ -19,13 +19,14 @@ let USERID: string | null;
 
 async function login(userType: DroverUserType) {
   const { userID, accessToken } = await getStatus();
+  USERID = userID;
   Logger.debug("Attempting Drover Login");
   try {
-    let res = await axiosClient.post(`/${userType}/login`, {
-      userID: userID,
-      fbToken: accessToken
-    });
-    USERID = res.data.userID;
+    const url = `/api/${userType}/login`;
+    const body = { userID: userID, fbToken: accessToken };
+    const headers = { 'Content-Type': 'application/json' };
+    const method = 'post';
+    const res = await Observable.ajax({ method, url, headers, body }).toPromise();
     Logger.info("Logged in");
   } catch (err) {
     Logger.error("Error logging in");
@@ -41,20 +42,19 @@ export function adminLogin() {
   return login("admin");
 }
 
-export async function request<RES>(method: NoDataMethod, url: string) {
-  return axiosClient.request({ method, url })
-    .then((res) => {
-      Logger.debug(res.data)
-      return res.data as RES
-    });
+export async function request<RES>(method: NoDataMethod, endpoint: string) {
+  const url = `/api${endpoint}`;
+  const res = await Observable.ajax({ method, url }).toPromise();
+  Logger.debug(res.response);
+  return res.response as RES
 }
 
-export async function requestData<RES>(method: DataMethod, url: string, data: any) {
-  return axiosClient.request({ method, url, data })
-    .then((res) => {
-      Logger.debug(res.data)
-      return res.data as RES
-    });
+export async function requestData<RES>(method: DataMethod, endpoint: string, body: any) {
+  const url = `/api${endpoint}`;
+  const headers = { 'Content-Type': 'application/json' };
+  const res = await Observable.ajax({ method, headers, url, body }).toPromise();
+  Logger.debug(res.response);
+  return res.response as RES
 }
 
 export function getRegions() {
@@ -66,8 +66,8 @@ export function getRegion(regionID: string) {
 export function getTimeZones() {
   return request<Array<string>>("get", `/auction/tz`);
 }
-export function getPartier(userID: string) {
-  return request<IPartierProfile>("get", `/partier/${userID}`);
+export function getPartier(userID?: string) {
+  return request<IPartierProfile>("get", `/partier/${userID || USERID}`);
 }
 export function getVenue(venueID: number) {
   return request<IVenue>("get", `/venue/${venueID}`);
@@ -90,9 +90,6 @@ export function createNeighborhood(region: string, neighborhood: string) {
 }
 export function deleteNeighborhood(region: string, neighborhood: string) {
   return request<IRegion>("delete", `/region/${region}/${neighborhood}`);
-}
-export function getMyProfile() {
-  return request<IPartierProfile>("get", `/partier/${USERID}`);
 }
 export function getMyFriends() {
   return request<IPartierFriends>("get", `/friends`);
