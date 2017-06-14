@@ -22,7 +22,7 @@ function loginFB() {
   });
 }
 
-function getFBStatus() {
+function getFBLoginStatus() {
   return new Promise<IFBAuthResponse>((resolve, reject) => {
     FB.getLoginStatus(x => {
       if (x.status !== 'connected') {
@@ -33,10 +33,10 @@ function getFBStatus() {
   });
 }
 
-export async function getStatus() {
+export async function getFBStatus() {
   let res: IFBAuthResponse;
   try {
-    res = await getFBStatus();
+    res = await getFBLoginStatus();
   } catch (err) {
     Logger.debug("Attempting Facebook Login");
     res = await loginFB();
