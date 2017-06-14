@@ -51,7 +51,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 					</div>
 					<div className="profile-list">
 						{this.profile.name}<br />
-						{this.profile.home}<br />
+						{this.profile.defaultRegion}<br />
 						{this.profile.gender}<br />
 					</div>
 				</div>
