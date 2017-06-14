@@ -152,7 +152,7 @@ export function getMyInvites(partyNight: string) {
   return request<Array<ISquadInvite>>("get", `/invites/${partyNight}`);
 }
 export function resetInvites(partyNight: string) {
-  return request<void>("put", `invites/${partyNight}/reset`);
+  return request<void>("put", `/invites/${partyNight}/reset`);
 }
 export function geocodeAddress(address: string) {
   return request<Array<IGeocodedAddress>>("get", `/venue/geocode?address=${address}`)
