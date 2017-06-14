@@ -3,7 +3,7 @@ import "rxjs/add/observable/dom/ajax";
 import "rxjs/add/operator/toPromise";
 
 import Logger from "./Logger";
-import { getStatus } from "./FacebookAPI";
+import { getFBStatus } from "./FacebookAPI";
 
 
 type DataMethod = "put" | "post" | "patch";
@@ -15,7 +15,7 @@ let USERID: string | null;
 
 
 async function login(userType: DroverUserType) {
-  const { userID, accessToken } = await getStatus();
+  const { userID, accessToken } = await getFBStatus();
   USERID = userID;
   Logger.debug("Attempting Drover Login");
   try {

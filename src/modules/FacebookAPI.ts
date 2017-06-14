@@ -8,7 +8,7 @@ FB.init({
   version: 'v2.8',
 });
 
-function login() {
+function loginFB() {
   return new Promise<IFBAuthResponse>((resolve, reject) => {
     FB.login(res => {
       if (res.status === "connected") {
@@ -39,7 +39,7 @@ export async function getStatus() {
     res = await getFBStatus();
   } catch (err) {
     Logger.debug("Attempting Facebook Login");
-    res = await login();
+    res = await loginFB();
   }
   return res;
 }
