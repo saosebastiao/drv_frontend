@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { observable } from "mobx";
+import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { RouteComponentProps, Redirect, Switch, Route } from 'react-router-dom';
 import Profile from "./profile";
@@ -23,9 +23,9 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
 	async login() {
 		try {
 			let x = await partierLogin()
-			this.loggedIn = true;
+			runInAction(() => this.loggedIn = true);
 		} catch (e) {
-			this.loggedIn = false;
+			runInAction(() => this.loggedIn = false);
 		}
 	}
 	componentWillMount() {
