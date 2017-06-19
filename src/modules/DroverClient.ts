@@ -63,7 +63,10 @@ export function getRegion(regionID: string) {
 export function getTimeZones() {
   return request<Array<string>>("get", `/auction/tz`);
 }
-export function getPartier(userID?: string) {
+export function getAdminProfile() {
+  return request<IPartierProfile>("get", `/admin/${USERID}`);
+}
+export function getPartierProfile(userID?: string) {
   return request<IPartierProfile>("get", `/partier/${userID || USERID}`);
 }
 export function getVenue(venueID: number) {
@@ -71,9 +74,6 @@ export function getVenue(venueID: number) {
 }
 export function getParty(partyID: number) {
   return request<IParty>("get", `/party/${partyID}`);
-}
-export function getAdminProfile() {
-  return request<IPartierProfile>("get", `/admin/${USERID}`);
 }
 export function createRegion(region: string, startTime: string, timeZone: string) {
   return requestData<IPartierProfile>("post", `/region/new`, {
