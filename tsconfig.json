@@ -11,6 +11,7 @@
     "inlineSourceMap": true,
     "noLib": false,
     "allowJs": true,
+    "checkJS": true,
     "jsx": "react",
     "baseUrl": "src",
     "lib": [
