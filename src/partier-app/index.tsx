@@ -9,7 +9,7 @@ import Auction from "./auction";
 import Header from "shared/Header";
 import Footer from "shared/Footer";
 import NavLink from "shared/NavLink";
-//import { partierLogin } from "modules/DroverClient";
+import { partierLogin } from "modules/DroverClient";
 
 import DevTool from "mobx-react-devtools";
 
@@ -22,7 +22,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
 	@observable loggedIn: boolean = false;
 	async login() {
 		try {
-			//let x = await partierLogin()
+			let x = await partierLogin()
 			runInAction(() => this.loggedIn = true);
 		} catch (e) {
 			runInAction(() => this.loggedIn = false);
