@@ -14,6 +14,10 @@ export interface IProfileModel {
 export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
 	profile = new ProfileModel;
 
+	constructor(props: any) {
+		super(props);
+	}
+
 	renderOtherPhotos() {
 		return (
 			<div className="other-photos-container">
@@ -22,7 +26,10 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 						<div className="other-photos-row" key={`other_photos_row_${row_index}`}>
 							{
 								_.range(5).map((col_index: number) => (
-									<div className="other-photos-col" key={`other_photos_col_${col_index}`}>
+									<div
+										className="other-photos-col"
+										key={`other_photos_col_${col_index}`}
+									>
 									</div>
 								))
 							}
@@ -33,10 +40,6 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 		);
 	}
 
-	clickPhoto() {
-
-	}
-
 	render() {
 		return <div className="profile-wrapper">
 			<div className="profile-contents">
@@ -44,8 +47,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 					<div className="photo-container">
 						<Link to={`/partier/profile/edit`}>
 							<div className="main-photo"
-								style={{ backgroundImage: `url(${this.profile.photos.slice(0)})` }}
-								onClick={this.clickPhoto} />
+								style={{ backgroundImage: `url(${this.profile.photos.slice(0)})` }} />
 						</Link>
 						{this.renderOtherPhotos()}
 					</div>
