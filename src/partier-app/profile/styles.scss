@@ -1,82 +1,40 @@
-.profile-wrapper {
-	width: 100%;
-	height: 100%;
-	text-align: center;
+.profile-top-contents {
+	display: flex;
 
-	.profile-contents {
+	.photo-container {
 		display: inline-block;
-    width: 800px;
-    margin-top: 20px;
-    padding: 20px 40px;
-	}
+		width: 300px;
 
-	.profile-top-contents {
-		display: flex;
-
-		.photo-container {
+		.main-photo {
 			display: inline-block;
-			width: 300px;
+			width: 200px;
+			height: 200px;
+			background: map-get($colors, profile-back);
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			margin-bottom: 20px;
+		}
 
-			.main-photo {
-				display: inline-block;
-				width: 200px;
-				height: 200px;
-				background: map-get($colors, profile-back);
-				background-size: cover;
-				background-repeat: no-repeat;
-				background-position: center center;
-				margin-bottom: 20px;
-			}
+		.other-photos-container {
+			@extend .container;
+	    width: 100%;
+	    padding: 0px;
 
-			.other-photos-container {
-				@extend .container;
-		    width: 100%;
-		    padding: 0px;
+			.other-photos-row {
+				@extend .row;
+				margin: 0px;
 
-				.other-photos-row {
-					@extend .row;
-					margin: 0px;
-
-					.other-photos-col {
-						display: inline-block;
-						width: 20%;
-						height: 60px;
-						border: 1px solid map-get($colors, border);
-					}
+				.other-photos-col {
+					display: inline-block;
+					width: 20%;
+					height: 60px;
+					border: 1px solid map-get($colors, border);
+					background-size: cover;
+			    background-repeat: no-repeat;
+			    background-position: center center;
 				}
 			}
 		}
 	}
-
-	.profile-list {
-		flex: 1;
-		margin-left: 20px;
-		padding: 20px;
-		background: map-get($colors, info-back);
-		color: black;
-    text-align: left;
-    line-height: 30px;
-    font-size: 1.8rem;
-	}
-
-	.friend-list {
-		width: 100%;
-		height: 240px;
-		overflow: scroll;
-		border: 1px solid map-get($colors, border);
-
-		.list-group {
-	    margin-bottom: 0px;
-	    border: none;
-
-	    .list-group-item {
-	    	margin: 0px;
-	    	text-align: left;
-		    border-radius: 0px;
-		    border: none;
-		    border-bottom: 2px solid map-get($colors, border);
-	    }
-		}
-	}
-
 }

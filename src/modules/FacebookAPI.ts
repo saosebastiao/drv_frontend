@@ -18,7 +18,7 @@ function loginFB() {
         Logger.error("Could not log into Facebook");
         reject();
       }
-    }, { scope: 'email,user_friends' });
+    }, { scope: 'email,user_friends,user_photos' });
   });
 }
 
