@@ -1,0 +1,5 @@
+Main Text Font: Venti Medium 
+Slogan Text Font: Reislust 
+Monogram Text Font: Vitreous Heavy 
+Color HEX: #25064D 
+Color HSL: undefined undefined undefined 
