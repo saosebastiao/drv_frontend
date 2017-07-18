@@ -1,5 +1,5 @@
 import { observable, computed, runInAction } from "mobx";
-//import { getPartierProfile } from "modules/DroverClient";
+import { getPartierProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
     @observable userID: string;
@@ -11,9 +11,9 @@ export default class ProfileModel {
     @observable gender: string;
     @observable photos: Array<string>;
     async refresh() {
-        //let x = await getPartierProfile();
+        let res = await getPartierProfile();
         runInAction(() => {
-            //Object.assign(this, x);
+            Object.assign(this, res);
         })
     }
     constructor() {

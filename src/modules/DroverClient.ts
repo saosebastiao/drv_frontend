@@ -17,7 +17,6 @@ let USERID: string | null;
 async function login(userType: DroverUserType) {
   const { userID, accessToken } = await getFBStatus();
   USERID = userID;
-  /*
   Logger.debug("Attempting Drover Login");
   try {
     const url = `/api/${userType}/login`;
@@ -29,7 +28,6 @@ async function login(userType: DroverUserType) {
   } catch (err) {
     Logger.error("Error logging in");
   }
-  */
 }
 export function partierLogin() {
   return login("partier");

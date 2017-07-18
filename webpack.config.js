@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
 
-const BACKEND = process.env.BACKEND === "local" ? "http://localhost:9000" : "http://getdrover.com";
+const BACKEND = process.env.BACKEND === "local" ? "http://localhost:9000" : "http://getdrover.com/api";
 console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
