@@ -25,13 +25,15 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 					<div className="photo-container">
 						<Link to={`/partier/profile/edit`}>
 							<div className="main-photo"
-								style={{ backgroundImage: `url(${this.profile.photos.slice(0)})` }} />
+								style={this.profile.profilePhoto} />
 						</Link>
 						<div className="other-photos-container">
 							<div className="other-photos-row" key="other_photos_row_1">
 								{
 									_.range(4).map((col_index: number) => {
-										return <div className="other-photos-col" key={`other_photos_col_${col_index}`} />
+										return <div className="other-photos-col"
+											style={this.profile.otherPhotos[col_index]}
+											key={`other_photos_col_${col_index}`} />
 									})
 								}
 							</div>

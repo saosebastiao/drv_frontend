@@ -31,10 +31,12 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   };
 
   onImageSelect = (url: any) => {
-    console.log('onImageSelect', url);
     const idx = this.selIndex;
-    console.log(idx);
-    $($('.photo-container .other-photos-col')[idx]).css('background-image', "url('" + url.source + "')");
+    if (this.profile.photos.length > idx) {
+      this.profile.photos[idx] = url.source;
+    } else {
+      this.profile.photos.push(url.source);
+    }
   }
 
   initToggle = (ref: any) => {
@@ -65,7 +67,9 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
     }
   }
 
-  clickSave() {
+  async clickSave() {
+    const x = await this.profile.save()
+    this.props.history.push("/partier/profile");
     //go back
   }
 
@@ -84,16 +88,24 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   renderOtherPhotos() {
     return (
       <div className="other-photos-container">
-        <div className="other-photos-row" key={`other_photos_row_0`}>
+        <div className="other-photos-row">
           {
-            _.range(4).map((col_index: number) => (
-              <div
-                className="other-photos-col"
-                key={`other_photos_col_${col_index}`}
-                onClick={() => this.onShowFacebookImageModal(col_index)}
-              >
-              </div>
-            ))
+            _.range(5).map((col_index: number) => {
+              if (this.profile.otherPhotos.length > col_index) {
+                return <div
+                  className="other-photos-col"
+                  key={`other_photos_col_${col_index}`}
+                  style={this.profile.otherPhotos[col_index]}
+                  onClick={() => this.onShowFacebookImageModal(col_index)}
+                />
+              } else {
+                return <div
+                  className="other-photos-col"
+                  key={`other_photos_col_${col_index}`}
+                  onClick={() => this.onShowFacebookImageModal(col_index)}
+                />
+              }
+            })
           }
         </div>
       </div>
@@ -105,10 +117,9 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
       <div className="profile-edit-contents">
         <div className="profile-top-contents">
           <div className="photo-container">
-            <div className="main-photo" style={{ backgroundImage: `url(${this.profile.photos[0]})` }} onClick={this.clickPhoto} />
+            <div className="main-photo" style={this.profile.profilePhoto} onClick={() => this.onShowFacebookImageModal(0)} />
             {this.renderOtherPhotos()}
           </div>
-          <input id="file-selector" type="file" accept="image/*" onChange={(e: any) => this.updatePhoto(e.target.files)} />
           <div className="profile-form">
             <div className="form-group">
               <label htmlFor="input-name" className="label-col control-label">

@@ -1,4 +1,4 @@
-import { observable, computed, runInAction } from "mobx";
+import { observable, computed, runInAction, autorun, toJS } from "mobx";
 import { getPartierProfile, getRegions, updateMyProfile } from "modules/DroverClient";
 
 
@@ -10,10 +10,19 @@ export default class ProfileModel {
     @observable name: string = "";
     @observable defaultRegion: string = "";
     @observable gender: string = "";
-    @observable photos: Array<string> = [""];
+    @observable photos: Array<string> = [];
+    @computed get profilePhoto() {
+        if (this.photos.length > 0)
+            return { backgroundImage: `url(${this.photos[0]})` };
+    }
+    @computed get otherPhotos() {
+        return this.photos.slice(1).map(url => {
+            return { backgroundImage: `url(${url})` };
+        });
+    }
     @observable validated: boolean = false;
     @observable complete: boolean = false;
-    @observable availRegions: Array<string> = [""];
+    @observable availRegions: Array<string> = [];
     async refresh() {
         const profile = await getPartierProfile();
         const regions = await getRegions();
@@ -32,9 +41,11 @@ export default class ProfileModel {
         };
         const newProfile = await updateMyProfile(data);
         Object.assign(this, newProfile);
+        return true;
 
     }
     constructor() {
         this.refresh();
     }
+    debug = autorun(() => console.log(toJS(this.photos)))
 }
