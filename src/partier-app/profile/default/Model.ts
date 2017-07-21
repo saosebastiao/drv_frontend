@@ -6,10 +6,12 @@ export default class ProfileModel {
     @computed get isReady() {
         return this.userID != null;
     }
-    @observable name: string;
-    @observable defaultRegion: string;
-    @observable gender: string;
-    @observable photos: Array<string>;
+    @observable name: string = "";
+    @observable defaultRegion: string = "";
+    @observable gender: string = "";
+    @observable photos: Array<string> = [""];
+    @observable validated: boolean = false;
+    @observable complete: boolean = false;
     async refresh() {
         let res = await getPartierProfile();
         runInAction(() => {
@@ -17,11 +19,6 @@ export default class ProfileModel {
         })
     }
     constructor() {
-        this.userID = "";
-        this.name = "Daniel";
-        this.defaultRegion = "Seattle";
-        this.gender = "Male"
-        this.photos = [""];
         this.refresh();
     }
 }
