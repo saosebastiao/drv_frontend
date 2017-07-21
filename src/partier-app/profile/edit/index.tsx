@@ -46,27 +46,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
     }
   }
 
-  clickPhoto() {
-    $('#file-selector').trigger('click');
-  }
-
-  updatePhoto(files: any) {
-    if (FileReader && files && files.length) {
-      var self = this;
-      var fr = new FileReader();
-      fr.onload = function () {
-        $('.photo-container .main-photo').css('background-image', "url('" + fr.result + "')");
-        self.setState({
-          image: fr.result
-        });
-      }
-      fr.readAsDataURL(files[0]);
-    }
-    else {
-      console.log('File read is not supported');
-    }
-  }
-
   async clickSave() {
     const x = await this.profile.save()
     this.props.history.push("/partier/profile");
