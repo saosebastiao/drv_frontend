@@ -138,10 +138,10 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
               </label>
               <div className="value-col">
                 <label className="radio-inline">
-                  <input type="radio" name="gender" value="Male" checked={this.profile.gender === 'Male'} onChange={this.changeGender} />Male
+                  <input type="radio" name="gender" value="male" checked={this.profile.gender === 'male'} onChange={this.changeGender} />Male
 								</label>
                 <label className="radio-inline">
-                  <input type="radio" name="gender" value="Female" checked={this.profile.gender === 'Female'} onChange={this.changeGender} />Female
+                  <input type="radio" name="gender" value="female" checked={this.profile.gender === 'female'} onChange={this.changeGender} />Female
 								</label>
               </div>
             </div>

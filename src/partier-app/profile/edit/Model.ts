@@ -32,6 +32,7 @@ export default class ProfileModel {
         };
         const newProfile = await updateMyProfile(data);
         Object.assign(this, newProfile);
+
     }
     constructor() {
         this.refresh();
