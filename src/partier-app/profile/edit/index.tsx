@@ -96,13 +96,13 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                   className="other-photos-col"
                   key={`other_photos_col_${col_index}`}
                   style={this.profile.otherPhotos[col_index]}
-                  onClick={() => this.onShowFacebookImageModal(col_index)}
+                  onClick={() => this.onShowFacebookImageModal(col_index + 1)}
                 />
               } else {
                 return <div
                   className="other-photos-col"
                   key={`other_photos_col_${col_index}`}
-                  onClick={() => this.onShowFacebookImageModal(col_index)}
+                  onClick={() => this.onShowFacebookImageModal(col_index + 1)}
                 />
               }
             })
