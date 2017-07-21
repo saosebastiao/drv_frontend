@@ -18,28 +18,6 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 		super(props);
 	}
 
-	renderOtherPhotos() {
-		return (
-			<div className="other-photos-container">
-				{
-					_.range(2).map((row_index: number) => (
-						<div className="other-photos-row" key={`other_photos_row_${row_index}`}>
-							{
-								_.range(5).map((col_index: number) => (
-									<div
-										className="other-photos-col"
-										key={`other_photos_col_${col_index}`}
-									>
-									</div>
-								))
-							}
-						</div>
-					))
-				}
-			</div>
-		);
-	}
-
 	render() {
 		return <div className="profile-wrapper">
 			<div className="profile-contents">
@@ -49,7 +27,15 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 							<div className="main-photo"
 								style={{ backgroundImage: `url(${this.profile.photos.slice(0)})` }} />
 						</Link>
-						{this.renderOtherPhotos()}
+						<div className="other-photos-container">
+							<div className="other-photos-row" key="other_photos_row_1">
+								{
+									_.range(4).map((col_index: number) => {
+										return <div className="other-photos-col" key={`other_photos_col_${col_index}`} />
+									})
+								}
+							</div>
+						</div>
 					</div>
 					<div className="profile-list">
 						{this.profile.name}<br />

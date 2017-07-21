@@ -4,7 +4,7 @@ interface IPartierProfile {
   userID: string;
   name?: string;
   email?: string;
-  gender?: "m" | "f" | "o";
+  gender?: string;
   defaultRegion?: string;
   validated: boolean;
   complete: boolean;
@@ -15,13 +15,17 @@ interface IUpdateProfileReq {
   name?: string;
   email?: string;
   defaultRegion?: string;
-  gender?: "m" | "f" | "o";
+  gender?: string;
 }
 
 interface IRegion {
   regionID: string;
   startTime: string;
   timeZone: string;
+  currency: string;
+  priceStart: number;
+  priceDrop: number;
+  dropInterval: string;
 }
 
 interface ISquadMember {

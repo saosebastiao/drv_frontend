@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
+import { observable } from "mobx";
 import * as _ from 'lodash';
 import EditProfileModel from "./Model";
 import FacebookImageSelector from '../../../modules/FacebookImageSelector';
@@ -11,28 +12,27 @@ import './styles.scss';
 
 
 @observer
-export default class EditProfile extends React.Component<RouteComponentProps<any>, {}> {
+export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
   profile = new EditProfileModel;
 
+  @observable selIndex: number = -1;
+  @observable showFacebookImageModal: boolean = false;
   constructor(props: any) {
     super(props);
-    this.state = {
-      selIndex: -1,
-      showFacebookImageModal: false
-    }
   }
 
   onShowFacebookImageModal = (idx: any) => {
-    this.setState({ showFacebookImageModal: true, selIndex: idx });
+    this.showFacebookImageModal = true;
+    this.selIndex = idx;
   };
 
   onHideFacebookImageModal = () => {
-    this.setState({ showFacebookImageModal: false });
+    this.showFacebookImageModal = false;
   };
 
   onImageSelect = (url: any) => {
     console.log('onImageSelect', url);
-    var idx = ((this.state) as any).selIndex;
+    const idx = this.selIndex;
     console.log(idx);
     $($('.photo-container .other-photos-col')[idx]).css('background-image', "url('" + url.source + "')");
   }
@@ -74,7 +74,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
   };
 
   changeHome = (event: any) => {
-    this.profile.home = event.target.value
+    this.profile.defaultRegion = event.target.value
   };
 
   changeGender = (event: any) => {
@@ -84,22 +84,18 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
   renderOtherPhotos() {
     return (
       <div className="other-photos-container">
-        {
-          _.range(2).map((row_index: number) => (
-            <div className="other-photos-row" key={`other_photos_row_${row_index}`}>
-              {
-                _.range(5).map((col_index: number) => (
-                  <div
-                    className="other-photos-col"
-                    key={`other_photos_col_${col_index}`}
-                    onClick={() => this.onShowFacebookImageModal(row_index * 5 + col_index)}
-                  >
-                  </div>
-                ))
-              }
-            </div>
-          ))
-        }
+        <div className="other-photos-row" key={`other_photos_row_0`}>
+          {
+            _.range(4).map((col_index: number) => (
+              <div
+                className="other-photos-col"
+                key={`other_photos_col_${col_index}`}
+                onClick={() => this.onShowFacebookImageModal(col_index)}
+              >
+              </div>
+            ))
+          }
+        </div>
       </div>
     );
   }
@@ -131,7 +127,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
               </label>
               <div className="value-col">
                 <input type="text" className="form-control" aria-describedby="input-home"
-                  value={this.profile.home}
+                  value={this.profile.defaultRegion}
                   onChange={this.changeHome} />
               </div>
             </div>
@@ -154,7 +150,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<any
         <br /><br />
         <button className="btn btn-lg btn-primary" onClick={this.clickSave.bind(this)}>Save</button>
       </div>
-      {(this.state as any).showFacebookImageModal &&
+      {this.showFacebookImageModal &&
         <FacebookImageSelector
           getURL={true}
           appId="1063753666981488"
