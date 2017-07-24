@@ -116,9 +116,9 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                 <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Hometown</span>
               </label>
               <div className="value-col">
-                <input type="text" className="form-control" aria-describedby="input-home"
-                  value={this.profile.defaultRegion}
-                  onChange={this.changeHome} />
+                <select className="form-control" aria-describedby="input-home" value={this.profile.defaultRegion} onChange={this.changeHome}>
+                  {this.profile.availRegions.map(x => <option value={x}>{x}</option>)}
+                </select>
               </div>
             </div>
 
