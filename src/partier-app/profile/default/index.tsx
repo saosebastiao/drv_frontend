@@ -3,6 +3,7 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as _ from 'lodash';
 import ProfileModel from "./Model";
+import FriendsWidget from "./FriendsWidget"
 import './styles.scss';
 
 
@@ -46,15 +47,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 					</div>
 				</div>
 				<br />
-				<div className="friend-list">
-					<ul className="list-group">
-						<li className="list-group-item">Cras justo odio</li>
-						<li className="list-group-item">Dapibus ac facilisis in</li>
-						<li className="list-group-item">Morbi leo risus</li>
-						<li className="list-group-item">Porta ac consectetur ac</li>
-						<li className="list-group-item">Vestibulum at eros</li>
-					</ul>
-				</div>
+				<FriendsWidget />
 			</div>
 		</div>;
 	}
