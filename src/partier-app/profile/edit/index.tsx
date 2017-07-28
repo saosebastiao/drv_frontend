@@ -57,6 +57,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   };
 
   changeHome = (event: any) => {
+    console.log(event.target.value);
     this.profile.defaultRegion = event.target.value
   };
 
@@ -117,7 +118,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
               </label>
               <div className="value-col">
                 <select className="form-control" aria-describedby="input-home" value={this.profile.defaultRegion} onChange={this.changeHome}>
-                  {this.profile.availRegions.map(x => <option value={x}>{x}</option>)}
+                  <option key="none" value="none">Please Select a Hometown</option>
+                  {this.profile.availRegions.map(x => <option key={x} value={x}>{x}</option>)}
                 </select>
               </div>
             </div>

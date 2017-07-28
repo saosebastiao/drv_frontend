@@ -8,7 +8,7 @@ export default class ProfileModel {
         return this.userID != null;
     }
     @observable name: string = "";
-    @observable defaultRegion: string = "";
+    @observable defaultRegion: string = "none";
     @observable gender: string = "";
     @observable photos: Array<string> = [];
     @computed get profilePhoto() {
