@@ -57,7 +57,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   };
 
   changeHome = (event: any) => {
-    console.log(event.target.value);
     this.profile.defaultRegion = event.target.value
   };
 

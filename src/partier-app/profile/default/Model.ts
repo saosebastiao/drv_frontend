@@ -1,5 +1,5 @@
 import { observable, computed, runInAction } from "mobx";
-import { getPartierProfile } from "modules/DroverClient";
+import { getPartierProfile, getMyFriends } from "modules/DroverClient";
 
 export default class ProfileModel {
     @observable userID: string;
@@ -19,12 +19,25 @@ export default class ProfileModel {
             return { backgroundImage: `url(${url})` };
         });
     }
+    @observable friends: IPartierFriends;
+    @computed get pendingFriends() {
+        return this.friends && this.friends.pending || [];
+    }
+    @computed get acceptedFriends() {
+        return this.friends && this.friends.accepted || [];
+    }
+    @computed get potential() {
+        return this.friends && this.friends.potential || [];
+    }
     @observable validated: boolean = false;
     @observable complete: boolean = false;
     async refresh() {
         let res = await getPartierProfile();
+        let friends = await getMyFriends();
+        console.log(friends);
         runInAction(() => {
             Object.assign(this, res);
+            this.friends = friends;
         })
     }
     constructor() {
