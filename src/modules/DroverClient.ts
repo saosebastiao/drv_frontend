@@ -39,19 +39,22 @@ export function adminLogin() {
   return login("admin");
 }
 
-export async function request<RES>(method: NoDataMethod, endpoint: string) {
+async function request<RES>(method: NoDataMethod, endpoint: string) {
   const url = `/api${endpoint}`;
   const res = await Observable.ajax({ method, url }).toPromise();
   Logger.debug(res.response);
   return res.response as RES
 }
 
-export async function requestData<RES>(method: DataMethod, endpoint: string, body: any) {
+async function requestData<RES>(method: DataMethod, endpoint: string, body: any) {
   const url = `/api${endpoint}`;
   const headers = { 'Content-Type': 'application/json' };
   const res = await Observable.ajax({ method, headers, url, body }).toPromise();
   Logger.debug(res.response);
   return res.response as RES
+}
+export function logout() {
+  return request<null>("get", "/logout");
 }
 
 export function getRegions() {

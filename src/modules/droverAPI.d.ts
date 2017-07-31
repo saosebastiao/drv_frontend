@@ -61,8 +61,10 @@ interface IPartyNight {
   invites: number;
 }
 interface IPartierFriends {
-  pending: Array<string>;
+  invited: Array<string>;
+  invitations: Array<string>;
   accepted: Array<string>;
+  rejected: Array<string>;
   potential: Array<string>;
 }
 interface ISquadInvite {

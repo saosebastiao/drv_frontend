@@ -1,8 +1,9 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-import { Link, matchPath, RouteComponentProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavLink from "./NavLink"
 import './styles.scss';
+import { logout } from "modules/DroverClient";
 
 
 export default class Header extends React.Component<{}, {}> {
@@ -22,7 +23,13 @@ export default class Header extends React.Component<{}, {}> {
 					</div>
 				</div>
 			</div>
-			<Link to={`/`}><button className="btn btn-default logout-button">Logout</button></Link>
+			<Link to={`/`}>
+				<button
+					className="btn btn-default logout-button"
+					onClick={() => logout()}>
+					Logout
+				</button>
+			</Link>
 		</nav>;
 	}
 

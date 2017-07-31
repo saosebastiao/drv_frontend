@@ -3,9 +3,11 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getMyFriends } from "modules/DroverClient";
-import PotentialFriends from "./Potential";
-//import AcceptedFriends from "./Accepted";
-//import PendingFriends from "./Pending";
+import Potential from "./Potential";
+import Accepted from "./Accepted";
+import Invited from "./Invited";
+import Invitations from "./Invitations";
+import Rejected from "./Rejected";
 import '../styles.scss';
 
 class FriendsModel {
@@ -13,13 +15,19 @@ class FriendsModel {
 		return this.friends != null;
 	}
 	@observable friends: IPartierFriends;
-	@computed get pendingFriends() {
-		return this.friends && this.friends.pending || [];
+	@computed get rejected() {
+		return this.friends && this.friends.rejected || [];
 	}
-	@computed get acceptedFriends() {
+	@computed get invited() {
+		return this.friends && this.friends.invited || [];
+	}
+	@computed get invitations() {
+		return this.friends && this.friends.invitations || [];
+	}
+	@computed get accepted() {
 		return this.friends && this.friends.accepted || [];
 	}
-	@computed get potentialFriends() {
+	@computed get potential() {
 		return this.friends && this.friends.potential || [];
 	}
 	async refresh() {
@@ -42,20 +50,26 @@ export default class FriendsWidget extends React.Component<{}, {}> {
 			<div className="friend-list">
 				<div><span>Potential Friends</span></div>
 				<ul className="list-group">
-					{this.model.potentialFriends.map(x => {
-						return <PotentialFriends key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
+					{this.model.potential.map(x => {
+						return <Potential key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
-				<div><span>Pending Friends</span></div>
+				<div><span>Invited Friends</span></div>
 				<ul className="list-group">
-					{this.model.pendingFriends.map(x => {
-						//return <PendingFriends key={x} friendID={x} />
+					{this.model.invited.map(x => {
+						return <Invited key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
+					})}
+				</ul>
+				<div><span>Invitations from Friends</span></div>
+				<ul className="list-group">
+					{this.model.invitations.map(x => {
+						return <Invitations key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
 				<div><span>Accepted Friends</span></div>
 				<ul className="list-group">
-					{this.model.acceptedFriends.map(x => {
-						//return <AcceptedFriends key={x} friendID={x} />
+					{this.model.accepted.map(x => {
+						return <Accepted key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
 			</div>

@@ -1,17 +1,18 @@
 import * as React from "react";
+import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, linkFriend } from "modules/DroverClient";
 import '../styles.scss';
 
 
-interface PPotential {
+interface PRejected {
 	friendID: string;
 	refresh: () => void;
 }
 
 @observer
-export default class Potential extends React.Component<PPotential, {}>{
+export default class Rejected extends React.Component<PRejected, {}>{
 	@observable name: string;
 	@observable gender: string;
 	@observable photos: Array<string>;
@@ -27,7 +28,7 @@ export default class Potential extends React.Component<PPotential, {}>{
 		this.props.refresh();
 	}
 
-	constructor(props: PPotential) {
+	constructor(props: PRejected) {
 		super(props);
 		getPartierProfile(this.props.friendID)
 			.then(x => {
