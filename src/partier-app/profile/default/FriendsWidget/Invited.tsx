@@ -42,7 +42,6 @@ export default class Invited extends React.Component<PInvited, {}>{
 		if (this.isReady) {
 			return <li className="list-group-item">
 				<span>{this.name}   </span>
-				<button className="btn btn-xs btn-primary" onClick={this.invite.bind(this)}>Invite Friend</button>
 			</li>;
 		} else return null;
 	}

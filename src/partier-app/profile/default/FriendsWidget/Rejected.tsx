@@ -19,7 +19,7 @@ export default class Rejected extends React.Component<PRejected, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async invite() {
+	async unblock() {
 		try {
 			let x = await linkFriend(this.props.friendID);
 		} catch (e) {
@@ -42,7 +42,7 @@ export default class Rejected extends React.Component<PRejected, {}>{
 		if (this.isReady) {
 			return <li className="list-group-item">
 				<span>{this.name}   </span>
-				<button className="btn btn-xs btn-primary" onClick={this.invite.bind(this)}>Invite Friend</button>
+				<button className="btn btn-xs btn-primary" onClick={this.unblock.bind(this)}>Unblock Friend</button>
 			</li>;
 		} else return null;
 	}

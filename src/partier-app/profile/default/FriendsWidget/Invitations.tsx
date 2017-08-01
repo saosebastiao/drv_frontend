@@ -2,7 +2,7 @@ import * as React from "react";
 import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
-import { getPartierProfile, linkFriend } from "modules/DroverClient";
+import { getPartierProfile, acceptLinkRequest, rejectLinkRequest } from "modules/DroverClient";
 import '../styles.scss';
 
 
@@ -19,9 +19,17 @@ export default class Invitations extends React.Component<PInvitations, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async invite() {
+	async accept() {
 		try {
-			let x = await linkFriend(this.props.friendID);
+			let x = await acceptLinkRequest(this.props.friendID);
+		} catch (e) {
+			console.log(e);
+		}
+		this.props.refresh();
+	}
+	async reject() {
+		try {
+			let x = await rejectLinkRequest(this.props.friendID);
 		} catch (e) {
 			console.log(e);
 		}
@@ -42,7 +50,8 @@ export default class Invitations extends React.Component<PInvitations, {}>{
 		if (this.isReady) {
 			return <li className="list-group-item">
 				<span>{this.name}   </span>
-				<button className="btn btn-xs btn-primary" onClick={this.invite.bind(this)}>Invite Friend</button>
+				<button className="btn btn-xs btn-primary" onClick={this.accept.bind(this)}>Accept Invitation</button>
+				<button className="btn btn-xs btn-danger" onClick={this.reject.bind(this)}>Reject Invitation</button>
 			</li>;
 		} else return null;
 	}

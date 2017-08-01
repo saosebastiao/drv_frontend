@@ -2,7 +2,7 @@ import * as React from "react";
 import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
-import { getPartierProfile, linkFriend } from "modules/DroverClient";
+import { getPartierProfile, unlinkFriend } from "modules/DroverClient";
 import '../styles.scss';
 
 
@@ -19,9 +19,9 @@ export default class Accepted extends React.Component<PAccepted, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async invite() {
+	async block() {
 		try {
-			let x = await linkFriend(this.props.friendID);
+			let x = await unlinkFriend(this.props.friendID);
 		} catch (e) {
 			console.log(e);
 		}
@@ -42,7 +42,7 @@ export default class Accepted extends React.Component<PAccepted, {}>{
 		if (this.isReady) {
 			return <li className="list-group-item">
 				<span>{this.name}   </span>
-				<button className="btn btn-xs btn-primary" onClick={this.invite.bind(this)}>Invite Friend</button>
+				<button className="btn btn-xs btn-danger" onClick={this.block.bind(this)}>Block Friend</button>
 			</li>;
 		} else return null;
 	}

@@ -30,7 +30,7 @@ class FriendsModel {
 	@computed get potential() {
 		return this.friends && this.friends.potential || [];
 	}
-	async refresh() {
+	refresh = async () => {
 		let friends = await getMyFriends();
 		runInAction(() => {
 			this.friends = friends;
@@ -70,6 +70,12 @@ export default class FriendsWidget extends React.Component<{}, {}> {
 				<ul className="list-group">
 					{this.model.accepted.map(x => {
 						return <Accepted key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
+					})}
+				</ul>
+				<div><span>Rejected Friends</span></div>
+				<ul className="list-group">
+					{this.model.rejected.map(x => {
+						return <Rejected key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
 			</div>
