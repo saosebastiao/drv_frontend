@@ -2,65 +2,28 @@ import * as React from "react";
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as moment from "moment";
+import SquadListModel from "./Model";
 
 @observer
 export default class SquadList extends React.Component<RouteComponentProps<any>, {}> {
-	private list = [
-		{
-			id: 1,
-			date: new Date('2017-05-24')
-		},
-		{
-			id: 2,
-			date: new Date('2017-05-25'),
-			squad: {
-				name: 'Daniel Toone',
-				city: 'Washington',
-				party_night: 'Today',
-				music_type: 'Jazz',
-				venue_type: 'Live',
-				neighbor: 'Jack',
-				members: [
-					{
-						name: 'David',
-						home: 'New York',
-						gender: 'Male',
-						accepted: true
-					},
-					{
-						name: 'Felicia',
-						home: 'Washington',
-						gender: 'Female',
-						accepted: false
-					}
-				]
-			}
-		},
-		{
-			id: 3,
-			date: new Date('2017-05-26')
-		},
-	];
-
+	model = new SquadListModel;
 	render() {
 
 		return <div className="squad-wrapper">
 			<div className="squad-contents">
 				{
-					this.list.map((item: any) => {
+					this.model.list.map((partyNight: any) => {
 						return (
-							<div className="squad-row" key={`squad_item_${item.date}`}>
-								<div className="date-col">{moment(item.date).format('YYYY-MM-DD')}</div>
-								{item.squad ? (
-									<div className="button-col">
-										<Link to={`/partier/squad/${item.id}`}><button className="btn btn-primary">View your squad</button></Link>
-									</div>
-								) : (
-										<div className="button-col">
-											<button className="btn btn-primary" data-toggle="modal" data-target="#createSquadModal">Create a squad</button>
-											<button className="btn btn-primary" data-toggle="modal" data-target="#viewInviteModal">View invites</button>
-										</div>
-									)}
+							<div className="squad-row" key={`squad_item_${partyNight.partyNight}`}>
+								<div className="date-col">{moment(partyNight.partyNight).format('YYYY-MM-DD')}</div>
+								<div className="button-col">
+									{partyNight.squad ? (
+										<Link to={`/partier/squad/${partyNight.squad}`}><button className="btn btn-primary">View your squad</button></Link>) :
+										<button className="btn btn-primary" data-toggle="modal" data-target="#createSquadModal">Create a squad</button>}
+									{partyNight.invites > 0 ? (
+										<button className="btn btn-primary" data-toggle="modal" data-target="#viewInviteModal">View invites</button>
+									) : null}
+								</div>
 							</div>
 						);
 					})
