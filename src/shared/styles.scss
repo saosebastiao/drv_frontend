@@ -6,10 +6,12 @@
   height: 70px;
   border-bottom: 1px solid #ddd;
   background: map-get($colors, header-back);
+  color: map-get($colors, primary);
 
   .logo {
   	width: 120px;
   	height: 100%;
+	  background-image: url('./logo/svg/white_logo_color_background.svg');
   }
 
   .nav-wrapper {
@@ -48,4 +50,5 @@
   height: 40px;
   line-height: 40px;
   text-align: center;
+  color: map-get($colors, primary);
 }

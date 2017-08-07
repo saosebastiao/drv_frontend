@@ -4,6 +4,10 @@
 		padding-top: 100px;
 		text-align: center;
 
+		.logo {
+		  background-image: url('../shared/logo/svg/white_logo_color_background.svg');
+		}
+
 		.welcome-text {
 			display: inline-block;
 			width: 70%;

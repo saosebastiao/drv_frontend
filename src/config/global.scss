@@ -4,18 +4,22 @@ $bootstrap-sass-asset-helper: true;
 $font-stack: Helvetica, sans-serif;
 
 $colors: (
+  primary:        #25064D,
   border:         #DDD,
-  info-back:      #EEE,
+  info-back:      #FFF,
   header-back:    #EEE,
   profile-back:   #00F,
-  logo-back:      #00F
+  logo-back:      #25064D
 );
 
 .logo {
   display: inline-block;
   width: 200px;
-  height: 100px;
-  background: map-get($colors, logo-back);
+  height: 200px;
+  background-color: map-get($colors, logo-back);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .vertical-center-wrapper {
@@ -31,4 +35,8 @@ $colors: (
 
 .has-border {
   border: 1px solid map-get($colors, border);
+}
+
+.modal-dialog {
+  color: black !important;
 }

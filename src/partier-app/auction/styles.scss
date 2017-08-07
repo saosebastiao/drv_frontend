@@ -89,6 +89,7 @@
     		height: calc(50% - 10px);
     		padding: 10px;
     		background: map-get($colors, info-back);
+        border: 1px solid map-get($colors, border);
     	}
 
     	.auction-info-wrapper {

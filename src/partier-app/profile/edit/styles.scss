@@ -17,6 +17,7 @@
 			margin-left: 20px;
 			padding: 20px;
 			background: map-get($colors, info-back);
+			border: 1px solid map-get($colors, border);
 			color: black;
 	    text-align: left;
 	    line-height: 30px;
@@ -24,6 +25,7 @@
 
 			.form-group {
 				height: 40px;
+				color: map-get($colors, primary);
 
 				.label-col {
 					@extend .col-sm-4, .col-xs-4;
