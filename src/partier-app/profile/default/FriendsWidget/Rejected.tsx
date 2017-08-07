@@ -8,7 +8,7 @@ import '../styles.scss';
 
 interface PRejected {
 	friendID: string;
-	refresh: () => void;
+	refresh: (friends?: IPartierFriends) => void;
 }
 
 @observer
@@ -22,10 +22,10 @@ export default class Rejected extends React.Component<PRejected, {}>{
 	async unblock() {
 		try {
 			let x = await linkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 
 	constructor(props: PRejected) {

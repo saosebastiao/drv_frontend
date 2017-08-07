@@ -2,13 +2,13 @@ import * as React from "react";
 import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
-import { getPartierProfile, acceptLinkRequest, rejectLinkRequest } from "modules/DroverClient";
+import { getPartierProfile, linkFriend, unlinkFriend } from "modules/DroverClient";
 import '../styles.scss';
 
 
 interface PInvitations {
 	friendID: string;
-	refresh: () => void;
+	refresh: (friends?: IPartierFriends) => void;
 }
 
 @observer
@@ -21,19 +21,19 @@ export default class Invitations extends React.Component<PInvitations, {}>{
 	}
 	async accept() {
 		try {
-			let x = await acceptLinkRequest(this.props.friendID);
+			let x = await linkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 	async reject() {
 		try {
-			let x = await rejectLinkRequest(this.props.friendID);
+			let x = await unlinkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 
 	constructor(props: PInvitations) {

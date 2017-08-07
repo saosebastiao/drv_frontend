@@ -93,7 +93,7 @@ export function deleteNeighborhood(region: string, neighborhood: string) {
   return request<IRegion>("delete", `/region/${region}/${neighborhood}`);
 }
 export function getMyFriends() {
-  return request<IPartierFriends>("get", `/friends`);
+  return request<IPartierFriends>("get", `/friends/${USERID}`);
 }
 export function updateMyProfile(data: IUpdateProfileReq) {
   return requestData<IPartierProfile>("put", `/partier/${USERID}`, data);
@@ -129,16 +129,10 @@ export function deleteSquad(partyNight: string) {
   return request<ISquad>("delete", `/squad/my/${partyNight}`);
 }
 export function linkFriend(friendID: string) {
-  return request<void>("post", `/friends/${friendID}`);
+  return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/accept`);
 }
 export function unlinkFriend(friendID: string) {
-  return request<void>("delete", `/friends/${friendID}`);
-}
-export function acceptLinkRequest(friendID: string) {
-  return request<void>("put", `/friends/${friendID}/accept`);
-}
-export function rejectLinkRequest(friendID: string) {
-  return request<void>("put", `/friends/${friendID}/reject`);
+  return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/reject`);
 }
 export function inviteToSquad(partyNight: string, userID: string) {
   return request<void>("post", `/invites/${partyNight}/${userID}`);

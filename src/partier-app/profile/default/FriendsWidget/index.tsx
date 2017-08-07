@@ -30,10 +30,15 @@ class FriendsModel {
 	@computed get potential() {
 		return this.friends && this.friends.potential || [];
 	}
-	refresh = async () => {
-		let friends = await getMyFriends();
+	refresh = async (friends?: IPartierFriends) => {
+		let f: IPartierFriends;
+		if (friends != null) {
+			f = friends;
+		} else {
+			f = await getMyFriends();
+		}
 		runInAction(() => {
-			this.friends = friends;
+			this.friends = f;
 		})
 	}
 	constructor() {

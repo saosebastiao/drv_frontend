@@ -8,7 +8,7 @@ import '../styles.scss';
 
 interface PAccepted {
 	friendID: string;
-	refresh: () => void;
+	refresh: (friends?: IPartierFriends) => void;
 }
 
 @observer
@@ -22,10 +22,10 @@ export default class Accepted extends React.Component<PAccepted, {}>{
 	async block() {
 		try {
 			let x = await unlinkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 
 	constructor(props: PAccepted) {

@@ -8,7 +8,7 @@ import '../styles.scss';
 
 interface PInvited {
 	friendID: string;
-	refresh: () => void;
+	refresh: (friends?: IPartierFriends) => void;
 }
 
 @observer
@@ -22,10 +22,10 @@ export default class Invited extends React.Component<PInvited, {}>{
 	async invite() {
 		try {
 			let x = await linkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 
 	constructor(props: PInvited) {

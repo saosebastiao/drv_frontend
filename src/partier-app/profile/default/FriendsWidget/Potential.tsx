@@ -7,7 +7,7 @@ import '../styles.scss';
 
 interface PPotential {
 	friendID: string;
-	refresh: () => void;
+	refresh: (friends?: IPartierFriends) => void;
 }
 
 @observer
@@ -21,10 +21,10 @@ export default class Potential extends React.Component<PPotential, {}>{
 	async invite() {
 		try {
 			let x = await linkFriend(this.props.friendID);
+			this.props.refresh(x);
 		} catch (e) {
 			console.log(e);
 		}
-		this.props.refresh();
 	}
 
 	constructor(props: PPotential) {
