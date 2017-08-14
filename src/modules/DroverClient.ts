@@ -70,7 +70,6 @@ export function getAdminProfile() {
   return request<IPartierProfile>("get", `/admin/${USERID}`);
 }
 export function getPartierProfile(userID?: string) {
-  console.log(userID);
   return request<IPartierProfile>("get", `/partier/${userID || USERID}`);
 }
 export function getVenue(venueID: number) {
