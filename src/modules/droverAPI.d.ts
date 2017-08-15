@@ -57,7 +57,7 @@ interface IAuction {
 
 interface IPartyNight {
   partyNight: string;
-  squad?: string;
+  squad?: number;
   invites: number;
 }
 interface IPartierFriends {
