@@ -12,8 +12,6 @@ export default class Squad extends React.Component<RouteComponentProps<any>, {}>
 		super(props);
 		const squadID = parseInt(props.match.params.squadID)
 		this.model = new ViewSquadModel(squadID)
-
-
 	}
 	private id: number = 2;
 	private curItem: any = null;
