@@ -29,6 +29,9 @@ async function login(userType: DroverUserType) {
     Logger.error("Error logging in");
   }
 }
+export function getUserID() {
+  return USERID;
+}
 export function partierLogin() {
   return login("partier");
 }
@@ -109,23 +112,20 @@ export function getMyAuctions() {
 export function getAuctionsForNight(partyNight: string) {
   return request<Array<IAuction>>("get", `/auction/${partyNight}`);
 }
-export function getPartyNights() {
-  return request<Array<IPartyNight>>("get", `/auction/nights`);
+export function getPartyNights(userID?: string) {
+  return request<Array<IPartyNight>>("get", `/squad/nights/${userID || USERID}`);
 }
 export function getSquad(squadID: number) {
   return request<ISquad>("get", `/squad/${squadID}`);
 }
 export function getMySquad(partyNight: string) {
-  return request<ISquad>("get", `/squad/my/${partyNight}`);
+  return request<ISquad>("get", `/squad/${USERID}/${partyNight}`);
 }
-export function createSquad(partyNight: string, data: ICreateOrUpdateSquad) {
-  return requestData<ISquad>("post", `/squad/my/${partyNight}`, data);
-}
-export function updateSquad(partyNight: string, data: ICreateOrUpdateSquad) {
-  return requestData<ISquad>("put", `/squad/my/${partyNight}`, data);
+export function createSquad(data: ICreateSquad) {
+  return requestData<ISquad>("post", `/squad/new`, data);
 }
 export function deleteSquad(partyNight: string) {
-  return request<ISquad>("delete", `/squad/my/${partyNight}`);
+  return request<ISquad>("delete", `/squad/${USERID}/${partyNight}`);
 }
 export function linkFriend(friendID: string) {
   return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/accept`);

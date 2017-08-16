@@ -43,7 +43,8 @@ interface ISquad {
   squadMembers: Array<ISquadMember>;
 }
 
-interface ICreateOrUpdateSquad {
+interface ICreateSquad {
+  ownerID: string;
   auctionID: number;
   squadName: string;
 }
@@ -57,7 +58,7 @@ interface IAuction {
 
 interface IPartyNight {
   partyNight: string;
-  squad?: number;
+  squadID?: number;
   invites: number;
 }
 interface IPartierFriends {

@@ -2,6 +2,7 @@ import { action, observable, computed, runInAction } from "mobx";
 import { getAuctionsForNight, getPartierProfile, createSquad } from "modules/DroverClient";
 
 export default class CreateSquadModel {
+    @observable ownerID: string = "";
     @observable partyNight: string;
     @observable squadName: string = "";
     @observable regionID: string = "boo";
@@ -15,7 +16,8 @@ export default class CreateSquadModel {
     }
     async create() {
         if (this.auctionID != null && this.squadName.length > 0) {
-            const res = await createSquad(this.partyNight, { squadName: this.squadName, auctionID: this.auctionID });
+            const data = { squadName: this.squadName, auctionID: this.auctionID, ownerID: this.ownerID };
+            const res = await createSquad(data);
             return res.squadID;
         } else throw new Error("boop");
 
@@ -26,6 +28,7 @@ export default class CreateSquadModel {
         runInAction(() => {
             this.auctions = auctions || [];
             this.regionID = profile.defaultRegion || "";
+            this.ownerID = profile.userID;
         });
     }
     constructor(partyNight: string) {

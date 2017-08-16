@@ -27,7 +27,7 @@ export default class CreateProfile extends React.Component<RouteComponentProps<a
 						<div>
 							<select value={this.model.regionID} onChange={(e: any) => this.model.regionID = e.target.value}>
 								<option value="">Select a Region</option>
-								{this.model.auctions.map(x => <option key={x.regionID} value={this.model.regionID}>{x.regionID}</option>)}
+								{this.model.auctions.map(x => <option key={x.regionID} value={x.regionID}>{x.regionID}</option>)}
 							</select>
 						</div>
 						<div>

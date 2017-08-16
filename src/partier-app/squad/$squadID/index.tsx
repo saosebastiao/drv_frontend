@@ -2,10 +2,19 @@ import * as React from "react";
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as moment from "moment";
+import ViewSquadModel from "./Model"
 
 @observer
 export default class Squad extends React.Component<RouteComponentProps<any>, {}> {
 
+	model: ViewSquadModel;
+	constructor(props: RouteComponentProps<any>) {
+		super(props);
+		const squadID = parseInt(props.match.params.squadID)
+		this.model = new ViewSquadModel(squadID)
+
+
+	}
 	private id: number = 2;
 	private curItem: any = null;
 	private list = [
