@@ -5,7 +5,7 @@ import * as moment from "moment";
 import ViewSquadModel from "./Model"
 
 @observer
-export default class Squad extends React.Component<RouteComponentProps<any>, {}> {
+export default class ViewSquad extends React.Component<RouteComponentProps<any>, {}> {
 
 	model: ViewSquadModel;
 	constructor(props: RouteComponentProps<any>) {
