@@ -29,7 +29,6 @@ interface IRegion {
 }
 
 interface ISquadMember {
-  inviteID: number;
   userID: string;
   accepted?: boolean;
 }

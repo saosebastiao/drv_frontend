@@ -2,7 +2,7 @@ import * as React from "react";
 import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
-import { getMyFriends } from "modules/DroverClient";
+import { getPartierFriends } from "modules/DroverClient";
 import Potential from "./Potential";
 import Accepted from "./Accepted";
 import Invited from "./Invited";
@@ -35,7 +35,7 @@ class FriendsModel {
 		if (friends != null) {
 			f = friends;
 		} else {
-			f = await getMyFriends();
+			f = await getPartierFriends();
 		}
 		runInAction(() => {
 			this.friends = f;

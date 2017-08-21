@@ -1,5 +1,5 @@
 import { observable, computed, runInAction } from "mobx";
-import { getPartierProfile, getMyFriends } from "modules/DroverClient";
+import { getPartierProfile, getPartierFriends } from "modules/DroverClient";
 
 export default class ProfileModel {
     @observable userID: string;

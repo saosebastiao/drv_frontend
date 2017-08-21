@@ -94,7 +94,7 @@ export function createNeighborhood(region: string, neighborhood: string) {
 export function deleteNeighborhood(region: string, neighborhood: string) {
   return request<IRegion>("delete", `/region/${region}/${neighborhood}`);
 }
-export function getMyFriends() {
+export function getPartierFriends() {
   return request<IPartierFriends>("get", `/friends/${USERID}`);
 }
 export function updateMyProfile(data: IUpdateProfileReq) {
@@ -124,8 +124,8 @@ export function getMySquad(partyNight: string) {
 export function createSquad(data: ICreateSquad) {
   return requestData<ISquad>("post", `/squad/new`, data);
 }
-export function deleteSquad(partyNight: string) {
-  return request<ISquad>("delete", `/squad/${USERID}/${partyNight}`);
+export function deleteSquad(squadID: number) {
+  return request<null>("delete", `/squad/${squadID}`);
 }
 export function linkFriend(friendID: string) {
   return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/accept`);
@@ -133,17 +133,17 @@ export function linkFriend(friendID: string) {
 export function unlinkFriend(friendID: string) {
   return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/reject`);
 }
-export function inviteToSquad(partyNight: string, userID: string) {
-  return request<void>("post", `/invites/${partyNight}/${userID}`);
+export function inviteToSquad(squadID: number, userID: string) {
+  return request<void>("post", `/invites/${squadID}/${userID}`);
 }
-export function uninviteFromSquad(partyNight: string, userID: string) {
-  return request<void>("delete", `/invites/${partyNight}/${userID}`);
+export function uninviteFromSquad(squadID: number, userID: string) {
+  return request<void>("delete", `/invites/${squadID}/${userID}`);
 }
-export function acceptInvite(partyNight: string, ownerID: string) {
-  return request<void>("put", `/invites/${partyNight}/${ownerID}/accept`);
+export function acceptInvite(squadID: number) {
+  return request<void>("put", `/invites/${squadID}/${USERID}/accept`);
 }
-export function rejectInvite(partyNight: string, ownerID: string) {
-  return request<void>("put", `/invites/${partyNight}/${ownerID}/reject`);
+export function rejectInvite(squadID: number) {
+  return request<void>("put", `/invites/${squadID}/${USERID}/reject`);
 }
 export function getMyInvites(partyNight: string) {
   return request<Array<ISquadInvite>>("get", `/invites/${partyNight}`);

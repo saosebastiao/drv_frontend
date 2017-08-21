@@ -3,6 +3,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as moment from "moment";
 import ViewSquadModel from "./Model"
+import MemberCard from "./MemberCard";
 
 @observer
 export default class ViewSquad extends React.Component<RouteComponentProps<any>, {}> {
@@ -13,79 +14,38 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 		const squadID = parseInt(props.match.params.squadID)
 		this.model = new ViewSquadModel(squadID)
 	}
-	private id: number = 2;
-	private curItem: any = null;
-	private list = [
-		{
-			id: 1,
-			date: new Date('2017-05-24')
-		},
-		{
-			id: 2,
-			date: new Date('2017-05-25'),
-			squad: {
-				name: 'Daniel Toone',
-				city: 'Washington',
-				party_night: 'Today',
-				music_type: 'Jazz',
-				venue_type: 'Live',
-				neighbor: 'Jack',
-				members: [
-					{
-						name: 'David',
-						home: 'New York',
-						gender: 'Male',
-						accepted: true
-					},
-					{
-						name: 'Felicia',
-						home: 'Washington',
-						gender: 'Female',
-						accepted: false
-					}
-				]
-			}
-		},
-		{
-			id: 3,
-			date: new Date('2017-05-26')
-		},
-	];
-
 
 	renderSquadInfo() {
-		this.curItem = this.list.find((data: any) => data.id === this.id);
-		if (this.curItem) {
-			return (
-				<div className="info-wrapper">
-					<div className="info-title">Squad Information</div>
-					<div className="info-row">
-						<div className="info-label">Suqad Name</div>
-						<div className="info-value">{this.curItem.squad.name}</div>
-					</div>
-					<div className="info-row">
-						<div className="info-label">City</div>
-						<div className="info-value">{this.curItem.squad.city}</div>
-					</div>
-					<div className="info-row">
-						<div className="info-label">Party Night</div>
-						<div className="info-value">{this.curItem.squad.party_night}</div>
-					</div>
+		return (
+			<div className="info-wrapper">
+				<div className="info-title">Squad Information</div>
+				<div className="info-row">
+					<div className="info-label">Squad Name</div>
+					<div className="info-value">{this.model.squadName}</div>
 				</div>
-			);
-		}
-		else
-			return null;
+				<div className="info-row">
+					<div className="info-label">City</div>
+					<div className="info-value">{this.model.regionID}</div>
+				</div>
+				<div className="info-row">
+					<div className="info-label">Party Night</div>
+					<div className="info-value">{this.model.partyNight}</div>
+				</div>
+				<div className="info-row">
+					<div className="info-label">Auction</div>
+					<div className="info-value">{this.model.auctionID}</div>
+				</div>
+			</div>
+		);
 	}
-
-	renderSquadPref() {
-		if (this.curItem) {
+	/*
+		renderSquadPref() {
 			return (
 				<div className="info-wrapper">
 					<div className="info-title">Preferences</div>
 					<div className="info-row">
 						<div className="info-label">Music Type</div>
-						<div className="info-value">{this.curItem.squad.music_type}</div>
+						<div className="info-value">{this.model..music_type}</div>
 					</div>
 					<div className="info-row">
 						<div className="info-label">Venue Type</div>
@@ -98,61 +58,44 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 				</div>
 			);
 		}
-		else
-			return null;
-	}
 
-	renderMemberCards() {
-		if (this.curItem && this.curItem.squad.members) {
-			return (
-				<div className="member-wrapper">
-					{
-						this.curItem.squad.members.map((item: any) => {
-							return (
-								<div className="member-card" key={`member_card_${item.name}_${item.home}`}>
-									<div className="card-photo"></div>
-									<div className="card-info">
-										<h5>{item.name}</h5>
-										<h5>{item.home}</h5>
-										<h5>{item.gender}</h5>
-										<div className="checkbox">
-											<label>
-												{
-													item.accepted ? (
-														<input type="checkbox" disabled checked />
-													) : (
-															<input type="checkbox" disabled />
-														)
-												}
-												Accepted squad
-								    </label>
-										</div>
-									</div>
-								</div>
-							);
-						})
-					}
-				</div>
-			);
-		}
-		else
-			return null;
-	}
-
+		*/
 	render() {
-		return <div className="squad-wrapper">
-			<div className="squad-details-contents">
-				<div className="squad-details-row">
-					<div className="details-col">
-						{this.renderSquadInfo()}
-						{this.renderSquadPref()}
-					</div>
-					<div className="details-col has-border">
-						{this.renderMemberCards()}
+		return this.model.isReady ? (
+			<div className="squad-wrapper">
+				<div className="squad-details-contents">
+					<div className="squad-details-row">
+						<div className="details-col">
+							{this.renderSquadInfo()}
+							{/*this.renderSquadPref()*/}
+						</div>
+						<div className="details-col has-border">
+							<div className="member-wrapper">
+								<div>Squad Owner</div>
+								<MemberCard userID={this.model.ownerID} />
+								{this.model.myself ? (
+									<MemberCard userID={this.model.myself.userID}
+										accept={() => this.model.acceptInvite()}
+										reject={() => this.model.rejectInvite()}
+									/>)
+									: null}
+								{this.model.accepted.length > 0 ? <div>Accepted</div> : null}
+								{this.model.accepted.map(x => {
+									return <MemberCard key={x} userID={x} />
+								})}
+								{this.model.invited.length > 0 ? <div>Invited</div> : null}
+								{this.model.invited.map(x => {
+									return <MemberCard key={x} userID={x} />
+								})}
+								{this.model.friends.length > 0 ? <div>Potential Invites</div> : null}
+								{this.model.friends.map(x => {
+									return <MemberCard key={x} userID={x} />
+								})}
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>;
+			</div>) : null;
 	}
 
 }
