@@ -71,9 +71,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 						</div>
 						<div className="details-col has-border">
 							<div className="member-wrapper">
-								<div>Squad Owner</div>
-								<MemberCard userID={this.model.ownerID} />
-								{this.model.myself ? (
+								{this.model.myself && this.model.myself.invited && !this.model.myself.accepted ? (
 									<MemberCard userID={this.model.myself.userID}
 										accept={() => this.model.acceptInvite()}
 										reject={() => this.model.rejectInvite()}
@@ -81,15 +79,27 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 									: null}
 								{this.model.accepted.length > 0 ? <div>Accepted</div> : null}
 								{this.model.accepted.map(x => {
-									return <MemberCard key={x} userID={x} />
+									return <MemberCard key={x} userID={x}
+										uninvite={() => this.model.uninviteUser(x)}
+									/>
+								})}
+								{this.model.rejected.length > 0 ? <div>Rejected</div> : null}
+								{this.model.rejected.map(x => {
+									return <MemberCard key={x} userID={x}
+										uninvite={() => this.model.uninviteUser(x)}
+									/>
 								})}
 								{this.model.invited.length > 0 ? <div>Invited</div> : null}
 								{this.model.invited.map(x => {
-									return <MemberCard key={x} userID={x} />
+									return <MemberCard key={x} userID={x}
+										uninvite={() => this.model.uninviteUser(x)}
+									/>
 								})}
-								{this.model.friends.length > 0 ? <div>Potential Invites</div> : null}
-								{this.model.friends.map(x => {
-									return <MemberCard key={x} userID={x} />
+								{this.model.potential.length > 0 ? <div>Potential Invites</div> : null}
+								{this.model.potential.map(x => {
+									return <MemberCard key={x} userID={x}
+										invite={() => this.model.inviteUser(x)}
+									/>
 								})}
 							</div>
 						</div>

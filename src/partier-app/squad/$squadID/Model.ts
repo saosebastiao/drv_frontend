@@ -1,5 +1,5 @@
 import { action, observable, computed, runInAction } from "mobx";
-import { getUserID, getSquad, getPartierFriends, inviteToSquad, uninviteFromSquad, acceptInvite, rejectInvite, deleteSquad } from "modules/DroverClient";
+import { getUserID, getSquad, inviteToSquad, uninviteFromSquad, acceptInvite, rejectInvite, deleteSquad } from "modules/DroverClient";
 
 export default class ViewSquadModel {
     @observable userID: string = "";
@@ -11,12 +11,17 @@ export default class ViewSquadModel {
     @observable regionID: string = "";
     @observable filters: any;
     @observable squadMembers: Array<ISquadMember>;
-    @observable friends: Array<string>;
+    @computed get potential() {
+        return this.squadMembers.filter(x => x.invited === false).map(x => x.userID);
+    }
     @computed get invited() {
-        return this.squadMembers.filter(x => x.accepted == null).map(x => x.userID);
+        return this.squadMembers.filter(x => x.invited === true && x.accepted == null).map(x => x.userID);
     }
     @computed get accepted() {
-        return this.squadMembers.filter(x => x.accepted === true).map(x => x.userID);
+        return this.squadMembers.filter(x => x.invited === true && x.accepted === true).map(x => x.userID);
+    }
+    @computed get rejected() {
+        return this.squadMembers.filter(x => x.invited === true && x.accepted === false).map(x => x.userID);
     }
     @computed get myself() {
         return this.squadMembers.find(x => x.userID === this.userID);
@@ -57,14 +62,9 @@ export default class ViewSquadModel {
     async refresh() {
         const userID = getUserID();
         const squad = await getSquad(this.squadID);
-        const friends = await getPartierFriends();
         runInAction(() => {
             this.userID = userID || "";
             Object.assign(this, squad);
-            const allFriends = new Set(friends.accepted);
-            squad.squadMembers.forEach(x => allFriends.delete(x.userID));
-            const friendsArray = Array.from(allFriends);
-            this.friends = friendsArray;
         });
     }
     constructor(squadID: number) {
