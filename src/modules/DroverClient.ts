@@ -118,8 +118,8 @@ export function getPartyNights(userID?: string) {
 export function getSquad(squadID: number) {
   return request<ISquad>("get", `/squad/${squadID}`);
 }
-export function getMySquad(partyNight: string) {
-  return request<ISquad>("get", `/squad/${USERID}/${partyNight}`);
+export function getPartierAuctions(userID?: string) {
+  return request<Array<ISquad>>("get", `/squad/auction/${userID || USERID}`);
 }
 export function createSquad(data: ICreateSquad) {
   return requestData<ISquad>("post", `/squad/new`, data);

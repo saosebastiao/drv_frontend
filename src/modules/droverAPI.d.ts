@@ -39,7 +39,7 @@ interface ISquad {
   ownerID: string;
   auction: IAuction;
   squadName: string;
-  squadMembers: Array<ISquadMember>;
+  squadMembers?: Array<ISquadMember>;
 }
 
 interface ICreateSquad {
