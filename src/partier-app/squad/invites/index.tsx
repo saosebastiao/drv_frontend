@@ -3,6 +3,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as moment from "moment";
 import InvitesListModel from "./Model";
+import SquadCard from "./SquadCard";
 
 @observer
 export default class InvitesList extends React.Component<RouteComponentProps<any>, {}> {
@@ -10,17 +11,7 @@ export default class InvitesList extends React.Component<RouteComponentProps<any
 	render() {
 		return this.model.isReady ? <div className="squad-wrapper">
 			<div className="squad-contents">
-				{this.model.squadList.map((squad: ISquad) => {
-					return (
-						<div className="squad-row" key={squad.squadID}>
-							<div className="date-col">{squad.squadName}</div>
-							<div className="button-col">
-								<Link to={`/partier/squad/${squad.squadID}`}>
-									<button className="btn btn-primary">View squad</button>
-								</Link>
-							</div>
-						</div>)
-				})}
+				{this.model.squads.map(s => <SquadCard key={s} squadID={s} />)}
 			</div>
 		</div> : null;
 	}
