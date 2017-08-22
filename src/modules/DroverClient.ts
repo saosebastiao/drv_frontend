@@ -145,11 +145,11 @@ export function acceptInvite(squadID: number) {
 export function rejectInvite(squadID: number) {
   return request<void>("put", `/invites/${squadID}/${USERID}/reject`);
 }
-export function getMyInvites(partyNight: string) {
-  return request<Array<ISquadInvite>>("get", `/invites/${partyNight}`);
+export function getPartierInvites(partyNight: string, userID?: string) {
+  return request<Array<ISquadInvite>>("get", `/invites/${partyNight}/${userID || USERID}`);
 }
-export function resetInvites(partyNight: string) {
-  return request<void>("put", `/invites/${partyNight}/reset`);
+export function resetPartierInvites(partyNight: string, userID?: string) {
+  return request<void>("put", `/invites/${partyNight}/${userID || USERID}/reset`);
 }
 export function geocodeAddress(address: string) {
   return request<Array<IGeocodedAddress>>("get", `/venue/geocode?address=${address}`)

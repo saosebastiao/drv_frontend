@@ -38,6 +38,7 @@ interface ISquad {
   squadID: string;
   ownerID: string;
   regionID: string;
+  auction: IAuction;
   partyNight: string;
   squadName: string;
   squadMembers: Array<ISquadMember>;
@@ -54,6 +55,12 @@ interface IAuction {
   regionID: string;
   partyNight: string;
   startTime: string;
+  endTime: string;
+  entryFreeze: string;
+  currency: string;
+  priceStart: number;
+  priceDrop: number;
+  dropInterval: string;
 }
 
 interface IPartyNight {

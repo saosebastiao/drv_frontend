@@ -27,6 +27,8 @@ class MemberCardModel {
 
 interface PMemberCard {
 	userID: string;
+	isOwned?: boolean;
+	isSelf?: boolean;
 	invite?: () => void;
 	uninvite?: () => void;
 	accept?: () => void;
@@ -49,10 +51,14 @@ export default class MemberCard extends React.Component<PMemberCard, {}> {
 				<div className="card-info">
 					<h5>{this.model.name}</h5>
 					<h5>{this.model.gender}</h5>
-					{this.props.invite ? <button type="button" onClick={this.props.invite}>Invite</button> : null}
-					{this.props.uninvite ? <button type="button" onClick={this.props.uninvite}>Uninvite</button> : null}
-					{this.props.accept ? <button type="button" onClick={this.props.accept}>Accept</button> : null}
-					{this.props.reject ? <button type="button" onClick={this.props.reject}>Reject</button> : null}
+					{this.props.isOwned && this.props.invite ?
+						<button type="button" className="btn btn-xs btn-primary" onClick={this.props.invite}>Invite</button> : null}
+					{this.props.isOwned && this.props.uninvite ?
+						<button type="button" className="btn btn-xs btn-primary" onClick={this.props.uninvite}>Uninvite</button> : null}
+					{this.props.isSelf ?
+						<button type="button" className="btn btn-xs btn-primary" onClick={this.props.accept}>Accept</button> : null}
+					{this.props.isSelf ?
+						<button type="button" className="btn btn-xs btn-primary" onClick={this.props.reject}>Reject</button> : null}
 				</div>
 			</div>
 		) : null;

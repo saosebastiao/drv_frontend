@@ -5,10 +5,8 @@ export default class ViewSquadModel {
     @observable userID: string = "";
     @observable ownerID: string = "";
     @observable squadID: number;
-    @observable auctionID: number;
-    @observable partyNight: string = "";
+    @observable auction: IAuction;
     @observable squadName: string = "";
-    @observable regionID: string = "";
     @observable filters: any;
     @observable squadMembers: Array<ISquadMember>;
     @computed get potential() {
