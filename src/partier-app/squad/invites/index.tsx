@@ -1,28 +1,27 @@
 import * as React from "react";
-import { RouteComponentProps, Route, Link } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
-import * as _ from 'lodash';
-import ViewInvitesModel from "./Model";
-
-
+import * as moment from "moment";
+import InvitesListModel from "./Model";
 
 @observer
-export default class ViewInvites extends React.Component<RouteComponentProps<any>, {}> {
-	model: ViewInvitesModel;
-	constructor(props: RouteComponentProps<any>) {
-		super(props);
-		const partyNight = this.props.match.params.partyNight;
-		this.model = new ViewInvitesModel(partyNight);
-	}
-	submit = async () => {
-	}
-
+export default class InvitesList extends React.Component<RouteComponentProps<any>, {}> {
+	model = new InvitesListModel(this.props.match.params.partyNight);
 	render() {
-		return <div>
-			<div >
-				<div>
-				</div>
+		return this.model.isReady ? <div className="squad-wrapper">
+			<div className="squad-contents">
+				{this.model.squadList.map((squad: ISquad) => {
+					return (
+						<div className="squad-row" key={squad.squadID}>
+							<div className="date-col">{squad.squadName}</div>
+							<div className="button-col">
+								<Link to={`/partier/squad/${squad.squadID}`}>
+									<button className="btn btn-primary">View squad</button>
+								</Link>
+							</div>
+						</div>)
+				})}
 			</div>
-		</div>;
+		</div> : null;
 	}
 }

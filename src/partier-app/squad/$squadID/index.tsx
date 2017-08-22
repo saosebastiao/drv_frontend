@@ -99,13 +99,17 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 										uninvite={() => this.model.uninviteUser(x)}
 									/>
 								})}
-								{this.model.potential.length > 0 ? <div>Potential Invites</div> : null}
-								{this.model.potential.map(x => {
-									return <MemberCard key={x} userID={x}
-										isOwned={this.model.isOwned}
-										invite={() => this.model.inviteUser(x)}
-									/>
-								})}
+								{this.model.isOwned && this.model.potential.length > 0 ?
+									<div>
+										<div>Potential Invites</div>
+										{this.model.potential.map(x => {
+											return <MemberCard key={x} userID={x}
+												isOwned={this.model.isOwned}
+												invite={() => this.model.inviteUser(x)}
+											/>
+										})}
+									</div> : null
+								}
 							</div>
 						</div>
 					</div>

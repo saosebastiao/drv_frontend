@@ -37,9 +37,7 @@ interface ISquadMember {
 interface ISquad {
   squadID: string;
   ownerID: string;
-  regionID: string;
   auction: IAuction;
-  partyNight: string;
   squadName: string;
   squadMembers: Array<ISquadMember>;
 }
@@ -76,13 +74,7 @@ interface IPartierFriends {
   potential: Array<string>;
 }
 interface ISquadInvite {
-  inviteID: number;
   squadID: number;
-  ownerID: string;
-  partyNight: string;
-  regionID: string;
-  squadName: string;
-  accepted?: boolean;
 }
 
 interface IVenue {
