@@ -2,15 +2,15 @@ import { observable, computed, runInAction } from "mobx";
 import { getPartierAuctions } from "modules/DroverClient";
 
 
-export default class AuctionListModel {
-	@observable auctions: Array<ISquad>;
+export default class AuctionModel {
+	@observable squads: Array<ISquad>;
 	@computed get isReady() {
-		return this.auctions != null;
+		return this.squads != null;
 	}
 	async refresh() {
-		const auctions = await getPartierAuctions();
+		const auction = await getPartierAuctions();
 		runInAction(() => {
-			this.auctions = auctions;
+			this.squads = auction;
 		});
 	}
 	constructor() {

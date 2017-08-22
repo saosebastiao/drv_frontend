@@ -118,6 +118,9 @@ export function getPartyNights(userID?: string) {
 export function getSquad(squadID: number) {
   return request<ISquad>("get", `/squad/${squadID}`);
 }
+export function getAuctionSquad(auctionID: number, userID?: string) {
+  return request<ISquad>("get", `/squad/auction/${auctionID}/${userID || USERID}`);
+}
 export function getPartierAuctions(userID?: string) {
   return request<Array<ISquad>>("get", `/squad/auction/${userID || USERID}`);
 }
