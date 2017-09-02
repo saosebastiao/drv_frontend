@@ -66,7 +66,9 @@ export default class AuctionID extends React.Component<RouteComponentProps<any>,
 						</div>
 						<div className="squad-info-wrapper">
 							<div className="details-title">Your Squad Info</div>
-							<div className="details-col">{mySquad.squadName}</div>
+							<div>{mySquad.squadName}</div>
+							<div>{JSON.stringify(mySquad.squadMembers)}</div>
+							<div>{JSON.stringify(mySquad.filters)}</div>
 						</div>
 					</div>
 				</div>

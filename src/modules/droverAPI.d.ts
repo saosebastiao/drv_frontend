@@ -39,6 +39,7 @@ interface ISquad {
   ownerID: string;
   auction: IAuction;
   squadName: string;
+  filters?: any;
   squadMembers?: Array<ISquadMember>;
 }
 
