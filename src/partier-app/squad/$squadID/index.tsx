@@ -31,6 +31,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 					<div className="info-label">Auction Start Time</div>
 					<div className="info-value">{this.model.auction.startTime}</div>
 				</div>
+				<Link to={`/partier/auction/${this.model.auction.auctionID}`}> Go To Auction Page</Link>
 			</div>
 		);
 	}
@@ -44,12 +45,12 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 				</div>
 				<div className="info-title">Preferences</div>
 				<div className="info-row">
-					<div className="info-label">Music Type</div>
-					<div className="info-value">{this.model.filters.musicType}</div>
-				</div>
-				<div className="info-row">
 					<div className="info-label">Venue Type</div>
 					<div className="info-value">{this.model.filters.venueType}</div>
+				</div>
+				<div className="info-row">
+					<div className="info-label">Music Type</div>
+					<div className="info-value">{this.model.filters.musicType}</div>
 				</div>
 				<div className="info-row">
 					<div className="info-label">Neighborhood</div>
