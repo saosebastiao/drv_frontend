@@ -3,6 +3,8 @@ import { getAuctionSquad } from "modules/DroverClient";
 
 
 export default class AuctionModel {
+	@observable allSquads: Array<ISquad>;
+	@observable allParties: null;
 	@observable mySquad: ISquad;
 	@computed get isReady() {
 		return this.mySquad != null;
