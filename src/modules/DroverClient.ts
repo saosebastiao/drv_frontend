@@ -56,6 +56,7 @@ async function requestData<RES>(method: DataMethod, endpoint: string, body: any)
   Logger.debug(res.response);
   return res.response as RES
 }
+
 export function logout() {
   return request<null>("get", "/logout");
 }
@@ -63,24 +64,31 @@ export function logout() {
 export function getRegions() {
   return request<Array<IRegion>>("get", `/region/all`);
 }
+
 export function getRegion(regionID: string) {
   return request<IRegion>("get", `/region/${regionID}`);
 }
-export function getTimeZones() {
-  return request<Array<string>>("get", `/auction/tz`);
-}
+
 export function getAdminProfile() {
-  return request<IPartierProfile>("get", `/admin/${USERID}`);
+  return request<IAdminProfile>("get", `/admin/${USERID}`);
 }
+
 export function getPartierProfile(userID?: string) {
   return request<IPartierProfile>("get", `/partier/${userID || USERID}`);
 }
+
+export function getPromoterProfile(userID?: string) {
+  return request<IPromoterProfile>("get", `/partier/${userID || USERID}`);
+}
+
 export function getVenue(venueID: number) {
   return request<IVenue>("get", `/venue/${venueID}`);
 }
+
 export function getParty(partyID: number) {
   return request<IParty>("get", `/party/${partyID}`);
 }
+
 export function createRegion(region: string, startTime: string, timeZone: string) {
   return requestData<IPartierProfile>("post", `/region/new`, {
     region,
@@ -88,78 +96,91 @@ export function createRegion(region: string, startTime: string, timeZone: string
     timeZone
   });
 }
-export function createNeighborhood(region: string, neighborhood: string) {
-  return request<IRegion>("put", `/region/${region}/${neighborhood}`);
-}
-export function deleteNeighborhood(region: string, neighborhood: string) {
-  return request<IRegion>("delete", `/region/${region}/${neighborhood}`);
-}
+
 export function getPartierFriends() {
   return request<IPartierFriends>("get", `/friends/${USERID}`);
 }
-export function updateMyProfile(data: IUpdateProfileReq) {
+
+export function updatePartierProfile(data: IUpdateProfileReq) {
   return requestData<IPartierProfile>("put", `/partier/${USERID}`, data);
 }
-export function deleteMyProfile() {
+
+export function deletePartierProfile() {
   return request<void>("delete", `/partier/${USERID}`);
 }
+
 export function getAuctions() {
   return request<Array<IAuction>>("get", `/auction`);
 }
-export function getMyAuctions() {
-  return request<Array<IAuction>>("get", `/auction/my`);
-}
+
 export function getAuctionsForNight(partyNight: string) {
   return request<Array<IAuction>>("get", `/auction/${partyNight}`);
 }
+
 export function getPartyNights(userID?: string) {
   return request<Array<IPartierPartyNight>>("get", `/squad/nights/${userID || USERID}`);
 }
+
 export function getSquad(squadID: number) {
   return request<ISquad>("get", `/squad/${squadID}`);
 }
+
 export function getAuctionSquad(auctionID: number, userID?: string) {
   return request<ISquad>("get", `/squad/auction/${auctionID}/${userID || USERID}`);
 }
+
 export function getPartierAuctions(userID?: string) {
   return request<Array<ISquad>>("get", `/squad/auction/${userID || USERID}`);
 }
+
 export function createSquad(data: ICreateSquad) {
   return requestData<ISquad>("post", `/squad/new`, data);
 }
+
 export function deleteSquad(squadID: number) {
   return request<null>("delete", `/squad/${squadID}`);
 }
+
 export function linkFriend(friendID: string) {
   return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/accept`);
 }
+
 export function unlinkFriend(friendID: string) {
   return request<IPartierFriends>("post", `/friends/${USERID}/${friendID}/reject`);
 }
+
 export function inviteToSquad(squadID: number, userID: string) {
   return request<void>("post", `/invites/${squadID}/${userID}`);
 }
+
 export function uninviteFromSquad(squadID: number, userID: string) {
   return request<void>("delete", `/invites/${squadID}/${userID}`);
 }
+
 export function acceptInvite(squadID: number) {
   return request<void>("put", `/invites/${squadID}/${USERID}/accept`);
 }
+
 export function rejectInvite(squadID: number) {
   return request<void>("put", `/invites/${squadID}/${USERID}/reject`);
 }
+
 export function getPartierInvites(partyNight: string, userID?: string) {
   return request<Array<ISquadInvite>>("get", `/invites/${partyNight}/${userID || USERID}`);
 }
+
 export function resetPartierInvites(partyNight: string, userID?: string) {
   return request<void>("put", `/invites/${partyNight}/${userID || USERID}/reset`);
 }
+
 export function geocodeAddress(address: string) {
   return request<Array<IGeocodedAddress>>("get", `/venue/geocode?address=${address}`)
 }
-export function getMyVenues() {
+
+export function getPromoterVenues() {
   return request<Array<IVenue>>("get", `/venue/all`);
 }
+
 export function createVenue(venueName: string, regionID: string, address: string) {
   return requestData<IVenue>("post", `/venue/new`, {
     venueName,
@@ -167,18 +188,22 @@ export function createVenue(venueName: string, regionID: string, address: string
     address
   });
 }
+
 export function updateVenue(venueID: number, venueName: string, photos: Array<string>) {
   return requestData<IVenue>("put", `/venue/${venueID}`, {
     venueName,
     photos
   });
 }
+
 export function deleteVenue(venueID: number) {
   return request<void>("delete", `/venue/${venueID}`);
 }
-export function getMyParties() {
+
+export function getPromoterParties() {
   return request<Array<IPromoterPartyNight>>("get", `/party/all`);
 }
+
 export function createParty(partyName: string, partyNight: string, venueID: number) {
   return requestData<IParty>("post", `party/new`, {
     partyName,
@@ -186,6 +211,7 @@ export function createParty(partyName: string, partyNight: string, venueID: numb
     venueID
   });
 }
+
 export function deleteParty(partyID: number) {
   return request<void>("delete", `/party/${partyID}`);
 }

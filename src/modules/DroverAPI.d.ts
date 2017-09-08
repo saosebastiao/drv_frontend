@@ -12,6 +12,20 @@ interface IPartierProfile {
   filters?: IPartierFilters;
 }
 
+interface IAdminProfile {
+  userID: string;
+  name?: string;
+  email?: string;
+  validated: boolean;
+}
+
+interface IPromoterProfile {
+  userID: string;
+  name?: string;
+  email?: string;
+  validated: boolean;
+}
+
 interface IUpdateProfileReq {
   userID: string;
   name?: string;
