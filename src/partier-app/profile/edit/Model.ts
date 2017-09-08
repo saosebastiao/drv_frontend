@@ -1,5 +1,5 @@
 import { observable, computed, runInAction, autorun, toJS } from "mobx";
-import { getPartierProfile, getRegions, updateMyProfile } from "modules/DroverClient";
+import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
 
 
 export default class ProfileModel {
@@ -39,7 +39,7 @@ export default class ProfileModel {
             photos: this.photos,
             defaultRegion: this.defaultRegion
         };
-        const newProfile = await updateMyProfile(data);
+        const newProfile = await updatePartierProfile(data);
         Object.assign(this, newProfile);
         return true;
 
