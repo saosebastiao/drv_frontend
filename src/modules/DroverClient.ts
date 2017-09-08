@@ -117,7 +117,7 @@ export function getAuctions() {
   return request<Array<IAuction>>("get", `/auction`);
 }
 
-export function getAuctionsForNight(partyNight: string) {
+export function getAuctionsForPartyNight(partyNight: string) {
   return request<Array<IAuction>>("get", `/auction/${partyNight}`);
 }
 
@@ -208,10 +208,10 @@ export function getPromoterParties() {
   return request<Array<IPromoterPartyNight>>("get", `/party/all`);
 }
 
-export function createParty(partyName: string, partyNight: string, venueID: number) {
-  return requestData<IParty>("post", `party/new`, {
+export function createParty(partyName: string, auctionID: number, venueID: number) {
+  return requestData<IParty>("post", `/party/new`, {
     partyName,
-    partyNight,
+    auctionID,
     venueID
   });
 }

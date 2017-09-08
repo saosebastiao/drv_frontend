@@ -1,5 +1,5 @@
 import { action, observable, computed, runInAction } from "mobx";
-import { getAuctionsForNight, getPartierProfile, createSquad } from "modules/DroverClient";
+import { getAuctionsForPartyNight, getPartierProfile, createSquad } from "modules/DroverClient";
 
 export default class CreateSquadModel {
     @observable ownerID: string = "";
@@ -24,7 +24,7 @@ export default class CreateSquadModel {
     }
     async refresh() {
         const profile = await getPartierProfile();
-        const auctions = await getAuctionsForNight(this.partyNight);
+        const auctions = await getAuctionsForPartyNight(this.partyNight);
         runInAction(() => {
             this.auctions = auctions || [];
             this.regionID = profile.defaultRegion || "";

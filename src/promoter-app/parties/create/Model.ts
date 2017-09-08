@@ -1,37 +1,40 @@
 import { action, observable, computed, runInAction } from "mobx";
-import { getAuctionsForNight, getPartierProfile, createSquad } from "modules/DroverClient";
+import { getAuctionsForPartyNight, getPromoterVenues, createParty } from "modules/DroverClient";
 
-export default class CreateSquadModel {
-    @observable ownerID: string = "";
-    @observable partyNight: string;
-    @observable squadName: string = "";
-    @observable regionID: string = "boo";
+export default class CreatePartyModel {
+    partyNight: string;
+    @observable partyName: string;
+    @observable venueID: number;
+    @observable venues: Array<IVenue> = [];
     @observable auctions: Array<IAuction> = [];
-    @computed get auctionID() {
-        const auction = this.auctions.find(x => x.regionID === this.regionID);
-        return auction && auction.auctionID;
-    }
     @computed get isReady() {
-        return this.auctions.length > 0;
+        return this.venues.length > 0;
+    }
+    @computed get venue() {
+        return this.venues.find(x => x.venueID === this.venueID);
+    }
+    @computed get auction() {
+        const regionID = this.venue && this.venue.regionID;
+        return this.auctions.find(x => x.regionID === regionID);
     }
     async create() {
-        if (this.auctionID != null && this.squadName.length > 0) {
-            const data = { squadName: this.squadName, auctionID: this.auctionID, ownerID: this.ownerID };
-            const res = await createSquad(data);
-            return res.squadID;
-        } else throw new Error("boop");
-
+        if (this.venue && this.auction && this.partyName.length > 0) {
+            const party = await createParty(this.partyName, this.auction.auctionID, this.venueID);
+            return party.partyID;
+        }
     }
     async refresh() {
-        const profile = await getPartierProfile();
-        const auctions = await getAuctionsForNight(this.partyNight);
+        const auctions = await getAuctionsForPartyNight(this.partyNight);
+        const venues = await getPromoterVenues();
+        const firstVenue = venues.find(x => x.venueID != null)
         runInAction(() => {
-            this.auctions = auctions || [];
-            this.regionID = profile.defaultRegion || "";
-            this.ownerID = profile.userID;
+            this.venues = venues;
+            this.auctions = auctions;
+            this.venueID = firstVenue && firstVenue.venueID || -1;
         });
     }
     constructor(partyNight: string) {
+        console.log(partyNight);
         this.partyNight = partyNight;
         this.refresh();
     }
