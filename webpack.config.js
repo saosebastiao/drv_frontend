@@ -27,7 +27,12 @@ module.exports = {
                 }, {
                     loader: "css-loader" // translates CSS into CommonJS
                 }, {
-                    loader: "sass-loader" // compiles Sass to CSS
+                    loader: "sass-loader", // compiles Sass to CSS
+                    options: {
+                        sourceMap: true,
+                        includePaths: ['src/config/']
+                    }
+
                 }, {
                     loader: path.resolve('src/loader/inject-global-scss')
                 }]
