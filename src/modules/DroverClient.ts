@@ -113,7 +113,7 @@ export function getAuctionsForNight(partyNight: string) {
   return request<Array<IAuction>>("get", `/auction/${partyNight}`);
 }
 export function getPartyNights(userID?: string) {
-  return request<Array<IPartyNight>>("get", `/squad/nights/${userID || USERID}`);
+  return request<Array<IPartierPartyNight>>("get", `/squad/nights/${userID || USERID}`);
 }
 export function getSquad(squadID: number) {
   return request<ISquad>("get", `/squad/${squadID}`);
@@ -177,7 +177,7 @@ export function deleteVenue(venueID: number) {
   return request<void>("delete", `/venue/${venueID}`);
 }
 export function getMyParties() {
-  return request<Array<IMyParty>>("get", `/party/all`);
+  return request<Array<IPromoterPartyNight>>("get", `/party/all`);
 }
 export function createParty(partyName: string, partyNight: string, venueID: number) {
   return requestData<IParty>("post", `party/new`, {

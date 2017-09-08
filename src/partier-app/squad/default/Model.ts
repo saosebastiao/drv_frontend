@@ -3,7 +3,7 @@ import { getPartyNights } from "modules/DroverClient";
 
 
 export default class SquadListModel {
-	@observable list: Array<IPartyNight> = [];
+	@observable list: Array<IPartierPartyNight> = [];
 	async refresh() {
 		let x = await getPartyNights();
 		runInAction(() => {

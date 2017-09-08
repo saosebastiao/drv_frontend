@@ -4,10 +4,12 @@ interface IPartierProfile {
   userID: string;
   name?: string;
   email?: string;
-  gender?: string;
   defaultRegion?: string;
+  gender?: string;
+  photos?: Array<string>;
   validated: boolean;
   complete: boolean;
+  filters?: IPartierFilters;
 }
 
 interface IUpdateProfileReq {
@@ -16,21 +18,25 @@ interface IUpdateProfileReq {
   email?: string;
   defaultRegion?: string;
   gender?: string;
+  photos?: Array<string>;
 }
 
 interface IRegion {
   regionID: string;
+  entryFreeze: string;
   startTime: string;
+  endTime: string;
   timeZone: string;
   currency: string;
   priceStart: number;
-  priceDrop: number;
-  dropInterval: string;
+  priceDrop: number,
+  dropInterval: string,
+  geom?: GeoJSON.MultiPolygon;
 }
 
 interface ISquadMember {
   userID: string;
-  invited: boolean;
+  invited?: boolean;
   accepted?: boolean;
 }
 
@@ -39,7 +45,7 @@ interface ISquad {
   ownerID: string;
   auction: IAuction;
   squadName: string;
-  filters?: any;
+  filters?: ISquadFilters;
   squadMembers?: Array<ISquadMember>;
 }
 
@@ -53,20 +59,23 @@ interface IAuction {
   auctionID: number;
   regionID: string;
   partyNight: string;
+  entryFreeze: string;
   startTime: string;
   endTime: string;
-  entryFreeze: string;
   currency: string;
   priceStart: number;
   priceDrop: number;
   dropInterval: string;
+  geom?: GeoJSON.MultiPolygon;
 }
 
-interface IPartyNight {
+interface IPartierPartyNight {
   partyNight: string;
   squadID?: number;
+  auctionID?: number;
   invites: number;
 }
+
 interface IPartierFriends {
   invited: Array<string>;
   invitations: Array<string>;
@@ -74,28 +83,31 @@ interface IPartierFriends {
   rejected: Array<string>;
   potential: Array<string>;
 }
+
 interface ISquadInvite {
   squadID: number;
+  accepted?: boolean;
 }
 
 interface IVenue {
   venueID: number;
-  ownerID: string;
-  regionID: string;
   venueName: string;
+  regionID: string;
   address: string;
-  location: GeoJSON.Point;
   photos?: Array<string>;
+  location?: GeoJSON.Point;
+  filters?: IVenueFilters;
 }
 
-interface IParty extends IVenue {
+interface IParty {
   partyID: number;
-  auctionID: number;
-  partyNight: string;
   partyName: string;
+  filters?: IPartyFilters;
+  venue: IVenue;
+  auction: IAuction;
 }
 
-interface IMyParty {
+interface IPromoterPartyNight {
   partyNight: string;
   parties: Array<IParty>;
 }
@@ -104,4 +116,24 @@ interface IGeocodedAddress {
   address: string;
   regionID: string;
   location: { lat: number, lng: number };
+}
+
+interface IPartierFilters {
+  x: any;
+}
+
+interface ISquadFilters {
+  x: any;
+}
+
+interface IPromoterFilters {
+  x: any;
+}
+
+interface IVenueFilters {
+  x: any;
+}
+
+interface IPartyFilters {
+  x: any;
 }
