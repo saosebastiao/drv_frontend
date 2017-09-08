@@ -2,7 +2,7 @@ import { observable, computed, runInAction, autorun, toJS } from "mobx";
 import { getVenue, updateVenue } from "modules/DroverClient";
 
 
-export default class ShowVenueModel {
+export default class EditVenueModel {
     venueID: number;
     @observable venueName: string;
     @observable regionID: string;

@@ -6,14 +6,17 @@ import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import * as _ from 'lodash';
-import EditProfileModel from "./Model";
+import EditVenueModel from "./Model";
 import FacebookImageSelector from '../../../modules/FacebookImageSelector';
 import './styles.scss';
 
+interface PEditVenue {
+  venueID: number;
+}
 
 @observer
-export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
-  profile = new EditProfileModel;
+export default class EditVenue extends React.Component<RouteComponentProps<PEditVenue>, {}> {
+  venue = new EditVenueModel(this.props.match.params.venueID);
 
   @observable selIndex: number = -1;
   @observable showFacebookImageModal: boolean = false;
@@ -32,10 +35,10 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
 
   onImageSelect = (url: any) => {
     const idx = this.selIndex;
-    if (this.profile.photos.length > idx) {
-      this.profile.photos[idx] = url.source;
+    if (this.venue.photos.length > idx) {
+      this.venue.photos[idx] = url.source;
     } else {
-      this.profile.photos.push(url.source);
+      this.venue.photos.push(url.source);
     }
   }
 
@@ -47,22 +50,14 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   }
 
   async clickSave() {
-    const x = await this.profile.save()
-    this.props.history.push("/partier/profile");
+    const x = await this.venue.save()
+    this.props.history.push(`/promoter/venues/${x.venueID}`);
     //go back
   }
 
-  changeName = (event: any) => {
-    this.profile.name = event.target.value
+  changeVenueName = (event: any) => {
+    this.venue.venueName = event.target.value
   };
-
-  changeHome = (event: any) => {
-    this.profile.defaultRegion = event.target.value
-  };
-
-  changeGender = (event: any) => {
-    this.profile.gender = event.target.value
-  }
 
   renderOtherPhotos() {
     return (
@@ -70,11 +65,11 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         <div className="other-photos-row">
           {
             _.range(5).map((col_index: number) => {
-              if (this.profile.otherPhotos.length > col_index) {
+              if (this.venue.otherPhotos.length > col_index) {
                 return <div
                   className="other-photos-col"
                   key={`other_photos_col_${col_index}`}
-                  style={this.profile.otherPhotos[col_index]}
+                  style={this.venue.otherPhotos[col_index]}
                   onClick={() => this.onShowFacebookImageModal(col_index + 1)}
                 />
               } else {
@@ -92,48 +87,31 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   }
 
   render() {
-    return <div className="profile-edit-wrapper">
+    return this.venue.isReady ? <div className="profile-edit-wrapper">
       <div className="profile-edit-contents">
         <div className="profile-top-contents">
           <div className="photo-container">
-            <div className="main-photo" style={this.profile.profilePhoto} onClick={() => this.onShowFacebookImageModal(0)} />
+            <div className="main-photo" style={this.venue.profilePhoto} onClick={() => this.onShowFacebookImageModal(0)} />
             {this.renderOtherPhotos()}
           </div>
           <div className="profile-form">
             <div className="form-group">
               <label htmlFor="input-name" className="label-col control-label">
-                <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Display Name">Display Name</span>
+                <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Venue Name">Venue Name</span>
               </label>
               <div className="value-col">
                 <input type="text" className="form-control" aria-describedby="input-name"
-                  value={this.profile.name}
-                  onChange={this.changeName} />
+                  value={this.venue.venueName}
+                  onChange={this.changeVenueName} />
               </div>
             </div>
 
             <div className="form-group">
               <label htmlFor="input-home" className="label-col control-label">
-                <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Hometown</span>
+                <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Region</span>
               </label>
               <div className="value-col">
-                <select className="form-control" aria-describedby="input-home" value={this.profile.defaultRegion} onChange={this.changeHome}>
-                  <option key="none" value="none">Please Select a Hometown</option>
-                  {this.profile.availRegions.map(x => <option key={x} value={x}>{x}</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="input-gender" className="label-col control-label">
-                <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Gender">Gender</span>
-              </label>
-              <div className="value-col">
-                <label className="radio-inline">
-                  <input type="radio" name="gender" value="male" checked={this.profile.gender === 'male'} onChange={this.changeGender} />Male
-								</label>
-                <label className="radio-inline">
-                  <input type="radio" name="gender" value="female" checked={this.profile.gender === 'female'} onChange={this.changeGender} />Female
-								</label>
+                {this.venue.regionID}
               </div>
             </div>
           </div>
@@ -149,6 +127,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
           onSelection={this.onImageSelect}
         />
       }
-    </div>;
+    </div> : null;
   }
 }
