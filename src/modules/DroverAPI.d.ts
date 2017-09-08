@@ -26,13 +26,25 @@ interface IPromoterProfile {
   validated: boolean;
 }
 
-interface IUpdateProfileReq {
+interface IUpdatePartierProfileReq {
   userID: string;
   name?: string;
   email?: string;
   defaultRegion?: string;
   gender?: string;
   photos?: Array<string>;
+}
+
+interface IUpdateAdminProfileReq {
+  userID: string;
+  name?: string;
+  email?: string;
+}
+
+interface IUpdatePromoterProfileReq {
+  userID: string;
+  name?: string;
+  email?: string;
 }
 
 interface IRegion {

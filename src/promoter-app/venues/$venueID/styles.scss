@@ -1,0 +1,59 @@
+@import 'global';
+
+.profile-edit-wrapper {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+
+	.profile-edit-contents {
+		display: inline-block;
+    width: 800px;
+    margin-top: 20px;
+    padding: 20px 40px;
+	}
+
+	.profile-top-contents {
+
+		.profile-form {
+			flex: 1;
+			margin-left: 20px;
+			padding: 20px;
+			background: map-get($colors, info-back);
+			color: black;
+	    text-align: left;
+	    line-height: 30px;
+	    font-size: 1.4rem;
+
+			.form-group {
+				height: 40px;
+
+				.label-col {
+					@extend .col-sm-4, .col-xs-4;
+					padding: 0px;
+				}
+
+				.value-col {
+					@extend .col-sm-8, .col-xs-8;
+					padding-right: 0px;
+				}
+
+				.radio-inline {
+
+					input {
+						margin-top: 8px;
+					}
+					
+				}
+			}
+		}
+	}
+
+	.btn-lg {
+		min-width: 140px;
+	}
+
+	#file-selector {
+		display: none;
+	}
+
+}

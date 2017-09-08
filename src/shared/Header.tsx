@@ -16,20 +16,15 @@ export default class Header extends React.Component<{}, {}> {
 					{this.props.children}
 				</ul>
 			</div>
-			<div className="welcome-text">
-				<div className="vertical-center-wrapper">
-					<div className="vertical-center-contents">
-						Welcome, Daniel!
-					</div>
-				</div>
+			<div className="logout-button">
+				<Link to={`/`}>
+					<button
+						className="btn btn-default logout-button"
+						onClick={() => logout()}>
+						Logout
+					</button>
+				</Link>
 			</div>
-			<Link to={`/`}>
-				<button
-					className="btn btn-default logout-button"
-					onClick={() => logout()}>
-					Logout
-				</button>
-			</Link>
 		</nav>;
 	}
 

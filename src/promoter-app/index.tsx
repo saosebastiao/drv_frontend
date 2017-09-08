@@ -1,24 +1,59 @@
-import * as React from "react";
-import { Link, RouteComponentProps } from 'react-router-dom';
+import * as React from 'react';
+import { render } from 'react-dom';
+import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
+import { RouteComponentProps, Redirect, Switch, Route } from 'react-router-dom';
+import Profile from "./profile";
+import Parties from "./parties";
+import Venues from "./venues";
+import Auction from "./auction";
+import Header from "shared/Header";
+import Footer from "shared/Footer";
+import NavLink from "shared/NavLink";
+import { promoterLogin } from "modules/DroverClient";
 
-import './styles.scss';
+import DevTool from "mobx-react-devtools";
+
+import "./styles.scss";
+
+const NoMatch = () => <p>404 Page Does Not Exist</p>;
 
 @observer
-export default class Home extends React.Component<RouteComponentProps<any>, {}> {
-
-  render() {
-    return <div className="home-wrapper">
-    	<div className="home-contents">
-    		<div className="logo"></div>
-    		<br />
-    		<div className="welcome-text">
-    			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    			Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-    		</div>
-    		<br />
-    	</div>
-    </div>;
-  }
-
-}
+export default class PromoterHome extends React.Component<RouteComponentProps<{}>, {}> {
+	@observable loggedIn: boolean = false;
+	async login() {
+		try {
+			let x = await promoterLogin()
+			runInAction(() => this.loggedIn = true);
+		} catch (e) {
+			runInAction(() => this.loggedIn = false);
+		}
+	}
+	componentWillMount() {
+		if (!this.loggedIn) {
+			this.login();
+		}
+	}
+	render() {
+		return <div className="partier-wrapper">
+			<Header>
+				<NavLink route="/promoter/profile" label="Profile" />
+				<NavLink route="/promoter/venues" label="Venues" />
+				<NavLink route="/promoter/parties" label="Parties" />
+				<NavLink route="/promoter/auction" label="Auctions" />
+			</Header>
+			{this.loggedIn ?
+				<Switch>
+					<Route exact path="/promoter" render={(m) => <Redirect to="/promoter/profile" />} />
+					<Route path="/promoter/profile" component={Profile} />
+					<Route path="/promoter/venues" component={Venues} />
+					<Route path="/promoter/parties" component={Parties} />
+					<Route path="/promoter/auction" component={Auction} />
+					<Route component={NoMatch} />
+				</Switch>
+				: <span>Logging In...</span>
+			}
+			<Footer />
+		</div>
+	}
+};

@@ -78,7 +78,11 @@ export function getPartierProfile(userID?: string) {
 }
 
 export function getPromoterProfile(userID?: string) {
-  return request<IPromoterProfile>("get", `/partier/${userID || USERID}`);
+  return request<IPromoterProfile>("get", `/promoter/${userID || USERID}`);
+}
+
+export function updatePromoterProfile(data: IUpdatePromoterProfileReq) {
+  return requestData<IPromoterProfile>("put", `/promoter/${data.userID || USERID}`, data);
 }
 
 export function getVenue(venueID: number) {
@@ -101,7 +105,7 @@ export function getPartierFriends() {
   return request<IPartierFriends>("get", `/friends/${USERID}`);
 }
 
-export function updatePartierProfile(data: IUpdateProfileReq) {
+export function updatePartierProfile(data: IUpdatePartierProfileReq) {
   return requestData<IPartierProfile>("put", `/partier/${USERID}`, data);
 }
 
