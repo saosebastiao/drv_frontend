@@ -1,9 +1,9 @@
 import { action, observable, computed, runInAction } from "mobx";
-import { getAuctionsForPartyNight, getPromoterVenues, createParty } from "modules/DroverClient";
+import { getAuctionsForPartyNight, getPromoterVenues, getPromoterPartiesByPartyNight, createParty } from "modules/DroverClient";
 
 export default class CreatePartyModel {
     partyNight: string;
-    @observable partyName: string;
+    @observable partyName: string = "";
     @observable venueID: number;
     @observable venues: Array<IVenue> = [];
     @observable auctions: Array<IAuction> = [];
@@ -26,15 +26,17 @@ export default class CreatePartyModel {
     async refresh() {
         const auctions = await getAuctionsForPartyNight(this.partyNight);
         const venues = await getPromoterVenues();
-        const firstVenue = venues.find(x => x.venueID != null)
+        const existingParties = await getPromoterPartiesByPartyNight(this.partyNight);
+        const removeList = new Set(existingParties.map(x => x.venue.venueID));
+        const validVenues = venues.filter(x => removeList.has(x.venueID));
+        const firstVenue = venues.shift();
         runInAction(() => {
-            this.venues = venues;
+            this.venues = validVenues;
             this.auctions = auctions;
             this.venueID = firstVenue && firstVenue.venueID || -1;
         });
     }
     constructor(partyNight: string) {
-        console.log(partyNight);
         this.partyNight = partyNight;
         this.refresh();
     }

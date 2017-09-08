@@ -204,9 +204,14 @@ export function deleteVenue(venueID: number) {
   return request<void>("delete", `/venue/${venueID}`);
 }
 
-export function getPromoterParties() {
+export function getPromoterParties(partyNight?: string) {
   return request<Array<IPromoterPartyNight>>("get", `/party/all`);
 }
+
+export function getPromoterPartiesByPartyNight(partyNight: string) {
+  return request<Array<IParty>>("get", `/party/night/${partyNight}`);
+}
+
 
 export function createParty(partyName: string, auctionID: number, venueID: number) {
   return requestData<IParty>("post", `/party/new`, {

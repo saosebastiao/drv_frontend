@@ -1,21 +1,22 @@
 import { observable, computed, runInAction } from "mobx";
-import { getPartierInvites } from "modules/DroverClient";
+import { getParty } from "modules/DroverClient";
 
 
-export default class InvitesListModel {
-	@observable partyNight: string;
-	@observable squads: Array<number>;
+export default class PartyEditModel {
+	@observable partyName: string;
+	@observable filters?: IPartyFilters;
+	@observable venue: IVenue;
+	@observable auction: IAuction;
 	@computed get isReady() {
-		return this.squads != null;
+		return this.partyName != null;
 	}
 	async refresh() {
-		const squads = await getPartierInvites(this.partyNight);
+		const party = await getParty(this.partyID);
 		runInAction(() => {
-			this.squads = squads.map(x => x.squadID);
+			Object.assign(this, party);
 		});
 	}
-	constructor(partyNight: string) {
-		this.partyNight = partyNight;
+	constructor(public partyID: number) {
 		this.refresh();
 	}
 

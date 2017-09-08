@@ -1,11 +1,15 @@
-import { observable, runInAction } from "mobx";
-import { getPartyNights } from "modules/DroverClient";
+import { observable, computed, runInAction } from "mobx";
+import { getPromoterParties } from "modules/DroverClient";
 
 
 export default class SquadListModel {
-	@observable list: Array<IPartierPartyNight> = [];
+	@observable list: Array<IPromoterPartyNight> = [];
+
+	@computed get isReady() {
+		return this.list.length > 0;
+	}
 	async refresh() {
-		let x = await getPartyNights();
+		let x = await getPromoterParties();
 		runInAction(() => {
 			this.list = x;
 		});
