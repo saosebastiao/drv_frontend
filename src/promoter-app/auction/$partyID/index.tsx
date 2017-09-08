@@ -5,10 +5,14 @@ import * as moment from "moment";
 import * as _ from 'lodash';
 import AuctionModel from "./Model";
 
-@observer
-export default class AuctionID extends React.Component<RouteComponentProps<any>, {}> {
+interface PPartyID {
+	partyID: number;
+}
 
-	model = new AuctionModel(parseInt(this.props.match.params.auctionID));
+@observer
+export default class AuctionID extends React.Component<RouteComponentProps<PPartyID>, {}> {
+
+	model = new AuctionModel(this.props.match.params.partyID);
 
 	renderPartiesCard() {
 		return (
@@ -36,8 +40,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<any>,
 
 	render() {
 		if (this.model.isReady) {
-			const mySquad = this.model.mySquad;
-			const auctionInfo = mySquad.auction;
+			const myParty = this.model.myParty;
+			const auctionInfo = myParty.auction;
 			return <div className="auction-details-contents">
 				<div className="auction-details-row">
 					<div className="details-col">
@@ -65,10 +69,9 @@ export default class AuctionID extends React.Component<RouteComponentProps<any>,
 							<div>{auctionInfo.dropInterval}</div>
 						</div>
 						<div className="squad-info-wrapper">
-							<div className="details-title">Your Squad Info</div>
-							<div>{mySquad.squadName}</div>
-							<div>{JSON.stringify(mySquad.squadMembers)}</div>
-							<div>{JSON.stringify(mySquad.filters)}</div>
+							<div className="details-title">Your Party Info</div>
+							<div>{myParty.partyName}</div>
+							<div>{JSON.stringify(myParty.filters)}</div>
 						</div>
 					</div>
 				</div>

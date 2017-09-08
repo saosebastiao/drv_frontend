@@ -8,7 +8,7 @@
 	.auction-contents {
 		@extend .container;
 		display: inline-block;
-    width: 600px;
+    width: 80%;
     margin-top: 20px;
     padding: 0px;
     border: 1px solid map-get($colors, border);
@@ -25,22 +25,28 @@
 	    }
 
     	.date-col {
-    		@extend .col-sm-4, .col-xs-4;
+    		@extend .col-sm-3, .col-xs-3;
 		    font-size: 1.6rem;
 		    font-weight: bold;
 		    text-align: left;
     	}
 
     	.city-col {
-    		@extend .col-sm-4, .col-xs-4;
+    		@extend .col-sm-3, .col-xs-3;
+		    font-size: 1.6rem;
+		    text-align: left;
+			}
+
+    	.party-col {
+    		@extend .col-sm-3, .col-xs-3;
 		    font-size: 1.6rem;
 		    text-align: left;
     	}
 
     	.button-col {
-    		@extend .col-sm-4, .col-xs-4;
+    		@extend .col-sm-3, .col-xs-3;
 		    padding-top: 8px;
-		    text-align: left;
+		    text-align: center;
 
 		    .btn {
 		    	margin-right: 10px;

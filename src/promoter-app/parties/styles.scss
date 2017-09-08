@@ -8,7 +8,7 @@
 	.squad-contents {
 		@extend .container;
 		display: inline-block;
-    width: 600px;
+    width: 80%;
     margin-top: 20px;
     padding: 0px;
     border: 1px solid map-get($colors, border);

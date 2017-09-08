@@ -1,16 +1,16 @@
 import { observable, computed, runInAction } from "mobx";
-import { getPartierAuctions } from "modules/DroverClient";
+import { getPromoterParties } from "modules/DroverClient";
 
 
-export default class AuctionModel {
-	@observable squads: Array<ISquad>;
+export default class AuctionListModel {
+	@observable partyNights: Array<IPromoterPartyNight>;
 	@computed get isReady() {
-		return this.squads != null;
+		return this.partyNights != null;
 	}
 	async refresh() {
-		const auction = await getPartierAuctions();
+		const parties = await getPromoterParties();
 		runInAction(() => {
-			this.squads = auction;
+			this.partyNights = parties.filter(x => x.parties.length > 0);
 		});
 	}
 	constructor() {

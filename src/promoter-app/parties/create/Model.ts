@@ -28,8 +28,8 @@ export default class CreatePartyModel {
         const venues = await getPromoterVenues();
         const existingParties = await getPromoterPartiesByPartyNight(this.partyNight);
         const removeList = new Set(existingParties.map(x => x.venue.venueID));
-        const validVenues = venues.filter(x => removeList.has(x.venueID));
-        const firstVenue = venues.shift();
+        const validVenues = venues.filter(x => !removeList.has(x.venueID));
+        const firstVenue = validVenues.find(x => x.venueID != null);
         runInAction(() => {
             this.venues = validVenues;
             this.auctions = auctions;
