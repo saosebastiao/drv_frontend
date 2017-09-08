@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps, Switch, Route, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
-import EditVenue from "./edit";
+import EditVenue from "./$venueID/edit";
 import CreateVenue from "./create";
 import VenueList from "./default";
 import ShowVenue from "./$venueID";

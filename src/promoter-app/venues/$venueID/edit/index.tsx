@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import { observable } from "mobx";
 import * as _ from 'lodash';
 import EditVenueModel from "./Model";
-import FacebookImageSelector from '../../../modules/FacebookImageSelector';
+import FacebookImageSelector from '../../../../modules/FacebookImageSelector';
 import './styles.scss';
 
 interface PEditVenue {
