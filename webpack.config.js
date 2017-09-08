@@ -32,9 +32,6 @@ module.exports = {
                         sourceMap: true,
                         includePaths: ['src/config/']
                     }
-
-                }, {
-                    loader: path.resolve('src/loader/inject-global-scss')
                 }]
             },
             { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' },
