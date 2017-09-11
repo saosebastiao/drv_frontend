@@ -12,7 +12,7 @@ I see this being three separate applications. The directories are laid out as fo
 
 Any code that will be shared among the apps (config, api client, etc.) is in the `src/` directory alongside these apps. 
 
-Within each app, I'd like to try to match the directory structure with the apps route structure. Since React Router V4 allows you to nest routers, if a route has subroutes, the `index.tsx` will be a router which dispatches to a subroute (with the default view in the `default/` directory. 
+Within each app, I'd like to try to match the directory structure with the apps route structure. Since React Router V4 allows you to nest routers, if a route has subroutes, the `index.tsx` will be a router which dispatches to a subroute (with the default view in the `default/` directory). 
 
 For example
 * `src/partier-app/profile/index.tsx` is a nested router that chooses between the edit view or the default view. 
@@ -30,3 +30,16 @@ I tend to use data stores in the way described by [this page in the mobx documen
 
 If there are methods or api calls that need to be called in a specific view, it will be exposed as a method on the model. For example, a submit button may call a method on the model which submits the `async` POST request, `await`s the response, checks for errors, etc. 
 
+## SCSS, Layout, and Style Preferences
+
+* I like to keep layout and CSS as decoupled from the HTML as possible, as it helps keep the code readable and understandable for me. Since this is a React app, there is some amount of coupling, but I'd like to minimize that. I strongly prefer using CSS selectors in CSS files over using CSS-in-javascript, and keeping source files as closely scoped as possible to the React Component they affect.
+
+* I guess bootstrap is okay, but I don't want this to look like I just slapped bootrstrap on it and called it good. It would be up to you if you want to use a different framework (I like what I see from PureCSS, Bulma, Bourbon, Compass, Skeleton). 
+
+* I prefer forms of interactivity that work well with React and minimize the javascript necessary (Bootstrap modals, for example, require jquery, which doesn't play nicely with React). I'm ready and willing to sacrifice flashiness for simplicity.
+
+* I need your strong experience to guide the decision making on layout and design. We may need to discuss your plans and ideas before working on them, but I will likely defer to your expertise unless I find something objectionable.  In particular, the auction and spot market pages will require a lot of information in order for promoters to make decisions, which means a bad design could lead to information overload, confusion, and ultiminately unhappy customers. I really need guidance on how to solve that problem. 
+
+* I really need to keep things lightweight and fast. I don't want this app to be a burden to use on a mobile device. And due to the time-sensitive interactive nature of the auctions, high latency and bad hiccups will affect customer satisfaction. I might need your help getting an optimized production build configuration which leaves out unnecessary and unused framework code and loads/renders quickly. 
+
+* Please maintain your code progress on a branch with your name. I'll create the branch and give limited access for you to push to just that branch. I keep a branch named danny for my work, and it effectively functions as a development branch. In order for you to keep up with my development, you'll need to pull and merge frequently into your branch. When you'd like me to take a look at your progress, I'll pull your branch and build in place to see it. 
