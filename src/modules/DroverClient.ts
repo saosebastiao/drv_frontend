@@ -1,5 +1,6 @@
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/dom/ajax";
+import "rxjs/add/observable/dom/webSocket";
 import "rxjs/add/operator/toPromise";
 
 import Logger from "./Logger";
@@ -223,4 +224,8 @@ export function createParty(partyName: string, auctionID: number, venueID: numbe
 
 export function deleteParty(partyID: number) {
   return request<void>("delete", `/party/${partyID}`);
+}
+
+export function getPartierAuctionWS(squadID: number) {
+  return Observable.webSocket(`ws://localhost:9000/auction/squad/${squadID}`);
 }

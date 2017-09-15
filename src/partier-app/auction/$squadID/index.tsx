@@ -5,16 +5,20 @@ import * as moment from "moment";
 import * as _ from 'lodash';
 import AuctionModel from "./Model";
 
-@observer
-export default class AuctionID extends React.Component<RouteComponentProps<any>, {}> {
+interface PAuctionForSquad {
+	squadID: string;
+}
 
-	model = new AuctionModel(parseInt(this.props.match.params.auctionID));
+@observer
+export default class AuctionID extends React.Component<RouteComponentProps<PAuctionForSquad>, {}> {
+
+	model = new AuctionModel(parseInt(this.props.match.params.squadID));
 
 	renderPartiesCard() {
 		return (
 			<div className="parties-contents">
 				{
-					_.range(20).map((index: number) => (
+					_.range(10).map((index: number) => (
 						<div className="parties-card has-border" key={`auction_parties_card_${index}`}>Party Card {(index + 1)}</div>
 					))
 				}
@@ -26,7 +30,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<any>,
 		return (
 			<div className="squads-contents">
 				{
-					_.range(20).map((index: number) => (
+					_.range(10).map((index: number) => (
 						<div className="squads-card has-border" key={`auction_squads_card_${index}`}>Squad Card {(index + 1)}</div>
 					))
 				}

@@ -31,7 +31,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<any>,
 					<div className="info-label">Auction Start Time</div>
 					<div className="info-value">{this.model.auction.startTime}</div>
 				</div>
-				<Link to={`/partier/auction/${this.model.auction.auctionID}`}> Go To Auction Page</Link>
+				<Link to={`/partier/auction/${this.model.squadID}`}> Go To Auction Page</Link>
 			</div>
 		);
 	}

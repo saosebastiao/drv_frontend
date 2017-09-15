@@ -18,7 +18,7 @@ export default class AuctionList extends React.Component<RouteComponentProps<any
 							<div className="date-col">{moment(squad.auction.partyNight).format('YYYY-MM-DD')}</div>
 							<div className="city-col">{squad.auction.regionID}</div>
 							<div className="button-col">
-								<Link to={`/partier/auction/${squad.auction.auctionID}`}><button className="btn btn-primary">View auction</button></Link>
+								<Link to={`/partier/auction/${squad.squadID}`}><button className="btn btn-primary">View auction</button></Link>
 							</div>
 						</div>
 					);

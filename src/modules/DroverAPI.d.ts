@@ -163,3 +163,39 @@ interface IVenueFilters {
 interface IPartyFilters {
   x: any;
 }
+
+interface IPreAuction {
+  type: 'PreAuction';
+  effective: string;
+}
+interface IEntryFreeze {
+  type: 'EntryFreeze';
+  effective: string;
+}
+interface IActiveAuction {
+  type: 'ActiveAuction';
+  effective: string;
+  price: number;
+}
+interface IPostAuction {
+  type: 'PostAuction';
+  effective: string;
+}
+interface ISquadConfig {
+  squadID: number;
+  squadName: string;
+  ownerID: string;
+  filters: ISquadFilters;
+}
+interface IPartyConfig {
+  partyID: number;
+  partyName: string;
+  venueID: number;
+  filters: IPartyFilters;
+}
+interface ICurrentState {
+  type: 'CurrentState';
+  state: IPreAuction | IEntryFreeze | IActiveAuction | IPostAuction;
+  squads: ISquadConfig;
+  parties: IPartyConfig;
+}
