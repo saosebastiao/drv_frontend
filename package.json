@@ -7,7 +7,7 @@
     "@types/async": "^2.0.42",
     "@types/fb": "0.0.22",
     "@types/geojson": "^1.0.3",
-    "@types/jasmine": "^2.5.54",
+    "@types/jasmine": "^2.6.0",
     "@types/jquery": "^2.0.45",
     "@types/lodash": "^4.14.74",
     "@types/qs": "^6.5.0",
@@ -38,7 +38,7 @@
     "mobx-react-devtools": "^4.2.11",
     "moment": "^2.18.1",
     "node-sass": "^4.5.2",
-    "qs": "^6.5.0",
+    "qs": "^6.5.1",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "react-router": "^4.2.0",
@@ -48,10 +48,10 @@
     "rxjs": "^5.4.3",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.0",
-    "ts-loader": "^2.3.6",
+    "ts-loader": "^2.3.7",
     "typescript": "^2.5.2",
     "url-loader": "^0.5.8",
-    "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.7.1"
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
   }
 }
