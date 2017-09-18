@@ -2,6 +2,7 @@ import * as React from 'react';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getSquad } from "modules/DroverClient";
+import PartierCard from "./PartierCard";
 
 class SquadCardModel {
 	constructor(public squadID: number) {
@@ -11,15 +12,15 @@ class SquadCardModel {
 	@observable ownerID: string;
 	@observable auction: IAuction;
 	@observable filters?: ISquadFilters;
-	@observable squadMembers?: Array<ISquadMember>;
+	@observable squadMembers: Array<ISquadMember> = [];
 	@computed get isReady() {
 		return this.squadName != null;
 	}
 	async refresh() {
-		const s = getSquad(this.squadID);
+		const s = await getSquad(this.squadID);
 		runInAction(() => {
 			Object.assign(this, s);
-		})
+		});
 	}
 }
 
@@ -33,8 +34,12 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
 	render() {
 		return this.model.isReady ? <div>
 			<div>Squad Name: {this.model.squadName}</div>
-			<div>Owner:</div>
-			<div>Members:</div>
+			<div>Owner: <PartierCard userID={this.model.ownerID} /></div>
+			<div>Members:
+				{this.model.squadMembers.map(x => {
+					return x.accepted ? <PartierCard userID={x.userID} /> : null;
+				})}
+			</div>
 		</div> : null;
 	}
 }

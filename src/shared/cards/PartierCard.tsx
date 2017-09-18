@@ -17,7 +17,7 @@ class PartierCardModel {
 		return this.name != null;
 	}
 	async refresh() {
-		const s = getPartierProfile(this.userID);
+		const s = await getPartierProfile(this.userID);
 		runInAction(() => {
 			Object.assign(this, s);
 		})

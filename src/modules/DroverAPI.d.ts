@@ -67,7 +67,7 @@ interface ISquadMember {
 }
 
 interface ISquad {
-  squadID: string;
+  squadID: number;
   ownerID: string;
   auction: IAuction;
   squadName: string;
@@ -217,11 +217,12 @@ interface IPartyConfig {
   filters: IPartyFilters;
 }
 
+type IAuctionState = IPreAuction | IEntryFreeze | IActiveAuction | IPostAuction;
 interface ICurrentState {
   msg: 'CurrentState';
-  state: IPreAuction | IEntryFreeze | IActiveAuction | IPostAuction;
-  squads: ISquadConfig;
-  parties: IPartyConfig;
+  state: IAuctionState
+  squads: Array<ISquadConfig>;
+  parties: Array<IPartyConfig>;
 }
 
 interface ISquadBidSuccessful {
@@ -256,3 +257,7 @@ interface IBid {
   squadID: number;
   price: number;
 }
+
+type IAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed;
+type ISquadMessage = IGetState | ISetSquadFilters;
+type IPartyMessage = IGetState | ISetPartyFilters | IBid;

@@ -4,6 +4,8 @@ import { observer } from "mobx-react";
 import * as moment from "moment";
 import * as _ from 'lodash';
 import AuctionModel from "./Model";
+import SquadCard from "shared/cards/SquadCard";
+import PartyCard from "shared/cards/PartyCard";
 
 interface PAuctionForSquad {
 	squadID: string;
@@ -21,8 +23,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 		return (
 			<div className="parties-contents">
 				{
-					_.range(10).map((index: number) => (
-						<div className="parties-card has-border" key={`auction_parties_card_${index}`}>Party Card {(index + 1)}</div>
+					this.model.allParties.map((party: IPartyConfig, idx: number) => (
+						<PartyCard key={idx} partyID={party.partyID} />
 					))
 				}
 			</div>
@@ -33,8 +35,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 		return (
 			<div className="squads-contents">
 				{
-					_.range(10).map((index: number) => (
-						<div className="squads-card has-border" key={`auction_squads_card_${index}`}>Squad Card {(index + 1)}</div>
+					this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
+						<SquadCard key={idx} squadID={squad.squadID} />
 					))
 				}
 			</div>
@@ -73,8 +75,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 						</div>
 						<div className="squad-info-wrapper">
 							<div className="details-title">Your Squad Info</div>
-							<div>{mySquad.squadName}</div>
-							<div>{JSON.stringify(mySquad.squadMembers)}</div>
+							<SquadCard squadID={mySquad.squadID} />
 							<div>{JSON.stringify(mySquad.filters)}</div>
 						</div>
 					</div>

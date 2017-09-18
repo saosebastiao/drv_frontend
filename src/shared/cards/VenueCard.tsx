@@ -17,7 +17,7 @@ class VenueCardModel {
 		return this.venueName != null;
 	}
 	async refresh() {
-		const s = getVenue(this.venueID);
+		const s = await getVenue(this.venueID);
 		runInAction(() => {
 			Object.assign(this, s);
 		})
