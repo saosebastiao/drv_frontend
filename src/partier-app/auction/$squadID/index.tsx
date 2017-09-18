@@ -66,12 +66,11 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 							<div className="details-title">Auction Info</div>
 							<div>{auctionInfo.regionID}</div>
 							<div>{auctionInfo.partyNight}</div>
-							<div>{auctionInfo.startTime}</div>
-							<div>{auctionInfo.endTime}</div>
-							<div>{auctionInfo.entryFreeze}</div>
-							<div>{auctionInfo.priceStart}</div>
-							<div>{auctionInfo.priceDrop}</div>
-							<div>{auctionInfo.dropInterval}</div>
+							<div>Auction starts at {auctionInfo.startTime}</div>
+							<div>Auction ends at {auctionInfo.endTime}</div>
+							<div>Auction Entries freeze at {auctionInfo.entryFreeze}</div>
+							<div>Prices start at {auctionInfo.priceStart}{auctionInfo.currency}</div>
+							<div>Prices drop by {auctionInfo.priceDrop}{auctionInfo.currency} every {auctionInfo.dropInterval} minutes</div>
 						</div>
 						<div className="squad-info-wrapper">
 							<div className="details-title">Your Squad Info</div>
