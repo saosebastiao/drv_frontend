@@ -14,6 +14,9 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 
 	model = new AuctionModel(parseInt(this.props.match.params.squadID));
 
+	componentWillUnmount() {
+		this.model.quit();
+	}
 	renderPartiesCard() {
 		return (
 			<div className="parties-contents">

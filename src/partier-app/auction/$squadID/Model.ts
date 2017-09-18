@@ -14,6 +14,9 @@ export default class AuctionModel {
 		return this.mySquad != null;
 	}
 	subscription = getPartierAuctionWS(this.squadID)
+	quit() {
+		this.subscription.complete();
+	}
 	async refresh() {
 		const s = await getSquad(this.squadID);
 		runInAction(() => {
