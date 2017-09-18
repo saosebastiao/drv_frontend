@@ -145,57 +145,114 @@ interface IGeocodedAddress {
 }
 
 interface IPartierFilters {
-  x: any;
+  venueBlacklist?: Array<number>;
+  musicTypes?: Array<string>;
+  venueTypes?: Array<string>;
+  interactionTypes?: Array<string>;
 }
 
 interface ISquadFilters {
-  x: any;
+  venueBlacklist?: Array<number>;
+  musicTypes?: Array<string>;
+  venueTypes?: Array<string>;
+  interactionTypes?: Array<string>;
 }
 
 interface IPromoterFilters {
-  x: any;
+  partierBlacklist?: Array<string>;
+  genders: Array<string>;
+  musicTypes: Array<string>;
+  interactionTypes: Array<string>;
 }
 
 interface IVenueFilters {
-  x: any;
+  partierBlacklist?: Array<string>;
+  genders: Array<string>;
+  musicTypes: Array<string>;
+  venueTypes: Array<string>;
+  interactionTypes: Array<string>;
 }
 
 interface IPartyFilters {
-  x: any;
+  partierBlacklist?: Array<string>;
+  squadBlacklist: Array<number>;
+  genders: Array<string>;
+  musicTypes: Array<string>;
+  venueTypes: Array<string>;
+  interactionTypes: Array<string>;
 }
 
 interface IPreAuction {
-  type: 'PreAuction';
+  state: 'PreAuction';
   effective: string;
 }
+
 interface IEntryFreeze {
-  type: 'EntryFreeze';
+  state: 'EntryFreeze';
   effective: string;
 }
+
 interface IActiveAuction {
-  type: 'ActiveAuction';
+  state: 'ActiveAuction';
   effective: string;
   price: number;
 }
+
 interface IPostAuction {
-  type: 'PostAuction';
+  state: 'PostAuction';
   effective: string;
 }
+
 interface ISquadConfig {
   squadID: number;
   squadName: string;
   ownerID: string;
   filters: ISquadFilters;
 }
+
 interface IPartyConfig {
   partyID: number;
   partyName: string;
   venueID: number;
   filters: IPartyFilters;
 }
+
 interface ICurrentState {
-  type: 'CurrentState';
+  msg: 'CurrentState';
   state: IPreAuction | IEntryFreeze | IActiveAuction | IPostAuction;
   squads: ISquadConfig;
   parties: IPartyConfig;
+}
+
+interface ISquadBidSuccessful {
+  msg: 'SquadBidSuccessful';
+  squadID: number;
+  partyID: number;
+}
+
+interface ISquadBidFailed {
+  msg: 'SquadBidFailed';
+  squadID: number;
+  partyID: number;
+  reason: string;
+}
+
+interface IGetState {
+  msg: 'GetState';
+}
+
+interface ISetSquadFilters {
+  msg: 'SetSquadFilters';
+  filters: ISquadFilters;
+}
+
+interface ISetPartyFilters {
+  msg: 'SetPartyFilters';
+  filters: IPartyFilters;
+}
+
+interface IBid {
+  msg: 'Bid';
+  squadID: number;
+  price: number;
 }
