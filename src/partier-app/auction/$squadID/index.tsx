@@ -71,6 +71,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
 							<div>Auction Entries freeze at {auctionInfo.entryFreeze}</div>
 							<div>Prices start at {auctionInfo.priceStart}{auctionInfo.currency}</div>
 							<div>Prices drop by {auctionInfo.priceDrop}{auctionInfo.currency} every {auctionInfo.dropInterval} minutes</div>
+							<button type="button" onClick={() => this.model.getState()}>Refresh</button>
 						</div>
 						<div className="squad-info-wrapper">
 							<div className="details-title">Your Squad Info</div>

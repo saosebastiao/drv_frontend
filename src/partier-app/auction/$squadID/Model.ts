@@ -26,13 +26,13 @@ export default class AuctionModel {
 	@action setSquadFilters(filters: ISquadFilters) {
 		this.mySquad.filters = filters;
 		const msg: ISetSquadFilters = { msg: 'SetSquadFilters', filters };
-		this.subscription.next(msg);
+		this.subscription.next(JSON.stringify(msg));
 	}
 	quit() {
 		this.subscription.complete();
 	}
 	getState() {
-		this.subscription.next({ msg: 'GetState' });
+		this.subscription.next(JSON.stringify({ msg: 'GetState' }));
 	}
 	async refresh() {
 		const s = await getSquad(this.squadID);
