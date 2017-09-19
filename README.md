@@ -32,6 +32,8 @@ If there are methods or api calls that need to be called in a specific view, it 
 
 ## SCSS, Layout, and Style Preferences
 
+https://palantir.github.io/tslint/rules/
+
 * I like to keep layout and CSS as decoupled from the HTML as possible, as it helps keep the code readable and understandable for me. Since this is a React app, there is some amount of coupling, but I'd like to minimize that. I strongly prefer using CSS selectors in CSS files over using CSS-in-javascript, and keeping source files as closely scoped as possible to the React Component they affect.
 
 * I guess bootstrap is okay, but I don't want this to look like I just slapped bootrstrap on it and called it good. It would be up to you if you want to use a different framework (I like what I see from PureCSS, Bulma, Bourbon, Compass, Skeleton). 

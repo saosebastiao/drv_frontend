@@ -1,0 +1,24 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "jsx-no-multiline": false,
+        "jsx-no-multiline-js": false,
+        "no-unused-variable": true,
+        "interface-name": false,
+        "member-ordering": false,
+        "array-type": [
+            true,
+            "generic"
+        ],
+        "curly": [
+            true,
+            "ignore-same-line"
+        ]
+    },
+    "rulesDirectory": []
+}
