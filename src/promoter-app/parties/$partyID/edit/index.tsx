@@ -1,19 +1,21 @@
-import * as React from "react";
-import { RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from "mobx-react";
 import * as moment from "moment";
+import * as React from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
 import PartyEditModel from "./Model";
 
 interface PPartyEdit {
-	partyID: number;
+  partyID: number;
 }
 
 @observer
 export default class PartyEdit extends React.Component<RouteComponentProps<PPartyEdit>, {}> {
-	model = new PartyEditModel(this.props.match.params.partyID);
-	render() {
-		return this.model.isReady ? <div className="squad-wrapper">
-			{this.model.partyName}
-		</div> : null;
-	}
+  public model = new PartyEditModel(this.props.match.params.partyID);
+  public render() {
+    return this.model.isReady ? (
+      <div className="squad-wrapper">
+        {this.model.partyName}
+      </div>
+    ) : null;
+  }
 }

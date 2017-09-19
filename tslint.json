@@ -21,6 +21,7 @@
             true,
             2
         ],
+        "new-parens": false,
         "one-line": [
             true,
             "check-catch",

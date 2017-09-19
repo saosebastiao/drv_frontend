@@ -2,15 +2,15 @@ import Logger from "./Logger";
 
 Logger.debug("fbclient init");
 FB.init({
-  appId: '1063753666981488',
-  status: true, //listen to status messages somewhere?
+  appId: "1063753666981488",
+  status: true, // listen to status messages somewhere?
   cookie: true,
-  version: 'v2.8',
+  version: "v2.8",
 });
 
 function loginFB() {
   return new Promise<IFBAuthResponse>((resolve, reject) => {
-    FB.login(res => {
+    FB.login((res) => {
       if (res.status === "connected") {
         Logger.debug("Connected to Facebook");
         resolve(res.authResponse);
@@ -18,14 +18,14 @@ function loginFB() {
         Logger.error("Could not log into Facebook");
         reject();
       }
-    }, { scope: 'email,user_friends,user_photos' });
+    }, { scope: "email,user_friends,user_photos" });
   });
 }
 
 function getFBLoginStatus() {
   return new Promise<IFBAuthResponse>((resolve, reject) => {
-    FB.getLoginStatus(x => {
-      if (x.status !== 'connected') {
+    FB.getLoginStatus((x) => {
+      if (x.status !== "connected") {
         reject();
       }
       resolve(x.authResponse);
@@ -44,10 +44,9 @@ export async function getFBStatus() {
   return res;
 }
 
-
 export function getFBUserInfo(userID?: string) {
-  let params = { fields: 'first_name,email,gender' };
-  let user = userID ? `/${userID}` : "/me";
+  const params = { fields: "first_name,email,gender" };
+  const user = userID ? `/${userID}` : "/me";
   return new Promise<IPartierProfile>((resolve, reject) => {
     FB.api(user, "get", params, (x: FBIdentity) => {
       let gender: "m" | "f" | "o";
@@ -57,14 +56,14 @@ export function getFBUserInfo(userID?: string) {
         gender = "f";
       } else {
         gender = "o";
-      };
-      let out = {
+      }
+      const out = {
         name: x.first_name,
         email: x.email,
         userID: x.id,
         gender,
         complete: false,
-        validated: false
+        validated: false,
       } as IPartierProfile;
       resolve(out);
     });

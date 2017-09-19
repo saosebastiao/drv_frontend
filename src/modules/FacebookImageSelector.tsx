@@ -4,12 +4,12 @@ import { observer } from 'mobx-react';
 import ImageLoader from './ImageLoader';
 import './FacebookImageSelector.scss';
 
-const ErrorMessages =  {
+const ErrorMessages = {
   default: 'Some error occured while loading, Please try again after some time.',
   notLoggedin: 'You are not logged in!. Please log into Facebook and try again',
-  unauthorized: 'You have not authorized this app!. Please provide the required permission (user_photos)',
+  unauthorized: "You have not authorized this app!. Please provide the required permission (user_photos)",
   noAppId: 'No App Id specified',
-  noPhoto: 'No Photos available in this album'
+  noPhoto: "No Photos available in this album"
 };
 
 @observer
@@ -25,22 +25,22 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
       photoDataLoaded: {},
       albumPaging: {},
       photoPaging: {},
-      customError: ''
+      customError: ""
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.getUserAlbums({});
   }
 
-  getUserAlbums(query: any) {
+  public getUserAlbums(query: any) {
     const auth: any = FB.getAuthResponse();
     const uid = auth.userID;
-    let queryObj = { fields: 'id, name' };
+    const queryObj = { fields: "id, name" };
 
     _.extend(queryObj, query);
 
-    FB.api('/' + uid + '/albums', queryObj,
+    FB.api("/" + uid + "/albums", queryObj,
       (response: any) => {
         if (response && !response.error) {
           this.populateAlbums(response);
@@ -51,19 +51,19 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
     );
   }
 
-  populateAlbums = (response: any) => {
+  public populateAlbums = (response: any) => {
     const task: any = [];
     const data = response.data;
 
-    for (let i in data) {
+    for (const i in data) {
       if (data[i]) {
         task.push(new Promise((resolve, reject) => {
           const temp = data[i];
           const albumId = temp.id;
-          FB.api('/' + albumId + '/picture', {
-            type: 'album'
+          FB.api("/" + albumId + "/picture", {
+            type: "album"
           }, (response: any) => {
-            let res: any = {};
+            const res: any = {};
             if (response && !response.error) {
               /* handle the result */
               res.name = temp.name;
@@ -73,41 +73,41 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             } else {
               reject(response.error);
             }
-          })
+          });
         }));
       }
       Promise.all(task)
         .then((results) => {
-          var albums: any = {};
+          const albums: any = {};
           results.forEach((album: any) => albums[album.id] = album);
           this.setState({
             showOverlay: true,
             showError: false,
-            albumDataLoaded: _.extend((this.state as any).albumDataLoaded, albums)
+            albumDataLoaded: _.extend((this.state as any).albumDataLoaded, albums),
           });
         })
         .catch((error) => {
-          console.log('populateAlbums error', error);
+          console.log("populateAlbums error", error);
           this.showError(null);
         });
     }
   }
 
-  closeOverlay = () => this.props.onCloseModal();
+  public closeOverlay = () => this.props.onCloseModal();
 
-  getPhotosFromAlbum = (id: any, query: any) => {
-    const queryObj = { fields: 'id,height,width,source' };
+  public getPhotosFromAlbum = (id: any, query: any) => {
+    const queryObj = { fields: "id,height,width,source" };
     const modifiedResponse: any = {};
 
     _.extend(queryObj, query);
 
-    FB.api('/' + id + '/photos', queryObj,
+    FB.api("/" + id + "/photos", queryObj,
       (response) => {
         if (response && !response.error) {
           // modify data to support the need;
           const data = response.data;
           const paging = response.paging || null;
-          for (let i in data) {
+          for (const i in data) {
             if (data.hasOwnProperty(i)) {
               modifiedResponse[data[i].id] = data[i];
             }
@@ -117,18 +117,18 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             showError: false,
             photoPaging: paging,
             showOverlay: true,
-            photoDataLoaded: _.extend((this.state as any).photoDataLoaded, modifiedResponse)
+            photoDataLoaded: _.extend((this.state as any).photoDataLoaded, modifiedResponse),
           });
         } else {
           this.showError(null);
         }
-      }
+      },
     );
   }
 
-  itemSelector = (dataset: any) => {
-    var type = dataset.type, id = dataset.id, imageSource;
-    if (type === 'album') {
+  public itemSelector = (dataset: any) => {
+    let type = dataset.type, id = dataset.id, imageSource;
+    if (type === "album") {
       // get album id
       this.getPhotosFromAlbum(id, {});
     } else {
@@ -144,47 +144,47 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
     }
   }
 
-  getURLasFileObj = (url: any) => {
+  public getURLasFileObj = (url: any) => {
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', url);
-    myRequest.responseType = 'blob';//force the HTTP response, response-type header to be blob
+    myRequest.open("GET", url);
+    myRequest.responseType = "blob"; // force the HTTP response, response-type header to be blob
     myRequest.onload = () => {
       const blob = myRequest.response;
-      const type = blob.type.split('/')[1] || 'jpg';
-      blob.name = 'facebook_upload.' + type;
+      const type = blob.type.split("/")[1] || "jpg";
+      blob.name = "facebook_upload." + type;
       (this.props as any).onSelection(blob);
       this.closeOverlay();
     };
     myRequest.send();
-  };
+  }
 
-  getMoreItems = (paging: any, type: any) => {
+  public getMoreItems = (paging: any, type: any) => {
 
   }
 
-  showError = (error: any) => {
+  public showError = (error: any) => {
     this.setState({
       showOverlay: true,
       showError: true,
-      customError: error || ErrorMessages['default']
+      customError: error || ErrorMessages.default,
     });
   }
 
-  getAlbumData = () => {
+  public getAlbumData = () => {
     this.setState({
       albumsLoaded: true,
-      photoDataLoaded: {}
+      photoDataLoaded: {},
     });
   }
 
-  render() {
+  public render() {
     const state: any = this.state;
     return (
-      <div className='facebookImageSelector'>
+      <div className="facebookImageSelector">
         {(state.showOverlay) ?
           <ImageLoader
             data={state.albumsLoaded ? state.albumDataLoaded : state.photoDataLoaded}
-            type = {state.albumsLoaded}
+            type={state.albumsLoaded}
             closeOverlay={this.closeOverlay}
             itemSelector={this.itemSelector}
             albumSelector={this.getAlbumData}
@@ -192,10 +192,10 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             isError={state.showError}
             loadMore={this.getMoreItems}
             customError={state.customError}
-            paging={state.albumsLoaded ? state.albumPaging : state.photoPaging} /> : ''
+            paging={state.albumsLoaded ? state.albumPaging : state.photoPaging} /> : ""
         }
       </div>
     );
   }
-  
+
 }
