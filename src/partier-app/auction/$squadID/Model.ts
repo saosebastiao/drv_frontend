@@ -30,6 +30,7 @@ export default class AuctionModel {
   }
   public quit() {
     this.subscription.complete();
+    this.subscription.unsubscribe();
   }
   public getState() {
     this.subscription.next(JSON.stringify({ msg: "GetState" }));

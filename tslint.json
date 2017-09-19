@@ -11,6 +11,16 @@
         "no-unused-variable": true,
         "interface-name": false,
         "member-ordering": false,
+        "max-classes-for-file": [
+            true,
+            2
+        ],
+        "one-line": [
+            true,
+            "check-catch",
+            "check-finally",
+            "check-else"
+        ],
         "array-type": [
             true,
             "generic"
