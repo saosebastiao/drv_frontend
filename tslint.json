@@ -11,7 +11,7 @@
         "no-unused-variable": true,
         "interface-name": false,
         "member-ordering": false,
-        "max-classes-for-file": [
+        "max-classes-per-file": [
             true,
             2
         ],
