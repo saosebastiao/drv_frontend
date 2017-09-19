@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from 'react-dom';
-import * as $ from 'jquery';
+import * as $ from "jquery";
 import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps } from 'react-router-dom';
 import { observer } from "mobx-react";
@@ -8,7 +8,6 @@ import { observable } from "mobx";
 import * as _ from 'lodash';
 import EditProfileModel from "./Model";
 import FacebookImageSelector from '../../../modules/FacebookImageSelector';
-import './styles.scss';
 
 
 @observer

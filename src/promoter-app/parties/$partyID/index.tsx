@@ -3,7 +3,6 @@ import * as moment from "moment";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import ViewPartyModel from "./Model";
-import "./styles";
 
 interface PViewParty {
   partyID: number;

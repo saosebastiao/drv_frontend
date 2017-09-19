@@ -1,14 +1,13 @@
+import 'bootstrap-sass/assets/javascripts/bootstrap.js';
+import * as $ from 'jquery';
+import * as _ from 'lodash';
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 import * as React from "react";
 import { findDOMNode } from 'react-dom';
-import * as $ from 'jquery';
-import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps } from 'react-router-dom';
-import { observer } from "mobx-react";
-import { observable } from "mobx";
-import * as _ from 'lodash';
-import EditVenueModel from "./Model";
 import FacebookImageSelector from '../../../../modules/FacebookImageSelector';
-import './styles.scss';
+import EditVenueModel from "./Model";
 
 interface PEditVenue {
   venueID: number;
@@ -52,14 +51,14 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
   async clickSave() {
     const x = await this.venue.save()
     this.props.history.push(`/promoter/venues/${x.venueID}`);
-    //go back
+    // go back
   }
 
-  changeVenueName = (event: any) => {
+  public changeVenueName = (event: any) => {
     this.venue.venueName = event.target.value
   };
 
-  renderOtherPhotos() {
+  public renderOtherPhotos() {
     return (
       <div className="other-photos-container">
         <div className="other-photos-row">
@@ -86,7 +85,7 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
     );
   }
 
-  render() {
+  public render() {
     return this.venue.isReady ? <div className="profile-edit-wrapper">
       <div className="profile-edit-contents">
         <div className="profile-top-contents">

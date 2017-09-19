@@ -1,5 +1,5 @@
 import * as React from "react";
-import { findDOMNode } from 'react-dom';
+import { findDOMNode } from "react-dom";
 import * as $ from 'jquery';
 import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { observable } from "mobx";
 import * as _ from 'lodash';
 import CreateVenueModel from "./Model";
 import FacebookImageSelector from '../../../modules/FacebookImageSelector';
-import './styles.scss';
 
 
 @observer
@@ -63,7 +62,7 @@ export default class CreateVenue extends React.Component<RouteComponentProps<{}>
               <div className="value-col">
                 <select className="form-control" aria-describedby="input-home" value={this.model.regionID} onChange={this.changeRegionID}>
                   <option key="none" value="none">Please Select a Region</option>
-                  {this.model.regions.map(x => <option key={x} value={x}>{x}</option>)}
+                  {this.model.regions.map((x) => <option key={x} value={x}>{x}</option>)}
                 </select>
               </div>
             </div>

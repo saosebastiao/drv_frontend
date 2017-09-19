@@ -1,5 +1,5 @@
 import * as React from "react";
-import { findDOMNode } from 'react-dom';
+import { findDOMNode } from "react-dom";
 import * as $ from 'jquery';
 import 'bootstrap-sass/assets/javascripts/bootstrap.js';
 import { RouteComponentProps, Link } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { observable } from "mobx";
 import * as _ from 'lodash';
 import ShowVenueModel from "./Model";
 import FacebookImageSelector from '../../../modules/FacebookImageSelector';
-import './styles.scss';
 
 interface PShowVenue {
   venueID: number;

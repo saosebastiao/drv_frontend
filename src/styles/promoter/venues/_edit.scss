@@ -1,5 +1,3 @@
-@import 'global';
-
 .profile-edit-wrapper {
 	width: 100%;
 	height: 100%;
@@ -54,6 +52,50 @@
 
 	#file-selector {
 		display: none;
+	}
+
+}
+.profile-wrapper {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+
+	.profile-contents {
+		display: inline-block;
+    width: 800px;
+    margin-top: 20px;
+    padding: 20px 40px;
+	}
+
+	.profile-list {
+		flex: 1;
+		margin-left: 20px;
+		padding: 20px;
+		background: map-get($colors, info-back);
+		color: black;
+    text-align: left;
+    line-height: 30px;
+    font-size: 1.8rem;
+	}
+
+	.friend-list {
+		width: 100%;
+		height: 240px;
+		overflow: scroll;
+		border: 1px solid map-get($colors, border);
+
+		.list-group {
+	    margin-bottom: 0px;
+	    border: none;
+
+	    .list-group-item {
+	    	margin: 0px;
+	    	text-align: left;
+		    border-radius: 0px;
+		    border: none;
+		    border-bottom: 2px solid map-get($colors, border);
+	    }
+		}
 	}
 
 }

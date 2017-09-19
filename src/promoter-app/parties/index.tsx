@@ -7,8 +7,6 @@ import CreateParty from "./create";
 
 
 
-import './styles.scss';
-
 export default class Squad extends React.Component<RouteComponentProps<any>, {}> {
 
 	render() {
