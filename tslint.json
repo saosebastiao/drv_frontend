@@ -8,6 +8,10 @@
     "rules": {
         "jsx-no-multiline": false,
         "jsx-no-multiline-js": false,
+        "jsx-boolean-value": [
+            true,
+            "never"
+        ],
         "no-unused-variable": true,
         "interface-name": false,
         "member-ordering": false,
