@@ -1,19 +1,16 @@
-import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/dom/ajax";
 import "rxjs/add/observable/dom/webSocket";
 import "rxjs/add/operator/toPromise";
+import { Observable } from "rxjs/Observable";
 
-import Logger from "./Logger";
 import { getFBStatus } from "./FacebookAPI";
-
+import Logger from "./Logger";
 
 type DataMethod = "put" | "post" | "patch";
 type NoDataMethod = DataMethod | "get" | "head" | "option" | "delete";
 type DroverUserType = "admin" | "partier" | "promoter";
 
-
 let USERID: string | null;
-
 
 async function login(userType: DroverUserType) {
   const { userID, accessToken } = await getFBStatus();
@@ -21,9 +18,9 @@ async function login(userType: DroverUserType) {
   Logger.debug("Attempting Drover Login");
   try {
     const url = `/api/${userType}/login`;
-    const body = { userID: userID, fbToken: accessToken };
-    const headers = { 'Content-Type': 'application/json' };
-    const method = 'post';
+    const body = { userID, fbToken: accessToken };
+    const headers = { "Content-Type": "application/json" };
+    const method = "post";
     const res = await Observable.ajax({ method, url, headers, body }).toPromise();
     Logger.info("Logged in");
   } catch (err) {
@@ -47,15 +44,15 @@ async function request<RES>(method: NoDataMethod, endpoint: string) {
   const url = `/api${endpoint}`;
   const res = await Observable.ajax({ method, url }).toPromise();
   Logger.debug(res.response);
-  return res.response as RES
+  return res.response as RES;
 }
 
 async function requestData<RES>(method: DataMethod, endpoint: string, body: any) {
   const url = `/api${endpoint}`;
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = { "Content-Type": "application/json" };
   const res = await Observable.ajax({ method, headers, url, body }).toPromise();
   Logger.debug(res.response);
-  return res.response as RES
+  return res.response as RES;
 }
 
 export function logout() {
@@ -98,7 +95,7 @@ export function createRegion(region: string, startTime: string, timeZone: string
   return requestData<IPartierProfile>("post", `/region/new`, {
     region,
     startTime,
-    timeZone
+    timeZone,
   });
 }
 
@@ -179,7 +176,7 @@ export function resetPartierInvites(partyNight: string, userID?: string) {
 }
 
 export function geocodeAddress(address: string) {
-  return request<Array<IGeocodedAddress>>("get", `/venue/geocode?address=${address}`)
+  return request<Array<IGeocodedAddress>>("get", `/venue/geocode?address=${address}`);
 }
 
 export function getPromoterVenues() {
@@ -190,14 +187,14 @@ export function createVenue(venueName: string, regionID: string, address: string
   return requestData<IVenue>("post", `/venue/new`, {
     venueName,
     regionID,
-    address
+    address,
   });
 }
 
 export function updateVenue(venueID: number, venueName: string, photos: Array<string>) {
   return requestData<IVenue>("put", `/venue/${venueID}`, {
     venueName,
-    photos
+    photos,
   });
 }
 
@@ -213,12 +210,11 @@ export function getPromoterPartiesByPartyNight(partyNight: string) {
   return request<Array<IParty>>("get", `/party/night/${partyNight}`);
 }
 
-
 export function createParty(partyName: string, auctionID: number, venueID: number) {
   return requestData<IParty>("post", `/party/new`, {
     partyName,
     auctionID,
-    venueID
+    venueID,
   });
 }
 
@@ -226,6 +222,10 @@ export function deleteParty(partyID: number) {
   return request<void>("delete", `/party/${partyID}`);
 }
 
-export function getPartierAuctionWS(squadID: number) {
+export function getSquadAuctionWS(squadID: number) {
   return Observable.webSocket(`ws://localhost:9000/auction/squad/${squadID}`);
+}
+
+export function getPartyAuctionWS(partyID: number) {
+  return Observable.webSocket(`ws://localhost:9000/auction/party/${partyID}`);
 }

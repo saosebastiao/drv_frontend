@@ -13,7 +13,7 @@ interface PAuctionForSquad {
 @observer
 export default class AuctionID extends React.Component<RouteComponentProps<PAuctionForSquad>, {}> {
 
-  public model = new AuctionModel(parseInt(this.props.match.params.squadID, 10));
+  private model = new AuctionModel(parseInt(this.props.match.params.squadID, 10));
 
   public componentWillUnmount() {
     this.model.quit();

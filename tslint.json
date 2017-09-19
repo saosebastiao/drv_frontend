@@ -12,6 +12,8 @@
             true,
             "never"
         ],
+        "jsx-no-lambda": false,
+        "object-literal-sort-keys": false,
         "no-unused-variable": true,
         "interface-name": false,
         "member-ordering": false,

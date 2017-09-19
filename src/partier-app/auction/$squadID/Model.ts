@@ -1,5 +1,5 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { getPartierAuctionWS, getSquad } from "modules/DroverClient";
+import { getSquad, getSquadAuctionWS } from "modules/DroverClient";
 import Logger from "modules/Logger";
 
 export default class AuctionModel {
@@ -10,7 +10,7 @@ export default class AuctionModel {
   @computed get isReady() {
     return this.mySquad != null && this.auctionState != null;
   }
-  private subscription = getPartierAuctionWS(this.squadID);
+  private subscription = getSquadAuctionWS(this.squadID);
   @action private processEvents(message: IAuctionMessage) {
     if (message.msg === "CurrentState") {
       Logger.info(message);
