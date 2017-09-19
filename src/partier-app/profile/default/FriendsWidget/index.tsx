@@ -8,7 +8,6 @@ import Accepted from "./Accepted";
 import Invited from "./Invited";
 import Invitations from "./Invitations";
 import Rejected from "./Rejected";
-import '../styles.scss';
 
 class FriendsModel {
 	@computed get isReady() {
@@ -50,12 +49,12 @@ class FriendsModel {
 export default class FriendsWidget extends React.Component<{}, {}> {
 	model = new FriendsModel;
 
-	render() {
+	public render() {
 		return <div className="profile-wrapper">
 			<div className="friend-list">
 				<div><span>Potential Friends</span></div>
 				<ul className="list-group">
-					{this.model.potential.map(x => {
+					{this.model.potential.map((x) => {
 						return <Potential key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
@@ -67,19 +66,19 @@ export default class FriendsWidget extends React.Component<{}, {}> {
 				</ul>
 				<div><span>Invitations from Friends</span></div>
 				<ul className="list-group">
-					{this.model.invitations.map(x => {
+					{this.model.invitations.map((x) => {
 						return <Invitations key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
 				<div><span>Accepted Friends</span></div>
 				<ul className="list-group">
-					{this.model.accepted.map(x => {
+					{this.model.accepted.map((x) => {
 						return <Accepted key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>
 				<div><span>Rejected Friends</span></div>
 				<ul className="list-group">
-					{this.model.rejected.map(x => {
+					{this.model.rejected.map((x) => {
 						return <Rejected key={x} friendID={x} refresh={this.model.refresh.bind(this)} />
 					})}
 				</ul>

@@ -3,7 +3,6 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, linkFriend } from "modules/DroverClient";
-import '../styles.scss';
 
 
 interface PInvited {
@@ -19,7 +18,7 @@ export default class Invited extends React.Component<PInvited, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async invite() {
+	public async invite() {
 		try {
 			let x = await linkFriend(this.props.friendID);
 			this.props.refresh(x);
@@ -31,7 +30,7 @@ export default class Invited extends React.Component<PInvited, {}>{
 	constructor(props: PInvited) {
 		super(props);
 		getPartierProfile(this.props.friendID)
-			.then(x => {
+			.then((x) => {
 				runInAction(() => {
 					Object.assign(this, x);
 				})

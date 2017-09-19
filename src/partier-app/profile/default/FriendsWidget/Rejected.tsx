@@ -3,7 +3,6 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, linkFriend } from "modules/DroverClient";
-import '../styles.scss';
 
 
 interface PRejected {
@@ -19,7 +18,7 @@ export default class Rejected extends React.Component<PRejected, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async unblock() {
+	public async unblock() {
 		try {
 			let x = await linkFriend(this.props.friendID);
 			this.props.refresh(x);
@@ -31,7 +30,7 @@ export default class Rejected extends React.Component<PRejected, {}>{
 	constructor(props: PRejected) {
 		super(props);
 		getPartierProfile(this.props.friendID)
-			.then(x => {
+			.then((x) => {
 				runInAction(() => {
 					Object.assign(this, x);
 				})

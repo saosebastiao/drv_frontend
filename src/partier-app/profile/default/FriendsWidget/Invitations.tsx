@@ -3,7 +3,6 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, linkFriend, unlinkFriend } from "modules/DroverClient";
-import '../styles.scss';
 
 
 interface PInvitations {
@@ -27,7 +26,7 @@ export default class Invitations extends React.Component<PInvitations, {}>{
 			console.log(e);
 		}
 	}
-	async reject() {
+	public async reject() {
 		try {
 			let x = await unlinkFriend(this.props.friendID);
 			this.props.refresh(x);
@@ -39,7 +38,7 @@ export default class Invitations extends React.Component<PInvitations, {}>{
 	constructor(props: PInvitations) {
 		super(props);
 		getPartierProfile(this.props.friendID)
-			.then(x => {
+			.then((x) => {
 				runInAction(() => {
 					Object.assign(this, x);
 				})

@@ -3,7 +3,6 @@ import { RouteComponentProps, Route, Link } from 'react-router-dom';
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, unlinkFriend } from "modules/DroverClient";
-import '../styles.scss';
 
 
 interface PAccepted {
@@ -19,7 +18,7 @@ export default class Accepted extends React.Component<PAccepted, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async block() {
+	public async block() {
 		try {
 			let x = await unlinkFriend(this.props.friendID);
 			this.props.refresh(x);
@@ -31,7 +30,7 @@ export default class Accepted extends React.Component<PAccepted, {}>{
 	constructor(props: PAccepted) {
 		super(props);
 		getPartierProfile(this.props.friendID)
-			.then(x => {
+			.then((x) => {
 				runInAction(() => {
 					Object.assign(this, x);
 				})

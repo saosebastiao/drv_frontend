@@ -2,7 +2,6 @@ import * as React from "react";
 import { observable, computed, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { getPartierProfile, linkFriend } from "modules/DroverClient";
-import '../styles.scss';
 
 
 interface PPotential {
@@ -18,7 +17,7 @@ export default class Potential extends React.Component<PPotential, {}>{
 	@computed get isReady() {
 		return this.name != null;
 	}
-	async invite() {
+	public async invite() {
 		try {
 			let x = await linkFriend(this.props.friendID);
 			this.props.refresh(x);
@@ -30,7 +29,7 @@ export default class Potential extends React.Component<PPotential, {}>{
 	constructor(props: PPotential) {
 		super(props);
 		getPartierProfile(this.props.friendID)
-			.then(x => {
+			.then((x) => {
 				runInAction(() => {
 					Object.assign(this, x);
 				})

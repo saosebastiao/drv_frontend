@@ -4,7 +4,6 @@ import { observer } from "mobx-react";
 import * as _ from 'lodash';
 import ProfileModel from "./Model";
 import FriendsWidget from "./FriendsWidget"
-import './styles.scss';
 
 
 export interface IProfileModel {
@@ -13,13 +12,13 @@ export interface IProfileModel {
 
 @observer
 export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
-	profile = new ProfileModel;
+	public profile = new ProfileModel;
 
 	constructor(props: any) {
 		super(props);
 	}
 
-	render() {
+	public render() {
 		return <div className="profile-wrapper">
 			<div className="profile-contents">
 				<div className="profile-top-contents">
@@ -34,7 +33,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
 									_.range(4).map((col_index: number) => {
 										return <div className="other-photos-col"
 											style={this.profile.otherPhotos[col_index]}
-											key={`other_photos_col_${col_index}`} />
+											key={`other_photos_col_${col_index}`} />;
 									})
 								}
 							</div>
