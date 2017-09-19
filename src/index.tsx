@@ -8,7 +8,7 @@ import Promoter from "./promoter-app";
 
 import DevTool from "mobx-react-devtools";
 
-import "./styles.scss";
+import "./styles/app.scss";
 
 class AppRouter extends React.Component<{}, {}> {
   public render() {
