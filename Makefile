@@ -17,7 +17,6 @@ ts:
 scss:
 	./node_modules/.bin/node-sass -r src/ -o bin/ \
 	--include-path ./node_modules/bootstrap-sass/assets/stylesheets \
-	--include-path ./src/config
 
 dev: clean staticassets
 	export BACKEND=local && ./node_modules/.bin/webpack-dev-server --hot --inline
