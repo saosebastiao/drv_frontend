@@ -1,12 +1,12 @@
-import { observable, computed, runInAction } from "mobx";
-import { getRegions, geocodeAddress, createVenue } from "modules/DroverClient";
+import { computed, observable, runInAction } from "mobx";
+import { createVenue, geocodeAddress, getRegions } from "modules/DroverClient";
 
 export default class CreateVenueModel {
-    @observable venueID: string;
-    @observable venueName: string = "";
-    @observable address: string = "";
-    @observable regionID: string = "";
-    @observable regions: Array<string> = [];
+    @observable public venueID: string;
+    @observable public venueName: string = "";
+    @observable public address: string = "";
+    @observable public regionID: string = "";
+    @observable public regions: Array<string> = [];
     @computed get isReady() {
         return this.regions.length > 0;
     }
@@ -20,26 +20,26 @@ export default class CreateVenueModel {
         return this.address.length > 0 && this.regionID.length > 0;
     }
 
-    async refresh() {
-        let res = await getRegions();
+    public async refresh() {
+        const res = await getRegions();
         runInAction(() => {
-            this.regions = res.map(x => x.regionID);
+            this.regions = res.map((x) => x.regionID);
         });
     }
 
-    async create() {
-        let res = await createVenue(this.venueName, this.regionID, this.address);
+    public async create() {
+        const res = await createVenue(this.venueName, this.regionID, this.address);
         runInAction(() => {
             Object.assign(this, res);
         });
-        res;
+        return res;
     }
 
-    async geocode() {
-        let res = await geocodeAddress(this.address);
+    public async geocode() {
+        const res = await geocodeAddress(this.address);
         runInAction(() => {
             Object.assign(this, res);
-        })
+        });
     }
 
     constructor() {

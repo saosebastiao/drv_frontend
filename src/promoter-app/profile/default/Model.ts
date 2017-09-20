@@ -1,20 +1,20 @@
-import { observable, computed, runInAction } from "mobx";
+import { computed, observable, runInAction } from "mobx";
 import { getPromoterProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
-    @observable userID: string;
+    @observable public userID: string;
     @computed get isReady() {
         return this.userID != null;
     }
-    @observable name: string = "";
-    @observable email: string = "";
-    @observable validated: boolean = false;
-    @observable complete: boolean = false;
-    async refresh() {
-        let res = await getPromoterProfile();
+    @observable public name: string = "";
+    @observable public email: string = "";
+    @observable public validated: boolean = false;
+    @observable public complete: boolean = false;
+    public async refresh() {
+        const res = await getPromoterProfile();
         runInAction(() => {
             Object.assign(this, res);
-        })
+        });
     }
     constructor() {
         this.refresh();
