@@ -38,6 +38,7 @@ export default class SquadCard extends React.Component<PVenueCard, {}>{
         <div>Address: {this.model.address}</div>
         <div>Region: {this.model.regionID}</div>
         <div>Photos:</div>
+        {this.props.children}
       </div>
     ) : null;
   }

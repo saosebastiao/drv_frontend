@@ -152,6 +152,8 @@ interface IPartierFilters {
 }
 
 interface ISquadFilters {
+  inAuction?: boolean;
+  minimumPrice?: number;
   venueBlacklist?: Array<number>;
   musicTypes?: Array<string>;
   venueTypes?: Array<string>;

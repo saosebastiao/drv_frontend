@@ -1,6 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
+import SquadFilters from "shared/widgets/SquadFilters";
 import MemberCard from "./MemberCard";
 import ViewSquadModel from "./Model";
 
@@ -46,19 +47,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<PView
           <div className="info-label">Name</div>
           <div className="info-value">{this.model.squadName}</div>
         </div>
-        <div className="info-title">Preferences</div>
-        <div className="info-row">
-          <div className="info-label">Venue Type</div>
-          <div className="info-value">{this.model.filters.venueType}</div>
-        </div>
-        <div className="info-row">
-          <div className="info-label">Music Type</div>
-          <div className="info-value">{this.model.filters.musicType}</div>
-        </div>
-        <div className="info-row">
-          <div className="info-label">Neighborhood</div>
-          <div className="info-value">{this.model.filters.neighborhood}</div>
-        </div>
+        <SquadFilters isOwned={this.model.isOwned} filters={this.model.filters} />
       </div>
     );
   }

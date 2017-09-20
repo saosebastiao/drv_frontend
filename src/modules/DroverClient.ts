@@ -199,6 +199,9 @@ export function updateVenue(venueID: number, venueName: string, photos: Array<st
     photos,
   });
 }
+export function updateSquad(squadID: number, data: ISquadFilters) {
+  return requestData<ISquad>("put", `/squad/${squadID}`, data);
+}
 
 export function deleteVenue(venueID: number) {
   return request<void>("delete", `/venue/${venueID}`);
