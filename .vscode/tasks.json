@@ -9,45 +9,6 @@
   "version": "0.1.0",
   "tasks": [
     {
-      "taskName": "Compile",
-      "isBuildCommand": true,
-      "suppressTaskName": true,
-      "command": "make",
-      "args": [
-        "clean",
-        "staticassets",
-        "sass",
-        "envdev",
-        "ts"
-      ],
-      "isBackground": false,
-      "showOutput": "silent",
-      "problemMatcher": "$tsc"
-    },
-    {
-      "taskName": "Compile:TS",
-      "isBuildCommand": true,
-      "suppressTaskName": true,
-      "command": "make",
-      "args": [
-        "ts"
-      ],
-      "showOutput": "silent",
-      "isBackground": false
-    },
-    {
-      "taskName": "Compile:SASS",
-      "isBuildCommand": true,
-      "suppressTaskName": true,
-      "command": "make",
-      "args": [
-        "scss"
-      ],
-      "isBackground": false,
-      "showOutput": "silent",
-      "problemMatcher": "$tsc"
-    },
-    {
       "taskName": "Watch",
       "suppressTaskName": true,
       "isBuildCommand": true,
