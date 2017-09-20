@@ -1,7 +1,6 @@
 import { observer } from "mobx-react";
-import * as moment from "moment";
 import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import PartyCard from "shared/cards/PartyCard";
 import SquadCard from "shared/cards/SquadCard";
 import AuctionModel from "./Model";

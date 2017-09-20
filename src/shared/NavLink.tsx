@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, matchPath, RouteComponentProps } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 interface RouteName {
   route: string;
   label: string;

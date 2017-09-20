@@ -44,8 +44,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
     }
   }
 
-  public async clickSave() {
-    const x = await this.profile.save();
+  public clickSave = async () => {
+    await this.profile.save();
     this.props.history.push("/partier/profile");
     // go back
   }
@@ -67,19 +67,19 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
       <div className="other-photos-container">
         <div className="other-photos-row">
           {
-            _.range(5).map((col_index: number) => {
-              if (this.profile.otherPhotos.length > col_index) {
+            _.range(5).map((colIndex: number) => {
+              if (this.profile.otherPhotos.length > colIndex) {
                 return <div
                   className="other-photos-col"
-                  key={`other_photos_col_${col_index}`}
-                  style={this.profile.otherPhotos[col_index]}
-                  onClick={() => this.onShowFacebookImageModal(col_index + 1)}
+                  key={`other_photos_col_${colIndex}`}
+                  style={this.profile.otherPhotos[colIndex]}
+                  onClick={() => this.onShowFacebookImageModal(colIndex + 1)}
                 />;
               } else {
                 return <div
                   className="other-photos-col"
-                  key={`other_photos_col_${col_index}`}
-                  onClick={() => this.onShowFacebookImageModal(col_index + 1)}
+                  key={`other_photos_col_${colIndex}`}
+                  onClick={() => this.onShowFacebookImageModal(colIndex + 1)}
                 />;
               }
             })
@@ -95,27 +95,54 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         <div className="profile-edit-contents">
           <div className="profile-top-contents">
             <div className="photo-container">
-              <div className="main-photo" style={this.profile.profilePhoto} onClick={() => this.onShowFacebookImageModal(0)} />
+              <div
+                className="main-photo"
+                style={this.profile.profilePhoto}
+                onClick={() => this.onShowFacebookImageModal(0)}
+              />
               {this.renderOtherPhotos()}
             </div>
             <div className="profile-form">
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Display Name">Display Name</span>
+                  <span
+                    ref={this.initToggle}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Display Name"
+                  >
+                    Display Name
+                  </span>
                 </label>
                 <div className="value-col">
-                  <input type="text" className="form-control" aria-describedby="input-name"
+                  <input
+                    type="text"
+                    className="form-control"
+                    aria-describedby="input-name"
                     value={this.profile.name}
-                    onChange={this.changeName} />
+                    onChange={this.changeName}
+                  />
                 </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="input-home" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Hometown</span>
+                  <span
+                    ref={this.initToggle}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Hometown"
+                  >
+                    Hometown
+                  </span>
                 </label>
                 <div className="value-col">
-                  <select className="form-control" aria-describedby="input-home" value={this.profile.defaultRegion} onChange={this.changeHome}>
+                  <select
+                    className="form-control"
+                    aria-describedby="input-home"
+                    value={this.profile.defaultRegion}
+                    onChange={this.changeHome}
+                  >
                     <option key="none" value="none">Please Select a Hometown</option>
                     {this.profile.availRegions.map((x) => <option key={x} value={x}>{x}</option>)}
                   </select>
@@ -128,17 +155,29 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                 </label>
                 <div className="value-col">
                   <label className="radio-inline">
-                    <input type="radio" name="gender" value="male" checked={this.profile.gender === "male"} onChange={this.changeGender} />Male
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="male"
+                      checked={this.profile.gender === "male"}
+                      onChange={this.changeGender}
+                    />Male
                 </label>
                   <label className="radio-inline">
-                    <input type="radio" name="gender" value="female" checked={this.profile.gender === "female"} onChange={this.changeGender} />Female
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="female"
+                      checked={this.profile.gender === "female"}
+                      onChange={this.changeGender}
+                    />Female
                 </label>
                 </div>
               </div>
             </div>
           </div>
           <br /><br />
-          <button className="btn btn-lg btn-primary" onClick={this.clickSave.bind(this)}>Save</button>
+          <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
         </div>
         {this.showFacebookImageModal &&
           <FacebookImageSelector

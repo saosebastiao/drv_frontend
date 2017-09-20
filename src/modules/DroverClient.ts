@@ -23,8 +23,10 @@ async function login(userType: DroverUserType) {
     const method = "post";
     const res = await Observable.ajax({ method, url, headers, body }).toPromise();
     Logger.info("Logged in");
+    return res;
   } catch (err) {
     Logger.error("Error logging in");
+    return err;
   }
 }
 export function getUserID() {
@@ -202,7 +204,7 @@ export function deleteVenue(venueID: number) {
   return request<void>("delete", `/venue/${venueID}`);
 }
 
-export function getPromoterParties(partyNight?: string) {
+export function getPromoterParties() {
   return request<Array<IPromoterPartyNight>>("get", `/party/all`);
 }
 

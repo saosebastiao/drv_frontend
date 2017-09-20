@@ -16,9 +16,11 @@ class EnvLogger {
       if (this.isTestMode) {
         return label;
       } else {
+        // tslint:disable-next-line:no-console
         console.log(label, msg);
+        return undefined;
       }
-    }
+    } else return undefined;
   }
   private constructor() { }
   public static getLogger() {

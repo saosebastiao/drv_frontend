@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import ShowVenue from "./$venueID";
 import EditVenue from "./$venueID/edit";
 import CreateVenue from "./create";

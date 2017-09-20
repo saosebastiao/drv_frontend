@@ -1,8 +1,6 @@
-import { observer } from "mobx-react";
 import { logout } from "modules/DroverClient";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import NavLink from "./NavLink";
 
 export default class Header extends React.Component<{}, {}> {
 

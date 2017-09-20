@@ -2,7 +2,6 @@ import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { partierLogin } from "modules/DroverClient";
 import * as React from "react";
-import { render } from "react-dom";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import Footer from "shared/Footer";
 import Header from "shared/Header";
@@ -11,8 +10,6 @@ import Auction from "./auction";
 import Profile from "./profile";
 import Squad from "./squad";
 
-import DevTool from "mobx-react-devtools";
-
 const NoMatch = () => <p>404 Page Does Not Exist</p>;
 
 @observer
@@ -20,7 +17,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
   @observable public loggedIn: boolean = false;
   public async login() {
     try {
-      const x = await partierLogin();
+      await partierLogin();
       runInAction(() => this.loggedIn = true);
     } catch (e) {
       runInAction(() => this.loggedIn = false);
@@ -41,7 +38,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
         </Header>
         {this.loggedIn ?
           <Switch>
-            <Route exact path="/partier" render={(m) => <Redirect to="/partier/profile" />} />
+            <Route exact path="/partier" render={() => <Redirect to="/partier/profile" />} />
             <Route path="/partier/profile" component={Profile} />
             <Route path="/partier/squad" component={Squad} />
             <Route path="/partier/auction" component={Auction} />

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import PartyID from "./$partyID";
 import AuctionList from "./default";
 

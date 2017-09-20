@@ -2,7 +2,6 @@ import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { promoterLogin } from "modules/DroverClient";
 import * as React from "react";
-import { render } from "react-dom";
 import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import Footer from "shared/Footer";
 import Header from "shared/Header";
@@ -12,8 +11,6 @@ import Parties from "./parties";
 import Profile from "./profile";
 import Venues from "./venues";
 
-import DevTool from "mobx-react-devtools";
-
 const NoMatch = () => <p>404 Page Does Not Exist</p>;
 
 @observer
@@ -21,7 +18,7 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
   @observable public loggedIn: boolean = false;
   public async login() {
     try {
-      const x = await promoterLogin();
+      await promoterLogin();
       runInAction(() => this.loggedIn = true);
     } catch (e) {
       runInAction(() => this.loggedIn = false);
@@ -43,7 +40,7 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
         </Header>
         {this.loggedIn ?
           <Switch>
-            <Route exact path="/promoter" render={(m) => <Redirect to="/promoter/profile" />} />
+            <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
             <Route path="/promoter/profile" component={Profile} />
             <Route path="/promoter/venues" component={Venues} />
             <Route path="/promoter/parties" component={Parties} />

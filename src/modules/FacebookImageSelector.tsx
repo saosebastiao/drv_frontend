@@ -1,15 +1,15 @@
-import * as React from 'react';
-import * as _ from 'lodash';
-import { observer } from 'mobx-react';
-import ImageLoader from './ImageLoader';
-import './FacebookImageSelector.scss';
+import * as _ from "lodash";
+import { observer } from "mobx-react";
+import * as React from "react";
+import "./FacebookImageSelector.scss";
+import ImageLoader from "./ImageLoader";
 
 const ErrorMessages = {
-  default: 'Some error occured while loading, Please try again after some time.',
-  notLoggedin: 'You are not logged in!. Please log into Facebook and try again',
+  default: "Some error occured while loading, Please try again after some time.",
+  notLoggedin: "You are not logged in!. Please log into Facebook and try again",
   unauthorized: "You have not authorized this app!. Please provide the required permission (user_photos)",
-  noAppId: 'No App Id specified',
-  noPhoto: "No Photos available in this album"
+  noAppId: "No App Id specified",
+  noPhoto: "No Photos available in this album",
 };
 
 @observer
@@ -25,7 +25,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
       photoDataLoaded: {},
       albumPaging: {},
       photoPaging: {},
-      customError: ""
+      customError: "",
     };
   }
 
@@ -47,7 +47,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
         } else {
           this.showError(null);
         }
-      }
+      },
     );
   }
 
@@ -61,7 +61,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
           const temp = data[i];
           const albumId = temp.id;
           FB.api("/" + albumId + "/picture", {
-            type: "album"
+            type: "album",
           }, (response: any) => {
             const res: any = {};
             if (response && !response.error) {
@@ -192,7 +192,8 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             isError={state.showError}
             loadMore={this.getMoreItems}
             customError={state.customError}
-            paging={state.albumsLoaded ? state.albumPaging : state.photoPaging} /> : ""
+            paging={state.albumsLoaded ? state.albumPaging : state.photoPaging}
+          /> : ""
         }
       </div>
     );
