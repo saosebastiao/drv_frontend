@@ -1,7 +1,6 @@
-import * as _ from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, Route, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import CreatePartyModel from "./Model";
 
 interface PCreateParty {

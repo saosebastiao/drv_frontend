@@ -1,4 +1,4 @@
-import { action, computed, observable, runInAction } from "mobx";
+import { computed, observable, runInAction } from "mobx";
 import {
     createParty,
     getAuctionsForPartyNight,

@@ -1,4 +1,4 @@
-import { computed, observable, runInAction, toJS } from "mobx";
+import { computed, observable, runInAction } from "mobx";
 import { getPromoterProfile, updatePromoterProfile } from "modules/DroverClient";
 
 export default class ProfileModel {

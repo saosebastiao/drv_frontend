@@ -1,12 +1,7 @@
 import "bootstrap-sass/assets/javascripts/bootstrap.js";
-import * as $ from "jquery";
-import * as _ from "lodash";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
-import FacebookImageSelector from "../../../modules/FacebookImageSelector";
 import EditProfileModel from "./Model";
 
 @observer
@@ -17,7 +12,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   }
 
   public clickSave = async () => {
-    const x = await this.profile.save();
+    await this.profile.save();
     this.props.history.push("/promoter/profile");
   }
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import ViewParty from "./$partyID";
 import EditParty from "./$partyID/edit";
 import CreateParty from "./create";

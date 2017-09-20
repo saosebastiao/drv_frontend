@@ -1,12 +1,10 @@
 import "bootstrap-sass/assets/javascripts/bootstrap.js";
 import * as $ from "jquery";
 import * as _ from "lodash";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { findDOMNode } from "react-dom";
 import { Link, RouteComponentProps } from "react-router-dom";
-import FacebookImageSelector from "../../../modules/FacebookImageSelector";
 import ShowVenueModel from "./Model";
 
 interface PShowVenue {

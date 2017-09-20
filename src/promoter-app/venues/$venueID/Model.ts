@@ -1,4 +1,4 @@
-import { computed, observable, runInAction, toJS } from "mobx";
+import { computed, observable, runInAction } from "mobx";
 import { getVenue, updateVenue } from "modules/DroverClient";
 
 export default class ShowVenueModel {

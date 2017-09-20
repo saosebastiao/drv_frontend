@@ -1,12 +1,9 @@
 import "bootstrap-sass/assets/javascripts/bootstrap.js";
 import * as $ from "jquery";
-import * as _ from "lodash";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
-import FacebookImageSelector from "../../../modules/FacebookImageSelector";
 import CreateVenueModel from "./Model";
 
 @observer
@@ -21,7 +18,7 @@ export default class CreateVenue extends React.Component<RouteComponentProps<{}>
   }
 
   public clickSave = async () => {
-    const x = await this.model.create();
+    await this.model.create();
     this.props.history.push(`/promoter/venues/${this.model.venueID}/edit`);
     // go back
   }
