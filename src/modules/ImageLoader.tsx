@@ -22,38 +22,38 @@ export default class ImageLoader extends React.Component<any, {}> {
     };
   }
 
-  public componentWillReceiveProps(nextProps: any) {
+  public componentWillReceiveProps() {
     this.setState({ showSpinner: false, loadMoreDataSpinner: false });
   }
 
   public render() {
     const props: any = this.props;
     const data: any = props.data;
-    const state: any = this.state,
-      type = ((this.props as any).type) ? "album" : "photos",
-      allAlbums = _.map(data, (value: any, key: any) => {
-        let borderStyle = {};
-        if (state.isBorder[key]) {
-          borderStyle = { border: "2px solid #3B5998" };
-        }
-        return (
-          <div
-            className="block"
-            key={type + key}
-            onClick={this.albumSelector}
-            onDoubleClick={this.photoSelector}
-            data-type={type}
-            data-id={key}
-          >
-            <div className="front-image" style={borderStyle}>
-              <div>
-                <img src={value.url || value.source} />
-              </div>
+    const state: any = this.state;
+    const type = ((this.props as any).type) ? "album" : "photos";
+    const allAlbums = _.map(data, (value: any, key: any) => {
+      let borderStyle = {};
+      if (state.isBorder[key]) {
+        borderStyle = { border: "2px solid #3B5998" };
+      }
+      return (
+        <div
+          className="block"
+          key={type + key}
+          onClick={this.albumSelector}
+          onDoubleClick={this.photoSelector}
+          data-type={type}
+          data-id={key}
+        >
+          <div className="front-image" style={borderStyle}>
+            <div>
+              <img src={value.url || value.source} />
             </div>
-            {value.name && <div className="album-name">{value.name}</div>}
           </div>
-        );
-      });
+          {value.name && <div className="album-name">{value.name}</div>}
+        </div>
+      );
+    });
 
     return (
       <div className="overlay">
@@ -71,7 +71,14 @@ export default class ImageLoader extends React.Component<any, {}> {
             }
             <div className="block-parent">
               {(props.isError) ? <div className="block-container-error">{props.customError}</div> :
-                (allAlbums && allAlbums.length > 0) ? <div className="block-container" ref="dataNode">{allAlbums}</div> :
+                (allAlbums && allAlbums.length > 0) ? (
+                  <div
+                    className="block-container"
+                    ref="dataNode"
+                  >
+                    {allAlbums}
+                  </div>
+                ) :
                   <div className="block-container-error">{ErrorMessages.noPhoto}</div>}
               {state.showSpinner && <div className="block-container-spinner"><div className="loader" /></div>}
               {state.loadMoreDataSpinner && <div className="block-container-loadmore"><div className="loader" /></div>}
@@ -79,7 +86,9 @@ export default class ImageLoader extends React.Component<any, {}> {
           </section>
           <footer>
             <div onClick={this.closeOverlay}>Cancel</div>
-            {!props.type && allAlbums && allAlbums.length > 0 && <div className="selector" onClick={this.okSelector}>OK</div>}
+            {!props.type && allAlbums && allAlbums.length > 0 && (
+              <div className="selector" onClick={this.okSelector}>OK</div>
+            )}
           </footer>
         </div>
         <div className="cover" />

@@ -47,7 +47,7 @@ export async function getFBStatus() {
 export function getFBUserInfo(userID?: string) {
   const params = { fields: "first_name,email,gender" };
   const user = userID ? `/${userID}` : "/me";
-  return new Promise<IPartierProfile>((resolve, reject) => {
+  return new Promise<IPartierProfile>((resolve) => {
     FB.api(user, "get", params, (x: FBIdentity) => {
       let gender: "m" | "f" | "o";
       if (x.gender && x.gender === "male") {
@@ -71,7 +71,7 @@ export function getFBUserInfo(userID?: string) {
 }
 
 export function getMyFriends() {
-  return new Promise<FBFriends>((resolve, reject) => {
+  return new Promise<FBFriends>((resolve) => {
     FB.api(`/me/friends`, "get", (x: FBFriends) => {
       resolve(x);
     });

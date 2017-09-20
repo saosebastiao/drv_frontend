@@ -1,5 +1,6 @@
 import * as _ from "lodash";
 import { observer } from "mobx-react";
+import Logger from "modules/Logger";
 import * as React from "react";
 import "./FacebookImageSelector.scss";
 import ImageLoader from "./ImageLoader";
@@ -87,7 +88,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
           });
         })
         .catch((error) => {
-          console.log("populateAlbums error", error);
+          Logger.error(`populateAlbums error ${error}`);
           this.showError(null);
         });
     }
@@ -127,7 +128,9 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
   }
 
   public itemSelector = (dataset: any) => {
-    let type = dataset.type, id = dataset.id, imageSource;
+    const type = dataset.type;
+    const id = dataset.id;
+    let imageSource;
     if (type === "album") {
       // get album id
       this.getPhotosFromAlbum(id, {});
@@ -158,9 +161,11 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
     myRequest.send();
   }
 
+  /*
   public getMoreItems = (paging: any, type: any) => {
 
   }
+  */
 
   public showError = (error: any) => {
     this.setState({
@@ -190,7 +195,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             albumSelector={this.getAlbumData}
             onImageSelect={this.props.onImageSelect}
             isError={state.showError}
-            loadMore={this.getMoreItems}
+            /* loadMore={this.getMoreItems} */
             customError={state.customError}
             paging={state.albumsLoaded ? state.albumPaging : state.photoPaging}
           /> : ""

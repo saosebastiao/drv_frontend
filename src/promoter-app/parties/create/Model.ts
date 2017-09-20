@@ -26,7 +26,7 @@ export default class CreatePartyModel {
         if (this.venue && this.auction && this.partyName.length > 0) {
             const party = await createParty(this.partyName, this.auction.auctionID, this.venueID);
             return party.partyID;
-        }
+        } else return undefined;
     }
     public async refresh() {
         const auctions = await getAuctionsForPartyNight(this.partyNight);

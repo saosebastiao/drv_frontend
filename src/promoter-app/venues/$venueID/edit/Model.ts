@@ -15,7 +15,7 @@ export default class EditVenueModel {
     @computed get profilePhoto() {
         if (this.photos.length > 0) {
             return { backgroundImage: `url(${this.photos[0]})` };
-        }
+        } else return undefined;
     }
     @computed get otherPhotos() {
         return this.photos.slice(1).map((url) => {
