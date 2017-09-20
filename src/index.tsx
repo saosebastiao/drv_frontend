@@ -5,8 +5,7 @@ import Admin from "./admin-app";
 import Home from "./home";
 import Partier from "./partier-app";
 import Promoter from "./promoter-app";
-
-import DevTool from "mobx-react-devtools";
+// import DevTool from "mobx-react-devtools";
 
 import "./styles/app.scss";
 
