@@ -2,12 +2,7 @@ import { action, observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import Logger from "modules/Logger";
 import * as React from "react";
-
-function transformSetToFilter<T>(arg: Set<T>): Array<T> | undefined {
-  if (arg.size > 0) {
-    return Array.from(arg);
-  } else return undefined;
-}
+import { transformSetToFilter } from "shared/Utils";
 
 interface PSquadFilters {
   isOwned: boolean;

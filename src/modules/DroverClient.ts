@@ -199,7 +199,7 @@ export function updateVenue(venueID: number, venueName: string, photos: Array<st
     photos,
   });
 }
-export function updateSquad(squadID: number, data: ISquadFilters) {
+export function updateSquad(squadID: number, data: { squadName?: string, filters?: ISquadFilters }) {
   return requestData<ISquad>("put", `/squad/${squadID}`, data);
 }
 

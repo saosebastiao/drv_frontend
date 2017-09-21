@@ -33,11 +33,12 @@ export default class PartierCard extends React.Component<PPartierCard, {}>{
   public model = new PartierCardModel(this.props.userID);
   public render() {
     return this.model.isReady ? (
-      <div>
-        <div>Name: {this.model.name}</div>
-        <div>Email: {this.model.email}</div>
-        <div>Gender: {this.model.gender}</div>
-        <div>Photos:</div>
+      <div className="member-card" >
+        <div className="card-photo" />
+        <div className="card-info">
+          <h5>{this.model.name}</h5>
+          {this.props.children}
+        </div>
       </div>
     ) : null;
   }
