@@ -33,6 +33,7 @@
             true,
             "generic"
         ],
+        "variable-name": false,
         "curly": [
             true,
             "ignore-same-line"
