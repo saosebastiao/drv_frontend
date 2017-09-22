@@ -1,6 +1,6 @@
 import { action, observable, computed } from "mobx";
 
-export default class ObservableSet<T> {
+export default class ObservableSet<T extends number | string> {
   @observable private map = new Map<T, true>();
   @computed public toArray() {
     const out = Array.from(this.map.keys());
