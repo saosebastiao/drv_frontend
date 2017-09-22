@@ -35,6 +35,7 @@ export default class PartyCard extends React.Component<PPartyCard, {}>{
         <div>Party Name: {this.model.partyName}</div>
         <div>Venue:
         <VenueCard venueID={this.model.venue.venueID} />
+          {this.props.children}
         </div>
       </div>
     ) : null;

@@ -42,9 +42,7 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
             return x.accepted ? <PartierCard userID={x.userID} /> : null;
           })}
         </div>
-        {this.props.submitBid ? (
-          <button type="button" onClick={this.props.submitBid}>Bid</button>
-        ) : null}
+        {this.props.children}
       </div>
     ) : null;
   }

@@ -1,8 +1,7 @@
+import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/dom/ajax";
 import "rxjs/add/observable/dom/webSocket";
 import "rxjs/add/operator/toPromise";
-import { Observable } from "rxjs/Observable";
-
 import { getFBStatus } from "./FacebookAPI";
 import Logger from "./Logger";
 
