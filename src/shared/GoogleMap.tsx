@@ -10,12 +10,12 @@ interface PGoogleMap {
 
 export default class GoogleMap extends React.Component<PGoogleMap, {}>{
   private map: google.maps.Map | null = null;
-  private latlng = new google.maps.LatLng(-34.397, 150.644);
+  private center = new google.maps.LatLng(-34.397, 150.644);
   private zoom = 8;
   private get mapOptions(): google.maps.MapOptions {
     return {
       zoom: this.zoom,
-      center: this.latlng
+      center: this.center
     };
   }
   public shouldComponentUpdate() {
