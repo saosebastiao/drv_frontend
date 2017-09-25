@@ -10,7 +10,7 @@ const ErrorMessages = {
   notLoggedin: "You are not logged in!. Please log into Facebook and try again",
   unauthorized: "You have not authorized this app!. Please provide the required permission (user_photos)",
   noAppId: "No App Id specified",
-  noPhoto: "No Photos available in this album",
+  noPhoto: "No Photos available in this album"
 };
 
 @observer
@@ -26,7 +26,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
       photoDataLoaded: {},
       albumPaging: {},
       photoPaging: {},
-      customError: "",
+      customError: ""
     };
   }
 
@@ -48,8 +48,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
         } else {
           this.showError(null);
         }
-      },
-    );
+      });
   }
 
   public populateAlbums = (response: any) => {
@@ -62,36 +61,36 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
           const temp = data[i];
           const albumId = temp.id;
           FB.api("/" + albumId + "/picture", {
-            type: "album",
-          }, (response: any) => {
+            type: "album"
+          }, (r: any) => {
             const res: any = {};
-            if (response && !response.error) {
+            if (r && !r.error) {
               /* handle the result */
               res.name = temp.name;
-              res.url = response.data.url;
+              res.url = r.data.url;
               res.id = temp.id;
               resolve(res);
             } else {
-              reject(response.error);
+              reject(r.error);
             }
           });
         }));
       }
-      Promise.all(task)
-        .then((results) => {
-          const albums: any = {};
-          results.forEach((album: any) => albums[album.id] = album);
-          this.setState({
-            showOverlay: true,
-            showError: false,
-            albumDataLoaded: _.extend((this.state as any).albumDataLoaded, albums),
-          });
-        })
-        .catch((error) => {
-          Logger.error(`populateAlbums error ${error}`);
-          this.showError(null);
-        });
     }
+    return Promise.all(task)
+      .then((results) => {
+        const albums: any = {};
+        results.forEach((album: any) => albums[album.id] = album);
+        this.setState({
+          showOverlay: true,
+          showError: false,
+          albumDataLoaded: _.extend((this.state as any).albumDataLoaded, albums)
+        });
+      })
+      .catch((error) => {
+        Logger.error(`populateAlbums error ${error}`);
+        this.showError(null);
+      });
   }
 
   public closeOverlay = () => this.props.onCloseModal();
@@ -118,12 +117,12 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             showError: false,
             photoPaging: paging,
             showOverlay: true,
-            photoDataLoaded: _.extend((this.state as any).photoDataLoaded, modifiedResponse),
+            photoDataLoaded: _.extend((this.state as any).photoDataLoaded, modifiedResponse)
           });
         } else {
           this.showError(null);
         }
-      },
+      }
     );
   }
 
@@ -171,14 +170,14 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
     this.setState({
       showOverlay: true,
       showError: true,
-      customError: error || ErrorMessages.default,
+      customError: error || ErrorMessages.default
     });
   }
 
   public getAlbumData = () => {
     this.setState({
       albumsLoaded: true,
-      photoDataLoaded: {},
+      photoDataLoaded: {}
     });
   }
 
