@@ -7,7 +7,7 @@ const ErrorMessages = {
   notLoggedin: "You are not logged in!. Please log into Facebook and try again",
   unauthorized: "You have not authorized this app!. Please provide the required permission (user_photos)",
   noAppId: "No App Id specified",
-  noPhoto: "No Photos available in this album",
+  noPhoto: "No Photos available in this album"
 };
 
 export default class ImageLoader extends React.Component<any, {}> {
@@ -18,7 +18,7 @@ export default class ImageLoader extends React.Component<any, {}> {
       showSpinner: false,
       loadMoreDataSpinner: false,
       isBorder: {},
-      selectedId: null,
+      selectedId: null
     };
   }
 
