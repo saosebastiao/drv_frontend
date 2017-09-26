@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
@@ -32,7 +32,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
               <div className="other-photos-container">
                 <div className="other-photos-row" key="other_photos_row_1">
                   {
-                    _.range(4).map((colIndex: number) => {
+                    _range(4).map((colIndex: number) => {
                       return <div
                         className="other-photos-col"
                         style={this.profile.otherPhotos[colIndex]}

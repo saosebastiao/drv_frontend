@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import { map as _map } from "lodash";
 import * as React from "react";
 import "./FacebookImageSelector.scss";
 
@@ -50,7 +50,7 @@ export default class ImageLoader extends React.Component<PImageLoader, SImageLoa
     const data: any = props.data;
     const state: SImageLoader = this.state;
     const type = this.props.type ? "album" : "photos";
-    const allAlbums = _.map(data, (value: any, key: any) => {
+    const allAlbums = _map(data, (value: any, key: any) => {
       let borderStyle = {};
       if (state.isBorder[key]) {
         borderStyle = { border: "2px solid #3B5998" };

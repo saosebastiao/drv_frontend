@@ -1,4 +1,4 @@
-import * as _ from "lodash";
+import { extend as _extend } from "lodash";
 import { observer } from "mobx-react";
 import Logger from "modules/Logger";
 import * as React from "react";
@@ -57,7 +57,7 @@ export default class FacebookImageSelector extends React.Component<PFacebookImag
     const uid = auth.userID;
     const queryObj = { fields: "id, name" };
 
-    _.extend(queryObj, query);
+    _extend(queryObj, query);
 
     FB.api("/" + uid + "/albums", queryObj,
       (response: any) => {
@@ -102,7 +102,7 @@ export default class FacebookImageSelector extends React.Component<PFacebookImag
         this.setState({
           showOverlay: true,
           showError: false,
-          albumDataLoaded: _.extend(this.state.albumDataLoaded, albums)
+          albumDataLoaded: _extend(this.state.albumDataLoaded, albums)
         });
       })
       .catch((error) => {
@@ -117,7 +117,7 @@ export default class FacebookImageSelector extends React.Component<PFacebookImag
     const queryObj = { fields: "id,height,width,source" };
     const modifiedResponse: any = {};
 
-    _.extend(queryObj, query);
+    _extend(queryObj, query);
 
     FB.api("/" + id + "/photos", queryObj,
       (response: any) => {
@@ -135,7 +135,7 @@ export default class FacebookImageSelector extends React.Component<PFacebookImag
             showError: false,
             photoPaging: paging,
             showOverlay: true,
-            photoDataLoaded: _.extend(this.state.photoDataLoaded, modifiedResponse)
+            photoDataLoaded: _extend(this.state.photoDataLoaded, modifiedResponse)
           });
         } else {
           this.showError(null);

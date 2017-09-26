@@ -1,6 +1,6 @@
 import "bootstrap-sass/assets/javascripts/bootstrap.js";
 import * as $ from "jquery";
-import * as _ from "lodash";
+import { range as _range } from "lodash";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
@@ -63,7 +63,7 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
       <div className="other-photos-container">
         <div className="other-photos-row">
           {
-            _.range(5).map((colIndex: number) => {
+            _range(5).map((colIndex: number) => {
               if (this.venue.otherPhotos.length > colIndex) {
                 return <div
                   className="other-photos-col"

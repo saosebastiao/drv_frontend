@@ -1,6 +1,6 @@
 import "bootstrap-sass/assets/javascripts/bootstrap.js";
 import * as $ from "jquery";
-import * as _ from "lodash";
+import { range as _range } from "lodash";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
@@ -66,7 +66,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
       <div className="other-photos-container">
         <div className="other-photos-row">
           {
-            _.range(5).map((colIndex: number) => {
+            _range(5).map((colIndex: number) => {
               if (this.profile.otherPhotos.length > colIndex) {
                 return <div
                   className="other-photos-col"

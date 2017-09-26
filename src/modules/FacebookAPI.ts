@@ -5,7 +5,7 @@ FB.init({
   appId: "1063753666981488",
   status: true, // listen to status messages somewhere?
   cookie: true,
-  version: "v2.8",
+  version: "v2.8"
 });
 
 function loginFB() {
@@ -63,7 +63,7 @@ export function getFBUserInfo(userID?: string) {
         userID: x.id,
         gender,
         complete: false,
-        validated: false,
+        validated: false
       } as IPartierProfile;
       resolve(out);
     });
