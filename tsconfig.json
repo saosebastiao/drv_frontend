@@ -13,6 +13,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "inlineSourceMap": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
     "noLib": false,
     "allowJs": true,
     "jsx": "react",
