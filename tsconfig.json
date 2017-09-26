@@ -12,7 +12,7 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "importHelpers": true,
     "noEmitHelpers": true,
     "noLib": false,
