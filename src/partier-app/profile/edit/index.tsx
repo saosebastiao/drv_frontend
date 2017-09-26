@@ -11,8 +11,7 @@ import EditProfileModel from "./Model";
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
-  public profile = new EditProfileModel;
-
+  public profile = new EditProfileModel(this.props.location.search);
   @observable public selIndex: number = -1;
   @observable public showFacebookImageModal: boolean = false;
   constructor(props: any) {
@@ -178,6 +177,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
           </div>
           <br /><br />
           <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
+          <a className="btn btn-lg btn-primary" href={this.profile.stripeURI}>Create Payment Account</a>
         </div>
         {this.showFacebookImageModal &&
           <FacebookImageSelector
