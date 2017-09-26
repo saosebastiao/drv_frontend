@@ -13,10 +13,28 @@ const ErrorMessages = {
   noPhoto: "No Photos available in this album"
 };
 
-@observer
-export default class FacebookImageSelector extends React.Component<any, {}> {
+interface PFacebookImageSelector {
+  getURL: boolean;
+  appId: string;
+  onCloseModal: () => void;
+  onSelection: (url: any) => void;
+}
 
-  constructor(props: any) {
+interface SFacebookImageSelector {
+  albumsLoaded: boolean;
+  showOverlay: boolean;
+  showError: boolean;
+  albumDataLoaded: any;
+  photoDataLoaded: any;
+  albumPaging: any;
+  photoPaging: any;
+  customError: string;
+}
+
+@observer
+export default class FacebookImageSelector extends React.Component<PFacebookImageSelector, SFacebookImageSelector> {
+
+  constructor(props: PFacebookImageSelector) {
     super(props);
     this.state = {
       albumsLoaded: true,
@@ -35,7 +53,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
   }
 
   public getUserAlbums(query: any) {
-    const auth: any = FB.getAuthResponse();
+    const auth = FB.getAuthResponse();
     const uid = auth.userID;
     const queryObj = { fields: "id, name" };
 
@@ -84,7 +102,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
         this.setState({
           showOverlay: true,
           showError: false,
-          albumDataLoaded: _.extend((this.state as any).albumDataLoaded, albums)
+          albumDataLoaded: _.extend(this.state.albumDataLoaded, albums)
         });
       })
       .catch((error) => {
@@ -102,7 +120,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
     _.extend(queryObj, query);
 
     FB.api("/" + id + "/photos", queryObj,
-      (response) => {
+      (response: any) => {
         if (response && !response.error) {
           // modify data to support the need;
           const data = response.data;
@@ -117,7 +135,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             showError: false,
             photoPaging: paging,
             showOverlay: true,
-            photoDataLoaded: _.extend((this.state as any).photoDataLoaded, modifiedResponse)
+            photoDataLoaded: _.extend(this.state.photoDataLoaded, modifiedResponse)
           });
         } else {
           this.showError(null);
@@ -134,10 +152,10 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
       // get album id
       this.getPhotosFromAlbum(id, {});
     } else {
-      imageSource = (this.state as any).photoDataLoaded[id];
+      imageSource = this.state.photoDataLoaded[id];
       if (imageSource) {
-        if ((this.props as any).getURL) {
-          (this.props as any).onSelection(imageSource);
+        if (this.props.getURL) {
+          this.props.onSelection(imageSource);
           this.closeOverlay();
         } else {
           this.getURLasFileObj(imageSource.source);
@@ -154,7 +172,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
       const blob = myRequest.response;
       const type = blob.type.split("/")[1] || "jpg";
       blob.name = "facebook_upload." + type;
-      (this.props as any).onSelection(blob);
+      this.props.onSelection(blob);
       this.closeOverlay();
     };
     myRequest.send();
@@ -182,7 +200,7 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
   }
 
   public render() {
-    const state: any = this.state;
+    const state = this.state;
     return (
       <div className="facebookImageSelector">
         {(state.showOverlay) ?
@@ -192,12 +210,12 @@ export default class FacebookImageSelector extends React.Component<any, {}> {
             closeOverlay={this.closeOverlay}
             itemSelector={this.itemSelector}
             albumSelector={this.getAlbumData}
-            onImageSelect={this.props.onImageSelect}
+            onImageSelect={this.props.onSelection}
             isError={state.showError}
             /* loadMore={this.getMoreItems} */
             customError={state.customError}
             paging={state.albumsLoaded ? state.albumPaging : state.photoPaging}
-          /> : ""
+          /> : null
         }
       </div>
     );

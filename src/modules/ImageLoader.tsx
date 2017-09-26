@@ -10,9 +10,28 @@ const ErrorMessages = {
   noPhoto: "No Photos available in this album"
 };
 
-export default class ImageLoader extends React.Component<any, {}> {
+interface PImageLoader {
+  data: any;
+  type: boolean;
+  closeOverlay: () => void;
+  itemSelector: (dataset: any) => void;
+  albumSelector: () => void;
+  onImageSelect: (url: any) => void;
+  isError: boolean;
+  customError: string;
+  paging: any;
 
-  constructor(props: any) {
+}
+interface SImageLoader {
+  showSpinner: boolean;
+  loadMoreDataSpinner: boolean;
+  isBorder: any;
+  selectedId: number | null;
+}
+
+export default class ImageLoader extends React.Component<PImageLoader, SImageLoader> {
+
+  constructor(props: PImageLoader) {
     super(props);
     this.state = {
       showSpinner: false,
@@ -27,10 +46,10 @@ export default class ImageLoader extends React.Component<any, {}> {
   }
 
   public render() {
-    const props: any = this.props;
+    const props: PImageLoader = this.props;
     const data: any = props.data;
-    const state: any = this.state;
-    const type = ((this.props as any).type) ? "album" : "photos";
+    const state: SImageLoader = this.state;
+    const type = this.props.type ? "album" : "photos";
     const allAlbums = _.map(data, (value: any, key: any) => {
       let borderStyle = {};
       if (state.isBorder[key]) {
@@ -96,15 +115,15 @@ export default class ImageLoader extends React.Component<any, {}> {
     );
   }
 
-  public backAlbumSelector = (e: any) => {
+  public backAlbumSelector = () => {
     this.setState({ showSpinner: true });
-    (this.props as any).albumSelector(e);
+    this.props.albumSelector();
   }
 
   public albumSelector = (e: any) => {
     const id = e.currentTarget.dataset.id;
     const border: any = {};
-    if ((this.props as any).type) {
+    if (this.props.type) {
       this.selector(e);
     } else {
       border[id] = true;
@@ -113,25 +132,25 @@ export default class ImageLoader extends React.Component<any, {}> {
   }
 
   public photoSelector = (e: any) => {
-    if (!((this.props as any).type)) {
+    if (!this.props.type) {
       this.selector(e);
     }
   }
 
   public okSelector = () => {
-    if ((this.state as any).selectedId) {
+    if (this.state.selectedId) {
       this.setState({ showSpinner: true });
-      (this.props as any).itemSelector({ id: (this.state as any).selectedId, type: "photo" });
+      this.props.itemSelector({ id: this.state.selectedId, type: "photo" });
     }
   }
 
   public selector = (e: any) => {
     this.setState({ showSpinner: true });
-    (this.props as any).itemSelector(e.currentTarget.dataset);
+    this.props.itemSelector(e.currentTarget.dataset);
   }
 
   public closeOverlay = () => {
-    (this.props as any).closeOverlay();
+    this.props.closeOverlay();
   }
 
 }

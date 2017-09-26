@@ -5,8 +5,8 @@
   "scripts": {},
   "devDependencies": {
     "@types/async": "^2.0.42",
-    "@types/facebook-js-sdk": "^2.8.3",
     "@types/geojson": "^1.0.3",
+    "@types/googlemaps": "^3.29.0",
     "@types/jasmine": "^2.6.0",
     "@types/jquery": "^2.0.45",
     "@types/lodash": "^4.14.76",
