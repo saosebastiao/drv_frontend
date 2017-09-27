@@ -80,6 +80,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: "./dist",
+    https: true,
     historyApiFallback: {
       index: "/"
     },
@@ -87,7 +88,6 @@ module.exports = {
       "/api": {
         target: BACKEND,
         pathRewrite: { "^/api": "" },
-        secure: false
       }
     }
   }
