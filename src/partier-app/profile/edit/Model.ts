@@ -1,9 +1,11 @@
 import { computed, observable, runInAction } from "mobx";
-import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
+import { getPartierProfile, getRegions, getStripeLink, updatePartierProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
   @observable public stripeCode: string;
   @observable public stripeURI: string;
+  @observable public stripeAccountID: string;
+  @observable public stripeLink: string;
   @observable public userID: string;
   @computed get isReady() {
     return this.userID != null;
@@ -33,6 +35,12 @@ export default class ProfileModel {
       Object.assign(this, profile);
       this.availRegions = regions.map((x) => x.regionID);
     });
+    if (profile.stripeAccountID) {
+      const link = await getStripeLink(profile.stripeAccountID);
+      runInAction(() => {
+        this.stripeLink = link.url;
+      });
+    }
   }
   public async save() {
     const data = {

@@ -96,7 +96,7 @@ export function createRegion(region: string, startTime: string, timeZone: string
   return requestData<IPartierProfile>("post", `/region/new`, {
     region,
     startTime,
-    timeZone,
+    timeZone
   });
 }
 
@@ -188,14 +188,14 @@ export function createVenue(venueName: string, regionID: string, address: string
   return requestData<IVenue>("post", `/venue/new`, {
     venueName,
     regionID,
-    address,
+    address
   });
 }
 
 export function updateVenue(venueID: number, venueName: string, photos: Array<string>) {
   return requestData<IVenue>("put", `/venue/${venueID}`, {
     venueName,
-    photos,
+    photos
   });
 }
 export function updateSquad(squadID: number, data: { squadName?: string, filters?: ISquadFilters }) {
@@ -218,8 +218,12 @@ export function createParty(partyName: string, auctionID: number, venueID: numbe
   return requestData<IParty>("post", `/party/new`, {
     partyName,
     auctionID,
-    venueID,
+    venueID
   });
+}
+
+export function getStripeLink(accountID: string) {
+  return request<IStripeLink>("get", `/partier/stripe/${accountID}`);
 }
 
 export function deleteParty(partyID: number) {

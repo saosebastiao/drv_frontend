@@ -7,9 +7,15 @@ interface IPartierProfile {
   defaultRegion?: string;
   gender?: string;
   photos?: Array<string>;
+  stripeAccountID?: string;
   validated: boolean;
   complete: boolean;
   filters?: IPartierFilters;
+}
+
+interface IStripeLink {
+  created: number;
+  url: string;
 }
 
 interface IAdminProfile {

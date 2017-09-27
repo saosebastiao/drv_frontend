@@ -173,11 +173,29 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                 </label>
                 </div>
               </div>
+              <div className="form-group">
+                <label htmlFor="input-stripe" className="label-col control-label">
+                  <span
+                    ref={this.initToggle}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Stripe Account"
+                  >
+                    Stripe Account
+                  </span>
+                </label>
+                {this.profile.stripeLink ?
+                  <a
+                    className="btn btn-md btn-primary"
+                    target="_blank"
+                    href={this.profile.stripeLink}>Manage Payment Account</a> :
+                  <a className="btn btn-md btn-primary" href={this.profile.stripeURI}>Create Payment Account</a>
+                }
+              </div>
             </div>
           </div>
           <br /><br />
           <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
-          <a className="btn btn-lg btn-primary" href={this.profile.stripeURI}>Create Payment Account</a>
         </div>
         {this.showFacebookImageModal &&
           <FacebookImageSelector
