@@ -3,10 +3,10 @@ import { getPartierProfile, getRegions, getStripeLink, updatePartierProfile } fr
 
 export default class ProfileModel {
   @observable public stripeCode: string;
-  @observable public stripeURI: string;
   @observable public stripeAccountID: string;
   @observable public stripeLink: string;
   @observable public userID: string;
+  @observable public email: string;
   @computed get isReady() {
     return this.userID != null;
   }
@@ -55,14 +55,16 @@ export default class ProfileModel {
     Object.assign(this, newProfile);
     return true;
   }
-  constructor(queryString: string) {
-    const urlParams1 = new URLSearchParams();
-    urlParams1.append("client_id", "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57");
-    urlParams1.append("redirect_uri", "http://localhost:8080/partier/profile/edit");
-    urlParams1.append("stateToken", "BLAHBLAHBLAH");
+  @computed get stripeURI() {
     const baseURI = "https://connect.stripe.com/express/oauth/authorize";
-    this.stripeURI = `${baseURI}?${urlParams1}`;
-    // tslint:disable-next-line:no-console
+    const urlParams = new URLSearchParams();
+    urlParams.set("client_id", "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57");
+    urlParams.set("redirect_uri", "http://localhost:8080/partier/profile/edit");
+    urlParams.set("stripe_user[email]", this.email);
+    urlParams.set("stripe_user[first_name]", this.name);
+    return `${baseURI}?${urlParams}`;
+  }
+  constructor(public queryString: string) {
     const params = new URLSearchParams(queryString);
     const code = params.get("code");
     if (code) {

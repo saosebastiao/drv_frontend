@@ -6,8 +6,9 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
-import FacebookImageSelector from "../../../modules/FacebookImageSelector";
+import FacebookImageSelector from "modules/FacebookImageSelector";
 import EditProfileModel from "./Model";
+import { deletePartierProfile } from "modules/DroverClient";
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
@@ -60,6 +61,10 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   public changeGender = (event: any) => {
     this.profile.gender = event.target.value;
   }
+  public deleteProfile = async () => {
+    await deletePartierProfile();
+    this.props.history.replace("/");
+  }
 
   public renderOtherPhotos() {
     return (
@@ -89,7 +94,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
   }
 
   public render() {
-    return (
+    return this.profile.isReady ? (
       <div className="profile-edit-wrapper">
         <div className="profile-edit-contents">
           <div className="profile-top-contents">
@@ -189,13 +194,18 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                     className="btn btn-md btn-primary"
                     target="_blank"
                     href={this.profile.stripeLink}>Manage Payment Account</a> :
-                  <a className="btn btn-md btn-primary" href={this.profile.stripeURI}>Create Payment Account</a>
+                  <a
+                    className="btn btn-md btn-primary"
+                    target="_blank"
+                    href={this.profile.stripeURI}>Create Payment Account</a>
                 }
               </div>
             </div>
           </div>
           <br /><br />
           <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
+          <br />
+          <button className="btn btn-lg btn-danger" onClick={this.deleteProfile}>Delete Profile</button>
         </div>
         {this.showFacebookImageModal &&
           <FacebookImageSelector
@@ -206,6 +216,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
           />
         }
       </div>
-    );
+    ) : null;
   }
 }
