@@ -59,7 +59,7 @@ export default class ProfileModel {
     const baseURI = "https://connect.stripe.com/express/oauth/authorize";
     const urlParams = new URLSearchParams();
     urlParams.set("client_id", "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57");
-    urlParams.set("redirect_uri", "http://localhost:8080/partier/profile/edit");
+    urlParams.set("redirect_uri", "https://localhost:8080/partier/profile/edit");
     urlParams.set("stripe_user[email]", this.email);
     urlParams.set("stripe_user[first_name]", this.name);
     return `${baseURI}?${urlParams}`;
