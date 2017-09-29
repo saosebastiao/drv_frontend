@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import ProfileModel from "./Model";
-import StripeCheckout from "react-stripe-checkout";
+import StripeForm from "shared/StripeForm";
 
 export interface IProfileModel {
   profile: ProfileModel;
@@ -33,11 +33,6 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
   public render() {
     return (
       <div className="profile-wrapper">
-        <StripeCheckout
-          token={this.onToken}
-          stripeKey="pk_test_GEDUNDpJeAljk63czVCfT9o0"
-          email={this.profile.email}
-        />
         < Link to={"/promoter/profile/edit"}>
           <div className="profile-contents">
             <div className="profile-top-contents">
@@ -48,6 +43,9 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
             </div>
           </div>
         </Link>
+        <div>
+          <StripeForm />
+        </div>
       </div>
     );
   }

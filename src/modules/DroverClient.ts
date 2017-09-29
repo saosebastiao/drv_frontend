@@ -237,3 +237,9 @@ export function getSquadAuctionWS(squadID: number) {
 export function getPartyAuctionWS(partyID: number) {
   return Observable.webSocket(`ws://localhost:9000/auction/party/${partyID}`);
 }
+
+export function submitToken(token: stripe.Token) {
+  // tslint:disable-next-line:no-console
+  console.log(token);
+  return Promise.resolve(null);
+}
