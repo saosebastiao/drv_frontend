@@ -44,32 +44,6 @@ export async function getFBStatus() {
   return res;
 }
 
-export function getFBUserInfo(userID?: string) {
-  const params = { fields: "first_name,email,gender" };
-  const user = userID ? `/${userID}` : "/me";
-  return new Promise<IPartierProfile>((resolve) => {
-    FB.api(user, "get", params, (x: FBIdentity) => {
-      let gender: "m" | "f" | "o";
-      if (x.gender && x.gender === "male") {
-        gender = "m";
-      } else if (x.gender && x.gender === "female") {
-        gender = "f";
-      } else {
-        gender = "o";
-      }
-      const out = {
-        name: x.first_name,
-        email: x.email,
-        userID: x.id,
-        gender,
-        complete: false,
-        validated: false
-      } as IPartierProfile;
-      resolve(out);
-    });
-  });
-}
-
 export function getMyFriends() {
   return new Promise<FBFriends>((resolve) => {
     FB.api(`/me/friends`, "get", (x: FBFriends) => {
