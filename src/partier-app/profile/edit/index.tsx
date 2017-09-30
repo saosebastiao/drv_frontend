@@ -192,11 +192,9 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                 {this.profile.stripeLink ?
                   <a
                     className="btn btn-md btn-primary"
-                    target="_blank"
                     href={this.profile.stripeLink}>Manage Payment Account</a> :
                   <a
                     className="btn btn-md btn-primary"
-                    target="_blank"
                     href={this.profile.stripeURI}>Create Payment Account</a>
                 }
               </div>

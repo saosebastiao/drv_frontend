@@ -1,5 +1,6 @@
 import { computed, observable, runInAction } from "mobx";
 import { getPartierProfile, getRegions, getStripeLink, updatePartierProfile } from "modules/DroverClient";
+import { stringify } from "qs";
 
 export default class ProfileModel {
   @observable public stripeCode: string;
@@ -57,12 +58,15 @@ export default class ProfileModel {
   }
   @computed get stripeURI() {
     const baseURI = "https://connect.stripe.com/express/oauth/authorize";
-    const urlParams = new URLSearchParams();
-    urlParams.set("client_id", "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57");
-    urlParams.set("redirect_uri", "https://localhost:8080/partier/profile/edit");
-    urlParams.set("stripe_user[email]", this.email);
-    urlParams.set("stripe_user[first_name]", this.name);
-    return `${baseURI}?${urlParams}`;
+    const params = {
+      response_type: "code",
+      client_id: "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57",
+      stripe_user: {
+        email: this.email,
+        first_name: this.name
+      }
+    };
+    return `${baseURI}?${stringify(params)}`;
   }
   constructor(public queryString: string) {
     const params = new URLSearchParams(queryString);
