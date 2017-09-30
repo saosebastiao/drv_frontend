@@ -1,11 +1,9 @@
 import { computed, observable, runInAction } from "mobx";
-import { getPartierProfile, getRegions, getStripeLink, updatePartierProfile } from "modules/DroverClient";
-import { stringify } from "qs";
+import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
   @observable public stripeCode: string;
   @observable public stripeAccountID: string;
-  @observable public stripeLink: string;
   @observable public userID: string;
   @observable public email: string;
   @computed get isReady() {
@@ -36,12 +34,6 @@ export default class ProfileModel {
       Object.assign(this, profile);
       this.availRegions = regions.map((x) => x.regionID);
     });
-    if (profile.stripeAccountID) {
-      const link = await getStripeLink(profile.stripeAccountID);
-      runInAction(() => {
-        this.stripeLink = link.url;
-      });
-    }
   }
   public async save() {
     const data = {
@@ -55,18 +47,6 @@ export default class ProfileModel {
     const newProfile = await updatePartierProfile(data);
     Object.assign(this, newProfile);
     return true;
-  }
-  @computed get stripeURI() {
-    const baseURI = "https://connect.stripe.com/express/oauth/authorize";
-    const params = {
-      response_type: "code",
-      client_id: "ca_BT5Teu6PqNl6WPs7WJwmbkmDyBuCql57",
-      stripe_user: {
-        email: this.email,
-        first_name: this.name
-      }
-    };
-    return `${baseURI}?${stringify(params)}`;
   }
   constructor(public queryString: string) {
     const params = new URLSearchParams(queryString);

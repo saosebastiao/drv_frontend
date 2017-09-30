@@ -189,14 +189,12 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                     Stripe Account
                   </span>
                 </label>
-                {this.profile.stripeLink ?
-                  <a
-                    className="btn btn-md btn-primary"
-                    href={this.profile.stripeLink}>Manage Payment Account</a> :
-                  <a
-                    className="btn btn-md btn-primary"
-                    href={this.profile.stripeURI}>Create Payment Account</a>
-                }
+                <a
+                  className="btn btn-md btn-primary"
+                  href={"/api/partier/stripe"}
+                  target="_blank">
+                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
+                </a>
               </div>
             </div>
           </div>

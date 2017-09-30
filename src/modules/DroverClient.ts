@@ -222,10 +222,6 @@ export function createParty(partyName: string, auctionID: number, venueID: numbe
   });
 }
 
-export function getStripeLink(accountID: string) {
-  return request<IStripeLink>("get", `/partier/stripe/${accountID}`);
-}
-
 export function deleteParty(partyID: number) {
   return request<void>("delete", `/party/${partyID}`);
 }
