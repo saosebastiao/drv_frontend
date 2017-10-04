@@ -2,7 +2,6 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import ProfileModel from "./Model";
-import StripeForm from "shared/StripeForm";
 
 export interface IProfileModel {
   profile: ProfileModel;
@@ -43,9 +42,6 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
             </div>
           </div>
         </Link>
-        <div>
-          <StripeForm />
-        </div>
       </div>
     );
   }

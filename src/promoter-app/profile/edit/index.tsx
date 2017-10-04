@@ -3,12 +3,81 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import EditProfileModel from "./Model";
+import { submitToken } from "modules/DroverClient";
+
+const style = {
+  base: {
+    // Add your base input styles here. For example:
+    fontSize: "16px",
+    lineHeight: "24px"
+  }
+};
+const stripe = Stripe("pk_test_GEDUNDpJeAljk63czVCfT9o0");
+const elements = stripe.elements();
+const cardNumber = elements.create("cardNumber", { style });
+const cardExpiration = elements.create("cardExpiry", { style });
+const cardCVC = elements.create("cardCvc", { style });
+const cardPostal = elements.create("postalCode", { style });
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
   public profile = new EditProfileModel;
   constructor(props: any) {
     super(props);
+  }
+
+  public componentDidMount() {
+    // Add an instance of the card Element into the `card-element` <div>
+    cardNumber.mount("#card-number");
+    cardNumber.on("change", res => {
+      const displayError = document.getElementById("card-number-errors");
+      if (displayError) {
+        if (res && res.error) {
+          displayError.textContent = res.error && res.error.message || "";
+        } else {
+          displayError.textContent = "";
+        }
+      }
+    });
+    cardExpiration.mount("#card-expiration");
+    cardExpiration.on("change", res => {
+      const displayError = document.getElementById("card-expiration-errors");
+      if (displayError) {
+        if (res && res.error) {
+          displayError.textContent = res.error && res.error.message || "";
+        } else {
+          displayError.textContent = "";
+        }
+      }
+    });
+    cardCVC.mount("#card-cvc");
+    cardCVC.on("change", res => {
+      const displayError = document.getElementById("card-cvc-errors");
+      if (displayError) {
+        if (res && res.error) {
+          displayError.textContent = res.error && res.error.message || "";
+        } else {
+          displayError.textContent = "";
+        }
+      }
+    });
+    cardPostal.mount("#card-postal");
+    cardPostal.on("change", res => {
+      const displayError = document.getElementById("card-postal-errors");
+      if (displayError) {
+        if (res && res.error) {
+          displayError.textContent = res.error && res.error.message || "";
+        } else {
+          displayError.textContent = "";
+        }
+      }
+    });
+  }
+  public componentWillUnmount() {
+    cardNumber.unmount();
+    cardExpiration.unmount();
+    cardCVC.unmount();
+    cardPostal.unmount();
   }
 
   public clickSave = async () => {
@@ -24,6 +93,23 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
     this.profile.email = event.target.value;
   }
 
+  private submit = async (e: any) => {
+    e.preventDefault();
+    const { token, error } = await stripe.createToken(cardNumber);
+    if (error) {
+      // Inform the user if there was an error
+      const errorElement = document.getElementById("card-errors");
+      if (errorElement) {
+        errorElement.textContent = error && error.message || "";
+      }
+    } else if (token) {
+      // tslint:disable-next-line:no-console
+      console.log(token);
+      const res = await submitToken(token);
+      // tslint:disable-next-line:no-console
+      console.log(res);
+    }
+  }
   public render() {
     return (
       <div className="profile-edit-wrapper">
@@ -58,10 +144,50 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                   />
                 </div>
               </div>
+              <div className="form-group">
+                <label htmlFor="card-number" className="label-col control-label">
+                  Credit Card Number
+                </label>
+                <div className="value-col">
+                  <div id="card-number" className="form-control" />
+                  <div id="card-number-errors" role="alert" />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="card-expiration" className="label-col control-label">
+                  Expiration
+                </label>
+                <div className="value-col">
+                  <div id="card-expiration" className="form-control" />
+                  <div id="card-expiration-errors" role="alert" />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="card-cvc" className="label-col control-label">
+                  Expiration
+                </label>
+                <div className="value-col">
+                  <div id="card-cvc" className="form-control" />
+                  <div id="card-cvc-errors" role="alert" />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="card-postal" className="label-col control-label">
+                  Postal Code
+                </label>
+                <div className="value-col">
+                  <div id="card-postal" className="form-control" />
+                  <div id="card-postal-errors" role="alert" />
+                </div>
+              </div>
+              <button
+                type="button"
+                className="btn btn-md btn-primary"
+                onClick={this.submit}>Create New Payment Method</button>
+              <br />
+              <button type="button" className="btn btn-md btn-primary" onClick={this.clickSave}>Save</button>
             </div>
           </div>
-          <br /><br />
-          <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
         </div>
       </div>
     );
