@@ -9,6 +9,7 @@ import NavLink from "shared/NavLink";
 import Auction from "./auction";
 import Profile from "./profile";
 import Squad from "./squad";
+import Stripe from "./redirects/StripeAccount";
 
 const NoMatch = () => <p>404 Page Does Not Exist</p>;
 
@@ -42,6 +43,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
             <Route path="/partier/profile" component={Profile} />
             <Route path="/partier/squad" component={Squad} />
             <Route path="/partier/auction" component={Auction} />
+            <Route path="/partier/stripe" component={Stripe} />
             <Route component={NoMatch} />
           </Switch>
           : <span>Logging In...</span>

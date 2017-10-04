@@ -2,8 +2,6 @@ import { computed, observable, runInAction } from "mobx";
 import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
-  @observable public stripeCode: string;
-  @observable public stripeAccountID: string;
   @observable public userID: string;
   @observable public email: string;
   @computed get isReady() {
@@ -13,6 +11,7 @@ export default class ProfileModel {
   @observable public defaultRegion: string = "none";
   @observable public gender: string = "";
   @observable public photos: Array<string> = [];
+  @observable public stripeAccountID: string;
   @computed get profilePhoto() {
     if (this.photos.length > 0) {
       return { backgroundImage: `url(${this.photos[0]})` };
@@ -41,19 +40,13 @@ export default class ProfileModel {
       name: this.name,
       gender: this.gender,
       photos: this.photos,
-      defaultRegion: this.defaultRegion,
-      stripeCode: this.stripeCode
+      defaultRegion: this.defaultRegion
     };
     const newProfile = await updatePartierProfile(data);
     Object.assign(this, newProfile);
     return true;
   }
-  constructor(public queryString: string) {
-    const params = new URLSearchParams(queryString);
-    const code = params.get("code");
-    if (code) {
-      this.stripeCode = code;
-    }
+  constructor() {
     this.refresh();
   }
 }

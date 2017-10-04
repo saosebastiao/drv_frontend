@@ -39,7 +39,6 @@ interface IUpdatePartierProfileReq {
   defaultRegion?: string;
   gender?: string;
   photos?: Array<string>;
-  stripeCode?: string;
 }
 
 interface IUpdateAdminProfileReq {

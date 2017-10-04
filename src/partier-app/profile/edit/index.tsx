@@ -12,7 +12,7 @@ import { deletePartierProfile } from "modules/DroverClient";
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
-  public profile = new EditProfileModel(this.props.location.search);
+  public profile = new EditProfileModel;
   @observable public selIndex: number = -1;
   @observable public showFacebookImageModal: boolean = false;
   constructor(props: any) {

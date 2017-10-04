@@ -4,6 +4,7 @@ import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import FriendsWidget from "./FriendsWidget";
 import ProfileModel from "./Model";
+import { getUserID } from "modules/DroverClient";
 
 export interface IProfileModel {
   profile: ProfileModel;
@@ -47,6 +48,14 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
               {this.profile.name}<br />
               {this.profile.defaultRegion}<br />
               {this.profile.gender}<br />
+              <div className="form-group">
+                <a
+                  className="btn btn-md btn-primary"
+                  href={`/api/partier/${getUserID()}/stripe`}
+                  target="_blank">
+                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
+                </a>
+              </div>
             </div>
           </div>
           <br />

@@ -107,6 +107,9 @@ export function getPartierFriends() {
 export function updatePartierProfile(data: IUpdatePartierProfileReq) {
   return requestData<IPartierProfile>("put", `/partier/${USERID}`, data);
 }
+export function updatePartierStripeAccount(code: string) {
+  return requestData<IPartierProfile>("put", `/partier/${USERID}/stripe/${code}`, null);
+}
 
 export function deletePartierProfile() {
   return request<void>("delete", `/partier/${USERID}`);
