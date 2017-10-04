@@ -49,9 +49,17 @@ export default class StripeForm extends React.Component<{}> {
       });
     }
   }
+  public componentWillUnmount() {
+    const form = document.getElementById("payment-form");
+    if (form) {
+      form.removeEventListener("submit");
+    }
+  }
 
   public stripeTokenHandler = async (token?: stripe.Token) => {
     if (token) {
+      // tslint:disable-next-line:no-console
+      console.log(token);
       const res = await submitToken(token);
       // tslint:disable-next-line:no-console
       console.log(res);
@@ -65,9 +73,8 @@ export default class StripeForm extends React.Component<{}> {
           <label htmlFor="card-element">
             Credit or debit card
           </label>
-          <div id="card-element" />
-
-          <div id="card-errors" role="alert" />
+          <div id="card-element" ref="cardElement" />
+          <div id="card-errors" ref="cardErrors" role="alert" />
         </div>
 
         <button>Submit Payment</button>
