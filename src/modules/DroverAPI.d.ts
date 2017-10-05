@@ -7,7 +7,7 @@ interface IPartierProfile {
   defaultRegion?: string;
   gender?: string;
   photos?: Array<string>;
-  stripeAccountID?: string;
+  stripeAccount?: string;
   validated: boolean;
   complete: boolean;
   filters?: IPartierFilters;
@@ -29,6 +29,7 @@ interface IPromoterProfile {
   userID: string;
   name?: string;
   email?: string;
+  stripeAccount?: string;
   validated: boolean;
 }
 

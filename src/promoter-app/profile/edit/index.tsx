@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import EditProfileModel from "./Model";
-import { submitToken } from "modules/DroverClient";
+import { updatePromoterStripeAccount } from "modules/DroverClient";
 
 const style = {
   base: {
@@ -103,9 +103,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         errorElement.textContent = error && error.message || "";
       }
     } else if (token) {
-      // tslint:disable-next-line:no-console
-      console.log(token);
-      const res = await submitToken(token);
+      const res = await updatePromoterStripeAccount(token.id);
       // tslint:disable-next-line:no-console
       console.log(res);
     }

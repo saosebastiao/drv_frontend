@@ -38,6 +38,7 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
               <div className="profile-list">
                 <div> {this.profile.name}</div>
                 <div> {this.profile.email}</div>
+                <div> {this.profile.stripeAccount}</div>
               </div>
             </div>
           </div>
