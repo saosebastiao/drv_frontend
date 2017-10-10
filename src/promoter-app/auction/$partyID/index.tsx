@@ -32,7 +32,13 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
       <div className="squads-contents">
         {
           this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
-            <SquadCard key={idx} squadID={squad.squadID} submitBid={() => this.model.bid(squad.squadID)} />
+            <SquadCard key={idx} squadID={squad.squadID} >
+              {
+                this.model.isBiddable ?
+                  <button type="button" onClick={() => this.model.bid(squad.squadID)}>Bid</button> :
+                  null
+              }
+            </SquadCard>
           ))
         }
       </div>

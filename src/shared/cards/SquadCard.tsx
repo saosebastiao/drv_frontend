@@ -26,7 +26,6 @@ class SquadCardModel {
 
 interface PSquadCard {
   squadID: number;
-  submitBid?: () => void;
 }
 
 @observer
