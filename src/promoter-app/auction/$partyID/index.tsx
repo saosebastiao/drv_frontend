@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import PartyCard from "shared/cards/PartyCard";
 import SquadCard from "shared/cards/SquadCard";
 import AuctionModel from "./Model";
+import AuctionInfo from "shared/AuctionInfo";
 
 interface PPartyID {
   partyID: number;
@@ -43,7 +44,6 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
   public render() {
     if (this.model.isReady) {
       const myParty = this.model.myParty;
-      const auction = myParty.auction;
       return (
         <div className="auction-details-contents">
           <div className="auction-details-row">
@@ -60,17 +60,9 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
               </div>
             </div>
             <div className="details-col">
-              <div className="auction-info-wrapper">
-                <div className="details-title">Auction Info</div>
-                <div>{auction.regionID}</div>
-                <div>{auction.partyNight}</div>
-                <div>Auction starts at {auction.startTime}</div>
-                <div>Auction ends at {auction.endTime}</div>
-                <div>Auction Entries freeze at {auction.entryFreeze}</div>
-                <div>Prices start at {auction.priceStart}{auction.currency}</div>
-                <div>Prices drop by {auction.priceDrop}{auction.currency} every {auction.dropInterval} minutes</div>
+              <AuctionInfo auction={myParty.auction} currentState={this.model.auctionState}>
                 <button type="button" onClick={this.refresh}>Refresh</button>
-              </div>
+              </AuctionInfo>
               <div className="squad-info-wrapper">
                 <div className="details-title">Your Party Info</div>
                 <PartyCard partyID={myParty.partyID} />
@@ -78,7 +70,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
               </div>
             </div>
           </div>
-        </div>);
+        </div >
+      );
     } else return null;
   }
 

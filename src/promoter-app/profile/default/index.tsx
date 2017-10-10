@@ -14,20 +14,6 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
   constructor(props: any) {
     super(props);
   }
-  public onToken = (token: any) => {
-    // tslint:disable-next-line:no-console
-    console.log(token);
-    /*
-    fetch("/save-stripe-token", {
-      method: "POST",
-      body: JSON.stringify(token)
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
-      });
-    });
-    */
-  }
 
   public render() {
     return (

@@ -227,6 +227,7 @@ interface IPartyConfig {
 }
 
 type IAuctionState = IPreAuction | IEntryFreeze | IActiveAuction | IPostAuction;
+
 interface ICurrentState {
   msg: 'CurrentState';
   state: IAuctionState

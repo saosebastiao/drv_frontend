@@ -5,8 +5,8 @@ const path = require("path");
 
 const BACKEND =
   process.env.BACKEND === "local"
-    ? "http://localhost:9000"
-    : "http://getdrover.com/api";
+    ? "localhost:9000"
+    : "getdrover.com/api";
 console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
@@ -86,8 +86,13 @@ module.exports = {
     },
     proxy: {
       "/api": {
-        target: BACKEND,
+        target: `http://${BACKEND}`,
         pathRewrite: { "^/api": "" },
+      },
+      "/ws": {
+        target: `ws://${BACKEND}`,
+        pathRewrite: { "^/ws": "" },
+        ws: true
       }
     }
   }

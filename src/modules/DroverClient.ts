@@ -230,13 +230,16 @@ export function deleteParty(partyID: number) {
 }
 
 export function getSquadAuctionWS(squadID: number) {
-  return Observable.webSocket(`ws://localhost:9000/auction/squad/${squadID}`);
+  // TODO: Fix backend with env variables
+  const BACKEND = window.location.host;
+  return Observable.webSocket(`wss://${BACKEND}/ws/auction/squad/${squadID}`);
 }
 
 export function getPartyAuctionWS(partyID: number) {
-  return Observable.webSocket(`ws://localhost:9000/auction/party/${partyID}`);
+  // TODO: Fix backend with env variables
+  const BACKEND = window.location.host;
+  return Observable.webSocket(`wss://${BACKEND}/ws/auction/party/${partyID}`);
 }
-
 
 export function updatePromoterStripeAccount(token: string) {
   return requestData<IPartierProfile>("put", `/promoter/${USERID}/stripe/${token}`, null);

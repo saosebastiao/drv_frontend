@@ -1,5 +1,5 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { getParty, getSquadAuctionWS } from "modules/DroverClient";
+import { getParty, getPartyAuctionWS } from "modules/DroverClient";
 import Logger from "modules/Logger";
 
 export default class AuctionModel {
@@ -13,13 +13,13 @@ export default class AuctionModel {
   @computed get isBiddable() {
     return this.auctionState.state === "ActiveAuction";
   }
-  private subscription = getSquadAuctionWS(this.partyID);
+  private subscription = getPartyAuctionWS(this.partyID);
   @action private processEvents(message: IAuctionMessage) {
     if (message.msg === "CurrentState") {
       Logger.info(message);
       this.auctionState = message.state;
-      this.allParties = message.parties || [];
-      this.allSquads = message.squads || [];
+      this.allParties = message.parties;
+      this.allSquads = message.squads;
     } else if (message.msg === "SquadBidSuccessful") {
       Logger.info(`Squad bid success: ${message.squadID}, ${message.partyID}`);
     } else if (message.msg === "SquadBidFailed") {
@@ -40,7 +40,7 @@ export default class AuctionModel {
       const bidMessage: IBid = {
         msg: "Bid",
         squadID,
-        price: this.auctionState.price,
+        price: this.auctionState.price
       };
       this.subscription.next(JSON.stringify(bidMessage));
     }
@@ -59,7 +59,7 @@ export default class AuctionModel {
     this.subscription.subscribe(
       (msg: IAuctionMessage) => this.processEvents(msg),
       (err: any) => Logger.error(err),
-      () => Logger.info("Closing Auction Page websocket"),
+      () => Logger.info("Closing Auction Page websocket")
     );
   }
 }
