@@ -16,7 +16,7 @@ export default class EditSquadModel {
   @observable public venueBlacklist: Map<number, void> = new Map();
   @observable public venueTypes: Map<string, boolean> = new Map();
   @observable public interactionTypes: Map<string, boolean> = new Map;
-  @observable public squadMembers: Array<ISquadMember>;
+  @observable public squadMembers: Array<ISquadMember> = [];
   @computed get potential() {
     return this.squadMembers
       .filter((x) => x.invited === false)

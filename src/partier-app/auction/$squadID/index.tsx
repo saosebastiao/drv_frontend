@@ -23,7 +23,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
       <div className="parties-contents">
         {
           this.model.allParties.map((party: IPartyConfig, idx: number) => (
-            <PartyCard key={idx} partyID={party.partyID} />
+            <PartyCard key={`party:${idx}`} partyID={party.partyID} />
           ))
         }
       </div>
@@ -35,7 +35,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PAuct
       <div className="squads-contents">
         {
           this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
-            <SquadCard key={idx} squadID={squad.squadID} />
+            <SquadCard key={`squad:${idx}`} squadID={squad.squadID} />
           ))
         }
       </div>

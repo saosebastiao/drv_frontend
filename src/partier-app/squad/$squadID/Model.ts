@@ -9,7 +9,7 @@ export default class ViewSquadModel {
   @observable public auction: IAuction;
   @observable public squadName: string = "";
   @observable public filters: ISquadFilters;
-  @observable public squadMembers: Array<ISquadMember>;
+  @observable public squadMembers: Array<ISquadMember> = [];
   @computed get potential() {
     return this.squadMembers
       .filter((x) => x.invited === false)

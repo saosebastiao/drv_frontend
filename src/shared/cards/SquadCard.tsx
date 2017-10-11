@@ -38,7 +38,7 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
         <div>Owner: <PartierCard userID={this.model.ownerID} /></div>
         <div>Members:
         {this.model.squadMembers.map((x) => {
-            return x.accepted ? <PartierCard userID={x.userID} /> : null;
+            return x.accepted ? <PartierCard key={x.userID} userID={x.userID} /> : null;
           })}
         </div>
         {this.props.children}
