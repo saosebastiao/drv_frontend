@@ -4,7 +4,7 @@ import {
   getUserID,
   inviteToSquad,
   uninviteFromSquad,
-  updateSquad,
+  updateSquad
 } from "modules/DroverClient";
 
 export default class EditSquadModel {
