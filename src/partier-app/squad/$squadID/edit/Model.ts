@@ -13,9 +13,9 @@ export default class EditSquadModel {
     return this.squad != null;
   }
   @observable public squadName: string;
-  @observable public venueBlacklist: Map<number, void> = new Map();
-  @observable public venueTypes: Map<string, boolean> = new Map();
-  @observable public interactionTypes: Map<string, boolean> = new Map;
+  @observable public venueBlacklist: Map<number, null> = new Map();
+  @observable public venueTypes: Map<string, null> = new Map();
+  @observable public interactionTypes: Map<string, null> = new Map;
   @observable public squadMembers: Array<ISquadMember> = [];
   @computed get potential() {
     return this.squadMembers
