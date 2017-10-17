@@ -39,6 +39,14 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                   null
               }
               <label>
+                <input type="number"
+                  max={this.model.myParty.auction.priceStart}
+                  min={0}
+                  step={this.model.myParty.auction.priceDrop}
+                  onChange={(e: any) => this.model.prebid(squad.squadID, parseInt(e.target.value, 10))} />
+                Pre-Bid On Squad
+              </label>
+              <label>
                 <input type="checkbox"
                   checked={this.model.isSquadBlacklisted(squad.squadID)}
                   onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />

@@ -33,9 +33,9 @@ export default class AuctionInfo extends React.Component<PAuctionInfo>{
           <div className="details-title">Auction Info</div>
           <div>{auction.regionID}</div>
           <div>{this.formatDate(auction.partyNight)}</div>
+          <div>Auction Entries freeze at {this.formatTime(auction.entryFreeze)}</div>
           <div>Auction starts at {this.formatTime(auction.startTime)}</div>
           <div>Auction ends at {this.formatTime(auction.endTime)}</div>
-          <div>Auction Entries freeze at {this.formatTime(auction.entryFreeze)}</div>
           <div>Prices start at {this.formatCurrency(auction.priceStart)}</div>
           <div>
             Prices drop by {this.formatCurrency(auction.priceDrop)} every {this.formatInterval(auction.dropInterval)}
@@ -50,9 +50,9 @@ export default class AuctionInfo extends React.Component<PAuctionInfo>{
           <div>{currentState.state}</div>
           <div>{auction.regionID}</div>
           <div>{this.formatDate(auction.partyNight)}</div>
+          <div>Auction Entries are frozen</div>
           <div>Auction starts at {this.formatTime(auction.startTime)}</div>
           <div>Auction ends at {this.formatTime(auction.endTime)}</div>
-          <div>Auction Entries are frozen</div>
           <div>Prices start at {this.formatCurrency(auction.priceStart)}</div>
           <div>
             Prices drop by {this.formatCurrency(auction.priceDrop)} every {this.formatInterval(auction.dropInterval)}

@@ -53,6 +53,18 @@ export default class AuctionModel {
     this.subscription.complete();
     this.subscription.unsubscribe();
   }
+  public prebid = (squadID: number, price: number) => {
+    const validStates = new Set(["ActiveAuction", "EntryFreeze", "PreAuction"]);
+    if (validStates.has(this.auctionState.state)) {
+      const bidMessage: IBid = {
+        msg: "Bid",
+        squadID,
+        price
+      };
+      Logger.debug(bidMessage);
+      this.subscription.next(JSON.stringify(bidMessage));
+    }
+  }
   public bid = (squadID: number) => {
     if (this.auctionState.state === "ActiveAuction") {
       const bidMessage: IBid = {
