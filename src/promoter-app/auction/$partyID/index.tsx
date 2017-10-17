@@ -38,6 +38,12 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                   <button type="button" onClick={() => this.model.bid(squad.squadID)}>Bid</button> :
                   null
               }
+              <label>
+                <input type="checkbox"
+                  checked={this.model.isSquadBlacklisted(squad.squadID)}
+                  onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />
+                Blacklist Squad
+              </label>
             </SquadCard>
           ))
         }

@@ -13,8 +13,23 @@ export default class AuctionModel {
   @computed get isBiddable() {
     return this.auctionState.state === "ActiveAuction";
   }
+  public isSquadBlacklisted(squadID: number) {
+    const s = new Set(this.myParty.filters.squadBlacklist);
+    return s.has(squadID);
+  }
+  @action public toggleSquadBlacklist(squadID: number) {
+    const s = new Set(this.myParty.filters.squadBlacklist);
+    if (s.has(squadID)) {
+      s.delete(squadID);
+    } else {
+      s.add(squadID);
+    }
+    const filters: IPartyFilters = Object.assign({}, this.myParty.filters, { squadBlacklist: Array.from(s) });
+    const msg: ISetPartyFilters = { msg: "SetPartyFilters", filters };
+    this.subscription.next(JSON.stringify(msg));
+  }
   private subscription = getPartyAuctionWS(this.partyID);
-  @action private processEvents(message: IAuctionMessage) {
+  @action private processEvents(message: IPartyAuctionMessage) {
     if (message.msg === "CurrentState") {
       Logger.info(message);
       this.auctionState = message.state;
@@ -24,6 +39,9 @@ export default class AuctionModel {
       Logger.info(`Squad bid success: ${message.squadID}, ${message.partyID}`);
     } else if (message.msg === "SquadBidFailed") {
       Logger.info(`Squad bid failed: ${message.squadID}, ${message.partyID}, ${message.reason}`);
+    } else if (message.msg === "PartyFiltersUpdated") {
+      Logger.info(message);
+      this.myParty.filters = message.filters;
     }
   }
   @action public setPartyFilters(filters: IPartyFilters) {
@@ -57,7 +75,7 @@ export default class AuctionModel {
   constructor(private partyID: number) {
     this.refresh();
     this.subscription.subscribe(
-      (msg: IAuctionMessage) => this.processEvents(msg),
+      (msg: IPartyAuctionMessage) => this.processEvents(msg),
       (err: any) => Logger.error(err),
       () => Logger.info("Closing Auction Page websocket")
     );

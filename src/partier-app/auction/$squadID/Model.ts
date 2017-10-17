@@ -7,11 +7,47 @@ export default class AuctionModel {
   @observable public allSquads: Array<ISquadConfig> = [];
   @observable public allParties: Array<IPartyConfig> = [];
   @observable public mySquad: ISquad;
+  public isVenueBlacklisted(venueID: number) {
+    const s = new Set(this.mySquad.filters.venueBlacklist);
+    return s.has(venueID);
+  }
+  public isPartyBlacklisted(partyID: number) {
+    const s = new Set(this.mySquad.filters.partyBlacklist);
+    return s.has(partyID);
+  }
+  @action public toggleVenueBlacklist(venueID: number) {
+    const s = new Set(this.mySquad.filters.venueBlacklist);
+    if (s.has(venueID)) {
+      s.delete(venueID);
+    } else {
+      s.add(venueID);
+    }
+    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { venueBlacklist: Array.from(s) });
+    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
+    this.subscription.next(JSON.stringify(msg));
+  }
+  @action public togglePartyBlacklist(partyID: number) {
+    const s = new Set(this.mySquad.filters.partyBlacklist);
+    if (s.has(partyID)) {
+      s.delete(partyID);
+    } else {
+      s.add(partyID);
+    }
+    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { partyBlacklist: Array.from(s) });
+    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
+    this.subscription.next(JSON.stringify(msg));
+  }
+  @action public setSquadFilters() {
+    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters: this.mySquad.filters };
+    Logger.debug(JSON.stringify(msg));
+    this.subscription.next(JSON.stringify(msg));
+  }
+
   @computed get isReady() {
     return this.mySquad != null && this.auctionState != null;
   }
   private subscription = getSquadAuctionWS(this.squadID);
-  @action private processEvents(message: IAuctionMessage) {
+  @action private processEvents(message: ISquadAuctionMessage) {
     if (message.msg === "CurrentState") {
       Logger.info(message);
       this.auctionState = message.state;
@@ -21,12 +57,10 @@ export default class AuctionModel {
       Logger.info(`Squad bid success: ${message.squadID}, ${message.partyID}`);
     } else if (message.msg === "SquadBidFailed") {
       Logger.info(`Squad bid failed: ${message.squadID}, ${message.partyID}, ${message.reason}`);
+    } else if (message.msg === "SquadFiltersUpdated") {
+      Logger.info(message);
+      this.mySquad.filters = message.filters;
     }
-  }
-  @action public setSquadFilters(filters: ISquadFilters) {
-    this.mySquad.filters = filters;
-    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
-    this.subscription.next(JSON.stringify(msg));
   }
   public quit() {
     this.subscription.complete();
@@ -44,9 +78,9 @@ export default class AuctionModel {
   constructor(private squadID: number) {
     this.refresh();
     this.subscription.subscribe(
-      (msg: IAuctionMessage) => this.processEvents(msg),
+      (msg: ISquadAuctionMessage) => this.processEvents(msg),
       (err: any) => Logger.error(err),
-      () => Logger.info("Closing Auction Page websocket"),
+      () => Logger.info("Closing Auction Page websocket")
     );
   }
 }

@@ -24,20 +24,27 @@ class PartyCardModel {
 
 interface PPartyCard {
   partyID: number;
+  isVenueBlacklisted?: boolean;
+  isPartyBlacklisted?: boolean;
+  toggleVenueBlacklist?: (venueID: number) => void;
+  togglePartyBlacklist?: (partyID: number) => void;
 }
 
 @observer
 export default class PartyCard extends React.Component<PPartyCard, {}>{
   private model = new PartyCardModel(this.props.partyID);
   public render() {
-    return this.model.isReady ? (
-      <div>
-        <div>Party Name: {this.model.partyName}</div>
-        <div>Venue:
-        <VenueCard venueID={this.model.venue.venueID} />
-          {this.props.children}
+    if (this.model.isReady) {
+      return (
+        <div>
+          <div>Party Name: {this.model.partyName}</div>
+          <div>Venue:
+          <VenueCard venueID={this.model.venue.venueID} />
+            {this.props.children}
+          </div>
         </div>
-      </div>
-    ) : null;
+      );
+
+    } else return null;
   }
 }

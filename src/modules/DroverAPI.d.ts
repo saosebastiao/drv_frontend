@@ -10,7 +10,7 @@ interface IPartierProfile {
   stripeAccount?: string;
   validated: boolean;
   complete: boolean;
-  filters?: IPartierFilters;
+  filters: IPartierFilters;
 }
 
 interface IStripeLink {
@@ -78,7 +78,7 @@ interface ISquad {
   ownerID: string;
   auction: IAuction;
   squadName: string;
-  filters?: ISquadFilters;
+  filters: ISquadFilters;
   squadMembers?: Array<ISquadMember>;
 }
 
@@ -129,13 +129,13 @@ interface IVenue {
   address: string;
   photos?: Array<string>;
   location?: GeoJSON.Point;
-  filters?: IVenueFilters;
+  filters: IVenueFilters;
 }
 
 interface IParty {
   partyID: number;
   partyName: string;
-  filters?: IPartyFilters;
+  filters: IPartyFilters;
   venue: IVenue;
   auction: IAuction;
 }
@@ -162,6 +162,7 @@ interface ISquadFilters {
   inAuction?: boolean;
   minimumPrice?: number;
   venueBlacklist?: Array<number>;
+  partyBlacklist?: Array<number>;
   musicTypes?: Array<string>;
   venueTypes?: Array<string>;
   interactionTypes?: Array<string>;
@@ -262,12 +263,24 @@ interface ISetPartyFilters {
   filters: IPartyFilters;
 }
 
+interface ISquadFiltersUpdated {
+  msg: 'SquadFiltersUpdated';
+  filters: ISquadFilters;
+}
+
+interface IPartyFiltersUpdated {
+  msg: 'PartyFiltersUpdated';
+  filters: IPartyFilters;
+}
+
+
 interface IBid {
   msg: 'Bid';
   squadID: number;
   price: number;
 }
 
-type IAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed;
+type ISquadAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed | ISquadFiltersUpdated;
+type IPartyAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed | IPartyFiltersUpdated;
 type ISquadMessage = IGetState | ISetSquadFilters;
 type IPartyMessage = IGetState | ISetPartyFilters | IBid;
