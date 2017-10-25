@@ -5,6 +5,7 @@ import PartyCard from "shared/cards/PartyCard";
 import SquadCard from "shared/cards/SquadCard";
 import AuctionModel from "./Model";
 import AuctionInfo from "shared/AuctionInfo";
+import BidBox from "./BidBox";
 
 interface PPartyID {
   partyID: number;
@@ -37,19 +38,13 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
         {
           this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
             <SquadCard key={idx} squadID={squad.squadID} >
-              {
-                this.model.isBiddable ?
-                  <button type="button" onClick={() => this.model.bid(squad.squadID)}>Bid</button> :
-                  null
-              }
-              <label>
-                <input type="number"
-                  max={this.model.myParty.auction.priceStart}
-                  min={0}
-                  step={this.model.myParty.auction.priceDrop}
-                  onChange={(e: any) => this.model.prebid(squad.squadID, parseInt(e.target.value, 10))} />
-                Pre-Bid On Squad
-              </label>
+              <BidBox
+                squad={squad}
+                party={this.model.myParty}
+                auctionState={this.model.auctionState}
+                submitBid={this.model.submitBid}
+                submitSealedBid={this.model.submitSealedBid}
+              />
               <label>
                 <input type="checkbox"
                   checked={this.model.isSquadBlacklisted(squad.squadID)}
