@@ -238,15 +238,39 @@ interface ICurrentState {
 
 interface ISquadBidSuccessful {
   msg: 'SquadBidSuccessful';
+  bidID: number;
   squadID: number;
   partyID: number;
+  price: number;
+  bidTime: string;
+}
+
+interface ISquadBidReceived {
+  msg: 'SquadBidReceived';
+  bidID: number;
+  squadID: number;
+  partyID: number;
+  price: number;
+  bidTime: string;
+}
+
+interface ISquadTaken {
+  msg: 'SquadTaken';
+  bidID: number;
+  squadID: number;
+  partyID: number;
+  price: number;
+  bidTime: string;
 }
 
 interface ISquadBidFailed {
   msg: 'SquadBidFailed';
+  bidID: number;
   squadID: number;
   partyID: number;
-  reason: string;
+  price: number;
+  bidTime: string;
+  bidRank: number;
 }
 
 interface IGetState {
@@ -273,14 +297,14 @@ interface IPartyFiltersUpdated {
   filters: IPartyFilters;
 }
 
-
 interface IBid {
   msg: 'Bid';
   squadID: number;
   price: number;
 }
 
-type ISquadAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed | ISquadFiltersUpdated;
-type IPartyAuctionMessage = ICurrentState | ISquadBidSuccessful | ISquadBidFailed | IPartyFiltersUpdated;
+type IPartyBidResponse = ISquadBidSuccessful | ISquadTaken | ISquadBidFailed | ISquadBidReceived;
+type ISquadAuctionMessage = ICurrentState | ISquadFiltersUpdated | ISquadBidSuccessful;
+type IPartyAuctionMessage = ICurrentState | IPartyFiltersUpdated | IPartyBidResponse;
 type ISquadMessage = IGetState | ISetSquadFilters;
 type IPartyMessage = IGetState | ISetPartyFilters | IBid;

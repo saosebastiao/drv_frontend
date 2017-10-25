@@ -7,6 +7,7 @@ export default class AuctionModel {
   @observable public allSquads: Array<ISquadConfig> = [];
   @observable public allParties: Array<IPartyConfig> = [];
   @observable public myParty: IParty;
+  @observable public myBids: Map<number, IPartyBidResponse> = new Map();
   @computed get isReady() {
     return this.myParty != null && this.auctionState != null;
   }
@@ -35,10 +36,17 @@ export default class AuctionModel {
       this.auctionState = message.state;
       this.allParties = message.parties;
       this.allSquads = message.squads;
+    } else if (message.msg === "SquadBidReceived") {
+      this.myBids.set(message.squadID, message);
+      Logger.info(`Squad bid received: ${JSON.stringify(message)}`);
     } else if (message.msg === "SquadBidSuccessful") {
-      Logger.info(`Squad bid success: ${message.squadID}, ${message.partyID}`);
+      this.myBids.set(message.squadID, message);
+      Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
     } else if (message.msg === "SquadBidFailed") {
-      Logger.info(`Squad bid failed: ${message.squadID}, ${message.partyID}, ${message.reason}`);
+      this.myBids.set(message.squadID, message);
+      Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+    } else if (message.msg === "SquadTaken") {
+      Logger.info(`Squad taken: ${JSON.stringify(message)}`);
     } else if (message.msg === "PartyFiltersUpdated") {
       Logger.info(message);
       this.myParty.filters = message.filters;

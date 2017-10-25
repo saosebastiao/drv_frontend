@@ -41,6 +41,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
               <BidBox
                 squad={squad}
                 party={this.model.myParty}
+                bid={this.model.myBids.get(squad.squadID)}
                 auctionState={this.model.auctionState}
                 submitBid={this.model.submitBid}
                 submitSealedBid={this.model.submitSealedBid}

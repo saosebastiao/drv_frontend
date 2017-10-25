@@ -7,6 +7,7 @@ interface PBidBox {
   party: IParty;
   squad: ISquadConfig;
   auctionState: IAuctionState;
+  bid?: IPartyBidResponse;
   submitBid: (squadID: number) => void;
   submitSealedBid: (squadID: number, price: number) => void;
 }
@@ -15,7 +16,7 @@ interface PBidBox {
 export default class BidBox extends React.Component<PBidBox>{
   @observable private sealedBid = 0;
   private setSealedBid = (e: any) => {
-    this.sealedBid = e.target.value;
+    this.sealedBid = parseInt(e.target.value, 10);
   }
   private submitBid = () => {
     this.props.submitBid(this.props.squad.squadID);
@@ -23,38 +24,82 @@ export default class BidBox extends React.Component<PBidBox>{
   private submitSealedBid = () => {
     this.props.submitSealedBid(this.props.squad.squadID, this.sealedBid);
   }
+  private auctionState = this.props.auctionState;
+  private formatCurrency = (price: number) => {
+    return currencyFormatter.format(price, {
+      code: this.props.party.auction.currency,
+      precision: 0
+    });
+  }
   public render() {
-    const auctionState = this.props.auctionState;
-    const formatCurrency = (price: number) => {
-      return currencyFormatter.format(price, {
-        code: this.props.party.auction.currency,
-        precision: 0
-      });
-    };
-    return (
-      <div>
-        {
-          auctionState.state === "ActiveAuction" ?
-            <div>
-              <button type="button" onClick={this.submitBid}>
-                Bid {formatCurrency(auctionState.price)}
-              </button>
-            </div> : null
-        }
+    const bid = this.props.bid;
+    if (bid && bid.msg === "SquadBidSuccessful") {
+      return (
         <div>
-          <label>
+          Squad Bid Successful!: {this.formatCurrency(bid.price)}
+        </div>
+      );
+    } else if (bid && bid.msg === "SquadBidFailed") {
+      return (
+        <div>
+          Squad Bid Failed!: {this.formatCurrency(bid.price)}
+        </div>
+      );
+    } else if (bid && bid.msg === "SquadTaken") {
+      return (
+        <div>
+          Squad Taken!: {this.formatCurrency(bid.price)}
+        </div>
+      );
+    } else if (bid && bid.msg === "SquadBidReceived") {
+      return (
+        <div>
+          Current Bid: {this.formatCurrency(bid.price)}
+          <div>
+            {
+              this.auctionState.state === "ActiveAuction" ?
+                <div>
+                  <button type="button" onClick={this.submitBid}>
+                    Bid {this.formatCurrency(this.auctionState.price)}
+                  </button>
+                </div> : null
+            }
+            <div>
+              <input type="number"
+                value={this.sealedBid}
+                min={this.props.squad.filters.minimumPrice || 0}
+                step={5}
+                onChange={this.setSealedBid} />
+              <button type="button" onClick={this.submitSealedBid}>
+                Submit Sealed Bid
+          </button>
+            </div>
+          </div >
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {
+            this.auctionState.state === "ActiveAuction" ?
+              <div>
+                <button type="button" onClick={this.submitBid}>
+                  Bid {this.formatCurrency(this.auctionState.price)}
+                </button>
+              </div> : null
+          }
+          <div>
             <input type="number"
               value={this.sealedBid}
               min={this.props.squad.filters.minimumPrice || 0}
+              step={5}
               onChange={this.setSealedBid} />
-            Pre-Bid On Squad
-          </label>
-          <button type="button" onClick={this.submitSealedBid}>
-            Submit Sealed Bid
+            <button type="button" onClick={this.submitSealedBid}>
+              Submit Sealed Bid
           </button>
-        </div>
-      </div >
-    );
+          </div>
+        </div >
+      );
+    }
   }
-
 }
