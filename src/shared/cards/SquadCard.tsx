@@ -5,9 +5,11 @@ import * as React from "react";
 import PartierCard from "./PartierCard";
 
 class SquadCardModel {
-  constructor(public squadID: number) {
+  constructor(squadID: number) {
+    this.squadID = squadID;
     this.refresh();
   }
+  @observable public squadID: number;
   @observable public squadName: string;
   @observable public ownerID: string;
   @observable public auction: IAuction;
@@ -30,12 +32,13 @@ interface PSquadCard {
 
 @observer
 export default class SquadCard extends React.Component<PSquadCard, {}>{
-  public model = new SquadCardModel(this.props.squadID);
+  private model = new SquadCardModel(this.props.squadID);
   public render() {
     return this.model.isReady ? (
       <div>
+        <div>SquadID: {this.props.squadID}</div>
         <div>Squad Name: {this.model.squadName}</div>
-        <div>Owner: <PartierCard userID={this.model.ownerID} /></div>
+        <div>Owner: <PartierCard key={this.model.ownerID} userID={this.model.ownerID} /></div>
         <div>Members:
         {this.model.squadMembers.map((x) => {
             return x.accepted ? <PartierCard key={x.userID} userID={x.userID} /> : null;

@@ -2,6 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import PartyCard from "shared/cards/PartyCard";
+// import SquadConfigCard from "shared/cards/SquadConfigCard";
 import SquadCard from "shared/cards/SquadCard";
 import AuctionModel from "./Model";
 import AuctionInfo from "shared/AuctionInfo";
@@ -24,8 +25,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
     return (
       <div className="parties-contents">
         {
-          this.model.allParties.map((party: IPartyConfig, idx: number) => (
-            <PartyCard key={idx} partyID={party.partyID} />
+          this.model.allParties.map((party: IPartyConfig) => (
+            <PartyCard key={party.partyID} partyID={party.partyID} />
           ))
         }
       </div>
@@ -36,8 +37,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
     return (
       <div className="squads-contents">
         {
-          this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
-            <SquadCard key={idx} squadID={squad.squadID} >
+          this.model.allSquadsSorted.map((squad: ISquadConfig) => (
+            <SquadCard key={squad.squadID} squadID={squad.squadID} >
               <BidBox
                 squad={squad}
                 party={this.model.myParty}
@@ -76,6 +77,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
             <div className="details-col">
               <div className="squads-wrapper has-border">
                 <div className="details-title">Squads</div>
+                <button type="button" onClick={() => this.model.toggleSort()} />
                 {this.renderSquadsCard()}
               </div>
             </div>

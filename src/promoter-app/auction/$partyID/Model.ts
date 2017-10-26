@@ -8,6 +8,27 @@ export default class AuctionModel {
   @observable public allParties: Array<IPartyConfig> = [];
   @observable public myParty: IParty;
   @observable public myBids: Map<number, IPartyBidResponse> = new Map();
+
+  @observable public sortType: "f" | "r" = "f";
+  @action public toggleSort = () => {
+    if (this.sortType === "f") {
+      this.sortType = "r";
+    } else {
+      this.sortType = "f";
+    }
+  }
+
+  @computed get allSquadsSorted() {
+    let sortFunc: (a: ISquadConfig, b: ISquadConfig) => number;
+    if (this.sortType === "f") {
+      sortFunc = (a, b) => a.squadID - b.squadID;
+    } else {
+      sortFunc = (a, b) => b.squadID - a.squadID;
+    }
+    const x = this.allSquads.slice().sort(sortFunc);
+    return x;
+  }
+
   @computed get isReady() {
     return this.myParty != null && this.auctionState != null;
   }

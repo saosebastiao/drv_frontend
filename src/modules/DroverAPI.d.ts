@@ -218,6 +218,7 @@ interface ISquadConfig {
   squadName: string;
   ownerID: string;
   filters: ISquadFilters;
+  squadMembers?: Array<ISquadMember>;
 }
 
 interface IPartyConfig {
