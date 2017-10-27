@@ -273,6 +273,12 @@ interface ISquadBidFailed {
   bidTime: string;
   bidRank: number;
 }
+interface ISquadBidDropped {
+  msg: 'SquadBidDropped';
+  bidID: number;
+  squadID: number;
+  partyID: number;
+}
 
 interface IGetState {
   msg: 'GetState';
@@ -303,9 +309,13 @@ interface IBid {
   squadID: number;
   price: number;
 }
+interface IDropBid {
+  msg: 'DropBid';
+  squadID: number;
+}
 
-type IPartyBidResponse = ISquadBidSuccessful | ISquadTaken | ISquadBidFailed | ISquadBidReceived;
+type IPartyBidResponse = ISquadBidSuccessful | ISquadTaken | ISquadBidFailed | ISquadBidReceived | ISquadBidDropped;
 type ISquadAuctionMessage = ICurrentState | ISquadFiltersUpdated | ISquadBidSuccessful;
 type IPartyAuctionMessage = ICurrentState | IPartyFiltersUpdated | IPartyBidResponse;
 type ISquadMessage = IGetState | ISetSquadFilters;
-type IPartyMessage = IGetState | ISetPartyFilters | IBid;
+type IPartyMessage = IGetState | ISetPartyFilters | IBid | IDropBid;

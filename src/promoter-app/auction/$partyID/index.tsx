@@ -45,6 +45,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                 bid={this.model.myBids.get(squad.squadID)}
                 auctionState={this.model.auctionState}
                 submitBid={this.model.submitBid}
+                revokeBid={this.model.dropBid}
                 submitSealedBid={this.model.submitSealedBid}
               />
               <label>

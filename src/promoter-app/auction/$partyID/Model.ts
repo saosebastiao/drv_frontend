@@ -66,6 +66,9 @@ export default class AuctionModel {
     } else if (message.msg === "SquadBidFailed") {
       this.myBids.set(message.squadID, message);
       Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+    } else if (message.msg === "SquadBidDropped") {
+      this.myBids.delete(message.squadID);
+      Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
     } else if (message.msg === "SquadTaken") {
       Logger.info(`Squad taken: ${JSON.stringify(message)}`);
     } else if (message.msg === "PartyFiltersUpdated") {
@@ -103,6 +106,13 @@ export default class AuctionModel {
       };
       this.subscription.next(JSON.stringify(bidMessage));
     }
+  }
+  public dropBid = (squadID: number) => {
+    const bidMessage: IDropBid = {
+      msg: "DropBid",
+      squadID
+    };
+    this.subscription.next(JSON.stringify(bidMessage));
   }
   public getState() {
     this.subscription.next(JSON.stringify({ msg: "GetState" }));

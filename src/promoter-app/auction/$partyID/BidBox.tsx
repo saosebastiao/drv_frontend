@@ -8,6 +8,7 @@ interface PBidBox {
   squad: ISquadConfig;
   auctionState: IAuctionState;
   bid?: IPartyBidResponse;
+  revokeBid: (squadID: number) => void;
   submitBid: (squadID: number) => void;
   submitSealedBid: (squadID: number, price: number) => void;
 }
@@ -17,6 +18,9 @@ export default class BidBox extends React.Component<PBidBox>{
   @observable private sealedBid = 0;
   private setSealedBid = (e: any) => {
     this.sealedBid = parseInt(e.target.value, 10);
+  }
+  private revokeBid = () => {
+    this.props.revokeBid(this.props.squad.squadID);
   }
   private submitBid = () => {
     this.props.submitBid(this.props.squad.squadID);
@@ -56,14 +60,9 @@ export default class BidBox extends React.Component<PBidBox>{
         <div>
           Current Bid: {this.formatCurrency(bid.price)}
           <div>
-            {
-              this.auctionState.state === "ActiveAuction" ?
-                <div>
-                  <button type="button" onClick={this.submitBid}>
-                    Bid {this.formatCurrency(this.auctionState.price)}
-                  </button>
-                </div> : null
-            }
+            <button type="button" onClick={this.revokeBid}>
+              Revoke Bid
+            </button>
             <div>
               <input type="number"
                 value={this.sealedBid}
