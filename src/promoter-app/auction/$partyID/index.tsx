@@ -38,7 +38,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
       <div className="squads-contents">
         {
           this.model.allSquadsSorted.map((squad: ISquadConfig) => (
-            <SquadCard key={squad.squadID} squadID={squad.squadID} >
+            <SquadCard key={squad.squadID} squadID={squad.squadID} squad={squad} >
               <BidBox
                 squad={squad}
                 party={this.model.myParty}

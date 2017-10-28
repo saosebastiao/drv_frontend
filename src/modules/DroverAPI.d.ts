@@ -215,7 +215,6 @@ interface IPostAuction {
 
 interface ISquadConfig {
   squadID: number;
-  squadName: string;
   ownerID: string;
   filters: ISquadFilters;
   squadMembers?: Array<ISquadMember>;

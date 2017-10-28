@@ -28,11 +28,17 @@ class SquadCardModel {
 
 interface PSquadCard {
   squadID: number;
+  squad?: ISquadConfig;
 }
 
 @observer
 export default class SquadCard extends React.Component<PSquadCard, {}>{
   private model = new SquadCardModel(this.props.squadID);
+  public componentWillReceiveProps(nextProps: PSquadCard) {
+    if (nextProps.squad && nextProps.squad.squadMembers) {
+      this.model.squadMembers = nextProps.squad.squadMembers;
+    }
+  }
   public render() {
     return this.model.isReady ? (
       <div>

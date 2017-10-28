@@ -31,9 +31,6 @@ interface PPartierCard {
 @observer
 export default class PartierCard extends React.Component<PPartierCard, {}>{
   public model = new PartierCardModel(this.props.userID);
-  public componentWillReact() {
-    this.model.refresh();
-  }
   public render() {
     return this.model.isReady ? (
       <div className="member-card" >
