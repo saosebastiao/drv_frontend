@@ -8,7 +8,7 @@ import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
 import FacebookImageSelector from "modules/FacebookImageSelector";
 import EditProfileModel from "./Model";
-import { deletePartierProfile } from "modules/DroverClient";
+import { getUserID, deletePartierProfile } from "modules/DroverClient";
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
@@ -191,7 +191,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                 </label>
                 <a
                   className="btn btn-md btn-primary"
-                  href={"/api/partier/stripe"}
+                  href={`/api/partier/${getUserID()}/stripe`}
                   target="_blank">
                   {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
                 </a>
