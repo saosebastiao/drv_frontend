@@ -283,26 +283,6 @@ interface IGetState {
   msg: 'GetState';
 }
 
-interface ISetSquadFilters {
-  msg: 'SetSquadFilters';
-  filters: ISquadFilters;
-}
-
-interface ISetPartyFilters {
-  msg: 'SetPartyFilters';
-  filters: IPartyFilters;
-}
-
-interface ISquadFiltersUpdated {
-  msg: 'SquadFiltersUpdated';
-  filters: ISquadFilters;
-}
-
-interface IPartyFiltersUpdated {
-  msg: 'PartyFiltersUpdated';
-  filters: IPartyFilters;
-}
-
 interface IBid {
   msg: 'Bid';
   squadID: number;
@@ -314,7 +294,7 @@ interface IDropBid {
 }
 
 type IPartyBidResponse = ISquadBidSuccessful | ISquadTaken | ISquadBidFailed | ISquadBidReceived | ISquadBidDropped;
-type ISquadAuctionMessage = ICurrentState | ISquadFiltersUpdated | ISquadBidSuccessful;
-type IPartyAuctionMessage = ICurrentState | IPartyFiltersUpdated | IPartyBidResponse;
-type ISquadMessage = IGetState | ISetSquadFilters;
-type IPartyMessage = IGetState | ISetPartyFilters | IBid | IDropBid;
+type ISquadAuctionMessage = ICurrentState | ISquadBidSuccessful;
+type IPartyAuctionMessage = ICurrentState | IPartyBidResponse;
+type ISquadMessage = IGetState;
+type IPartyMessage = IGetState | IBid | IDropBid;

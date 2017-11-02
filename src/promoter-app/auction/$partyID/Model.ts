@@ -1,5 +1,5 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { getParty, getPartyAuctionWS } from "modules/DroverClient";
+import { getParty, getPartyAuctionWS, updatePartyFilters } from "modules/DroverClient";
 import Logger from "modules/Logger";
 
 export default class AuctionModel {
@@ -39,16 +39,19 @@ export default class AuctionModel {
     const s = new Set(this.myParty.filters.squadBlacklist);
     return s.has(squadID);
   }
-  @action public toggleSquadBlacklist(squadID: number) {
+  public async toggleSquadBlacklist(squadID: number) {
     const s = new Set(this.myParty.filters.squadBlacklist);
     if (s.has(squadID)) {
       s.delete(squadID);
     } else {
       s.add(squadID);
     }
-    const filters: IPartyFilters = Object.assign({}, this.myParty.filters, { squadBlacklist: Array.from(s) });
-    const msg: ISetPartyFilters = { msg: "SetPartyFilters", filters };
-    this.subscription.next(JSON.stringify(msg));
+    const squadBlacklist = s.size > 0 ? Array.from(s) : null;
+    const filters: IPartyFilters = Object.assign({}, this.myParty.filters, { squadBlacklist });
+    const newFilters = await updatePartyFilters(this.myParty.partyID, filters);
+    runInAction(() => {
+      this.myParty.filters = newFilters;
+    });
   }
   private subscription = getPartyAuctionWS(this.partyID);
   @action private processEvents(message: IPartyAuctionMessage) {
@@ -71,15 +74,13 @@ export default class AuctionModel {
       Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
     } else if (message.msg === "SquadTaken") {
       Logger.info(`Squad taken: ${JSON.stringify(message)}`);
-    } else if (message.msg === "PartyFiltersUpdated") {
-      Logger.info(message);
-      this.myParty.filters = message.filters;
     }
   }
-  @action public setPartyFilters(filters: IPartyFilters) {
-    this.myParty.filters = filters;
-    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
-    this.subscription.next(JSON.stringify(msg));
+  public async setPartyFilters(filters: IPartyFilters) {
+    const newFilters = await updatePartyFilters(this.myParty.partyID, filters);
+    runInAction(() => {
+      this.myParty.filters = newFilters;
+    });
   }
   public quit() {
     this.subscription.complete();

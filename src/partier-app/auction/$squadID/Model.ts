@@ -1,5 +1,5 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { getSquad, getSquadAuctionWS } from "modules/DroverClient";
+import { getSquad, getSquadAuctionWS, updateSquadFilters } from "modules/DroverClient";
 import Logger from "modules/Logger";
 
 export default class AuctionModel {
@@ -15,32 +15,33 @@ export default class AuctionModel {
     const s = new Set(this.mySquad.filters.partyBlacklist);
     return s.has(partyID);
   }
-  @action public toggleVenueBlacklist(venueID: number) {
+  public async toggleVenueBlacklist(venueID: number) {
     const s = new Set(this.mySquad.filters.venueBlacklist);
     if (s.has(venueID)) {
       s.delete(venueID);
     } else {
       s.add(venueID);
     }
-    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { venueBlacklist: Array.from(s) });
-    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
-    this.subscription.next(JSON.stringify(msg));
+    const venueBlacklist = s.size > 0 ? Array.from(s) : null;
+    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { venueBlacklist });
+    const newFilters = await updateSquadFilters(this.mySquad.squadID, filters);
+    runInAction(() => {
+      this.mySquad.filters = newFilters;
+    });
   }
-  @action public togglePartyBlacklist(partyID: number) {
+  public async togglePartyBlacklist(partyID: number) {
     const s = new Set(this.mySquad.filters.partyBlacklist);
     if (s.has(partyID)) {
       s.delete(partyID);
     } else {
       s.add(partyID);
     }
-    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { partyBlacklist: Array.from(s) });
-    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters };
-    this.subscription.next(JSON.stringify(msg));
-  }
-  @action public setSquadFilters() {
-    const msg: ISetSquadFilters = { msg: "SetSquadFilters", filters: this.mySquad.filters };
-    Logger.debug(JSON.stringify(msg));
-    this.subscription.next(JSON.stringify(msg));
+    const partyBlacklist = s.size > 0 ? Array.from(s) : null;
+    const filters: ISquadFilters = Object.assign({}, this.mySquad.filters, { partyBlacklist });
+    const newFilters = await updateSquadFilters(this.mySquad.squadID, filters);
+    runInAction(() => {
+      this.mySquad.filters = newFilters;
+    });
   }
 
   @computed get isReady() {
@@ -55,9 +56,6 @@ export default class AuctionModel {
       this.allSquads = message.squads || [];
     } else if (message.msg === "SquadBidSuccessful") {
       Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
-    } else if (message.msg === "SquadFiltersUpdated") {
-      Logger.info(message);
-      this.mySquad.filters = message.filters;
     }
   }
   public quit() {
