@@ -8,15 +8,7 @@ export default class AuctionModel {
   @observable public allParties: Array<IPartyConfig> = [];
   @observable public myParty: IParty;
   @observable public myBids: Map<number, IPartyBidResponse> = new Map();
-
   @observable public sortType: "f" | "r" = "f";
-  @action public toggleSort = () => {
-    if (this.sortType === "f") {
-      this.sortType = "r";
-    } else {
-      this.sortType = "f";
-    }
-  }
 
   @computed get allSquadsSorted() {
     let sortFunc: (a: ISquadConfig, b: ISquadConfig) => number;
@@ -75,12 +67,6 @@ export default class AuctionModel {
     } else if (message.msg === "SquadTaken") {
       Logger.info(`Squad taken: ${JSON.stringify(message)}`);
     }
-  }
-  public async setPartyFilters(filters: IPartyFilters) {
-    const newFilters = await updatePartyFilters(this.myParty.partyID, filters);
-    runInAction(() => {
-      this.myParty.filters = newFilters;
-    });
   }
   public quit() {
     this.subscription.complete();

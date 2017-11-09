@@ -21,6 +21,10 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
     this.model.quit();
   }
 
+  private handleSortChange = (e: any) => {
+    this.model.sortType = e.target.value;
+  }
+
   private renderPartiesCard() {
     return (
       <div className="parties-contents">
@@ -53,7 +57,7 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                   checked={this.model.isSquadBlacklisted(squad.squadID)}
                   onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />
                 Blacklist Squad
-              </label>
+                </label>
             </SquadCard>
           ))
         }
@@ -78,7 +82,21 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
             <div className="details-col">
               <div className="squads-wrapper has-border">
                 <div className="details-title">Squads</div>
-                <button type="button" onClick={() => this.model.toggleSort()} />
+                <div className="radio">
+                  <span>Sort By:</span>
+                  <label>
+                    <input type="radio" value="f"
+                      checked={this.model.sortType === "f"}
+                      onChange={this.handleSortChange} />
+                    Sort 1
+                  </label>
+                  <label>
+                    <input type="radio" value="r"
+                      checked={this.model.sortType === "r"}
+                      onChange={this.handleSortChange} />
+                    Sort 2
+                  </label>
+                </div>
                 {this.renderSquadsCard()}
               </div>
             </div>
