@@ -238,13 +238,13 @@ export function deleteParty(partyID: number) {
 export function getSquadAuctionWS(squadID: number) {
   // TODO: Fix backend with env variables
   const BACKEND = window.location.host;
-  return Observable.webSocket(`wss://${BACKEND}/ws/auction/squad/${squadID}`);
+  return Observable.webSocket<ISquadAuctionMessage | string>(`wss://${BACKEND}/ws/auction/squad/${squadID}`);
 }
 
 export function getPartyAuctionWS(partyID: number) {
   // TODO: Fix backend with env variables
   const BACKEND = window.location.host;
-  return Observable.webSocket(`wss://${BACKEND}/ws/auction/party/${partyID}`);
+  return Observable.webSocket<IPartyAuctionMessage | string>(`wss://${BACKEND}/ws/auction/party/${partyID}`);
 }
 
 export function updatePromoterStripeAccount(token: string) {

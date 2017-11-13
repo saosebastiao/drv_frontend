@@ -46,26 +46,28 @@ export default class AuctionModel {
     });
   }
   private subscription = getPartyAuctionWS(this.partyID);
-  @action private processEvents(message: IPartyAuctionMessage) {
-    if (message.msg === "CurrentState") {
-      Logger.info(message);
-      this.auctionState = message.state;
-      this.allParties = message.parties;
-      this.allSquads = message.squads;
-    } else if (message.msg === "SquadBidReceived") {
-      this.myBids.set(message.squadID, message);
-      Logger.info(`Squad bid received: ${JSON.stringify(message)}`);
-    } else if (message.msg === "SquadBidSuccessful") {
-      this.myBids.set(message.squadID, message);
-      Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
-    } else if (message.msg === "SquadBidFailed") {
-      this.myBids.set(message.squadID, message);
-      Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
-    } else if (message.msg === "SquadBidDropped") {
-      this.myBids.delete(message.squadID);
-      Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
-    } else if (message.msg === "SquadTaken") {
-      Logger.info(`Squad taken: ${JSON.stringify(message)}`);
+  @action private processEvents(message: IPartyAuctionMessage | string) {
+    if (typeof message !== "string") {
+      if (message.msg === "CurrentState") {
+        Logger.info(message);
+        this.auctionState = message.state;
+        this.allParties = message.parties;
+        this.allSquads = message.squads;
+      } else if (message.msg === "SquadBidReceived") {
+        this.myBids.set(message.squadID, message);
+        Logger.info(`Squad bid received: ${JSON.stringify(message)}`);
+      } else if (message.msg === "SquadBidSuccessful") {
+        this.myBids.set(message.squadID, message);
+        Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
+      } else if (message.msg === "SquadBidFailed") {
+        this.myBids.set(message.squadID, message);
+        Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+      } else if (message.msg === "SquadBidDropped") {
+        this.myBids.delete(message.squadID);
+        Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+      } else if (message.msg === "SquadTaken") {
+        Logger.info(`Squad taken: ${JSON.stringify(message)}`);
+      }
     }
   }
   public quit() {
@@ -113,7 +115,7 @@ export default class AuctionModel {
   constructor(private partyID: number) {
     this.refresh();
     this.subscription.subscribe(
-      (msg: IPartyAuctionMessage) => this.processEvents(msg),
+      (msg) => this.processEvents(msg),
       (err: any) => Logger.error(err),
       () => Logger.info("Closing Auction Page websocket")
     );

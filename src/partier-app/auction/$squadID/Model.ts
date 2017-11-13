@@ -48,14 +48,16 @@ export default class AuctionModel {
     return this.mySquad != null && this.auctionState != null;
   }
   private subscription = getSquadAuctionWS(this.squadID);
-  @action private processEvents(message: ISquadAuctionMessage) {
-    if (message.msg === "CurrentState") {
-      Logger.info(message);
-      this.auctionState = message.state;
-      this.allParties = message.parties || [];
-      this.allSquads = message.squads || [];
-    } else if (message.msg === "SquadBidSuccessful") {
-      Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
+  @action private processEvents(message: ISquadAuctionMessage | string) {
+    if (typeof message !== "string") {
+      if (message.msg === "CurrentState") {
+        Logger.info(message);
+        this.auctionState = message.state;
+        this.allParties = message.parties || [];
+        this.allSquads = message.squads || [];
+      } else if (message.msg === "SquadBidSuccessful") {
+        Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
+      }
     }
   }
   public quit() {
@@ -74,7 +76,7 @@ export default class AuctionModel {
   constructor(private squadID: number) {
     this.refresh();
     this.subscription.subscribe(
-      (msg: ISquadAuctionMessage) => this.processEvents(msg),
+      (msg) => this.processEvents(msg),
       (err: any) => Logger.error(err),
       () => Logger.info("Closing Auction Page websocket")
     );
