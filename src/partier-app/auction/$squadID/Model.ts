@@ -56,7 +56,7 @@ export default class AuctionModel {
         this.allParties = message.parties || [];
         this.allSquads = message.squads || [];
       } else if (message.msg === "SquadBidSuccessful") {
-        Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
+        Logger.info(message);
       }
     }
   }
