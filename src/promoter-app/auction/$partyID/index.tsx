@@ -2,7 +2,6 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import PartyCard from "shared/cards/PartyCard";
-// import SquadConfigCard from "shared/cards/SquadConfigCard";
 import SquadCard from "shared/cards/SquadCard";
 import AuctionModel from "./Model";
 import AuctionInfo from "shared/AuctionInfo";
