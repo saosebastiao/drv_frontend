@@ -1,21 +1,11 @@
-import "bootstrap-sass/assets/javascripts/bootstrap.js";
-import * as $ from "jquery";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
 import CreateVenueModel from "./Model";
 
 @observer
 export default class CreateVenue extends React.Component<RouteComponentProps<{}>, {}> {
   public model = new CreateVenueModel;
-
-  public initToggle = (ref: any) => {
-    if (ref) {
-      const domElement = findDOMNode(ref);
-      ($(domElement) as any).tooltip();
-    }
-  }
 
   public clickSave = async () => {
     await this.model.create();
@@ -44,7 +34,6 @@ export default class CreateVenue extends React.Component<RouteComponentProps<{}>
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Venue Name"
@@ -66,7 +55,6 @@ export default class CreateVenue extends React.Component<RouteComponentProps<{}>
               <div className="form-group">
                 <label htmlFor="input-home" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Hometown"
@@ -88,7 +76,7 @@ export default class CreateVenue extends React.Component<RouteComponentProps<{}>
               </div>
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Address">Address</span>
+                  <span data-toggle="tooltip" data-placement="top" title="Address">Address</span>
                 </label>
                 <div className="value-col">
                   <input

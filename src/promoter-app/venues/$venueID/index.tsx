@@ -1,9 +1,6 @@
-import "bootstrap-sass/assets/javascripts/bootstrap.js";
-import * as $ from "jquery";
 import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { Link, RouteComponentProps } from "react-router-dom";
 import ShowVenueModel from "./Model";
 
@@ -14,13 +11,6 @@ interface PShowVenue {
 @observer
 export default class ShowVenue extends React.Component<RouteComponentProps<PShowVenue>, {}> {
   public venue = new ShowVenueModel(this.props.match.params.venueID);
-
-  public initToggle = (ref: any) => {
-    if (ref) {
-      const domElement = findDOMNode(ref);
-      ($(domElement) as any).tooltip();
-    }
-  }
 
   public renderOtherPhotos() {
     return (
@@ -60,7 +50,6 @@ export default class ShowVenue extends React.Component<RouteComponentProps<PShow
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Venue Name"
@@ -74,7 +63,7 @@ export default class ShowVenue extends React.Component<RouteComponentProps<PShow
               </div>
               <div className="form-group">
                 <label htmlFor="input-home" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Region</span>
+                  <span data-toggle="tooltip" data-placement="top" title="Hometown">Region</span>
                 </label>
                 <div className="value-col">
                   {this.venue.regionID}

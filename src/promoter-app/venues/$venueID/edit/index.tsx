@@ -1,10 +1,7 @@
-import "bootstrap-sass/assets/javascripts/bootstrap.js";
-import * as $ from "jquery";
 import { range as _range } from "lodash";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
 import FacebookImageSelector from "../../../../modules/FacebookImageSelector";
 import EditVenueModel from "./Model";
@@ -38,13 +35,6 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
       this.venue.photos[idx] = url.source;
     } else {
       this.venue.photos.push(url.source);
-    }
-  }
-
-  public initToggle = (ref: any) => {
-    if (ref) {
-      const domElement = findDOMNode(ref);
-      ($(domElement) as any).tooltip();
     }
   }
 
@@ -102,7 +92,6 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Venue Name"
@@ -123,7 +112,7 @@ export default class EditVenue extends React.Component<RouteComponentProps<PEdit
 
               <div className="form-group">
                 <label htmlFor="input-home" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Hometown">Region</span>
+                  <span data-toggle="tooltip" data-placement="top" title="Hometown">Region</span>
                 </label>
                 <div className="value-col">
                   {this.venue.regionID}

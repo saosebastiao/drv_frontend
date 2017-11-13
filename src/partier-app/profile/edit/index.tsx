@@ -1,10 +1,7 @@
-import "bootstrap-sass/assets/javascripts/bootstrap.js";
-import * as $ from "jquery";
 import { range as _range } from "lodash";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
 import FacebookImageSelector from "modules/FacebookImageSelector";
 import EditProfileModel from "./Model";
@@ -34,13 +31,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
       this.profile.photos[idx] = url.source;
     } else {
       this.profile.photos.push(url.source);
-    }
-  }
-
-  public initToggle = (ref: any) => {
-    if (ref) {
-      const domElement = findDOMNode(ref);
-      ($(domElement) as any).tooltip();
     }
   }
 
@@ -110,7 +100,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Display Name"
@@ -132,7 +121,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
               <div className="form-group">
                 <label htmlFor="input-home" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Hometown"
@@ -155,7 +143,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
 
               <div className="form-group">
                 <label htmlFor="input-gender" className="label-col control-label">
-                  <span ref={this.initToggle} data-toggle="tooltip" data-placement="top" title="Gender">Gender</span>
+                  <span data-toggle="tooltip" data-placement="top" title="Gender">Gender</span>
                 </label>
                 <div className="value-col">
                   <label className="radio-inline">
@@ -181,7 +169,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
               <div className="form-group">
                 <label htmlFor="input-stripe" className="label-col control-label">
                   <span
-                    ref={this.initToggle}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Stripe Account"
