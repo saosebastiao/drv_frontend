@@ -55,18 +55,18 @@ export default class AuctionModel {
         this.allSquads = message.squads;
       } else if (message.msg === "SquadBidReceived") {
         this.myBids.set(message.squadID, message);
-        Logger.info(`Squad bid received: ${JSON.stringify(message)}`);
+        Logger.info(message);
       } else if (message.msg === "SquadBidSuccessful") {
         this.myBids.set(message.squadID, message);
-        Logger.info(`Squad bid success: ${JSON.stringify(message)}`);
+        Logger.info(message);
       } else if (message.msg === "SquadBidFailed") {
         this.myBids.set(message.squadID, message);
-        Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+        Logger.info(message);
       } else if (message.msg === "SquadBidDropped") {
         this.myBids.delete(message.squadID);
-        Logger.info(`Squad bid failed: ${JSON.stringify(message)}`);
+        Logger.info(message);
       } else if (message.msg === "SquadTaken") {
-        Logger.info(`Squad taken: ${JSON.stringify(message)}`);
+        Logger.info(message);
       }
     }
   }
