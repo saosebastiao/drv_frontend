@@ -3,23 +3,11 @@
   "configurations": [
     {
       "name": "Launch",
-      "type": "node",
+      "type": "firefox",
       "request": "launch",
-      "program": "${workspaceRoot}/bin/playground.js",
-      "stopOnEntry": false,
-      "args": [],
-      "cwd": "${workspaceRoot}",
-      "preLaunchTask": null,
-      "runtimeExecutable": null,
-      "runtimeArgs": [
-        "--nolazy"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "console": "internalConsole",
-      "sourceMaps": false,
-      "outFiles": []
+      "reAttach": true,
+      "url": "https://localhost:8080",
+      "webRoot": "${workspaceFolder}/src"
     }
   ]
 }
