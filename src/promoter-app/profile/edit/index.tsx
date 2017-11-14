@@ -4,32 +4,40 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import EditProfileModel from "./Model";
 import { updatePromoterStripeAccount } from "modules/DroverClient";
-
-const style = {
-  base: {
-    // Add your base input styles here. For example:
-    fontSize: "16px",
-    lineHeight: "24px"
-  }
-};
-const stripe = Stripe("pk_test_GEDUNDpJeAljk63czVCfT9o0");
-const elements = stripe.elements();
-const cardNumber = elements.create("cardNumber", { style });
-const cardExpiration = elements.create("cardExpiry", { style });
-const cardCVC = elements.create("cardCvc", { style });
-const cardPostal = elements.create("postalCode", { style });
+import loadScript from "modules/loadScript";
 
 @observer
 export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
-  public profile = new EditProfileModel;
+  private stripePromise: Promise<stripe.Stripe>;
+  private profile = new EditProfileModel;
+  private cardNumber: stripe.elements.Element;
+  private cardExpiration: stripe.elements.Element;
+  private cardCVC: stripe.elements.Element;
+  private cardPostal: stripe.elements.Element;
   constructor(props: any) {
     super(props);
+    const src = "https://js.stripe.com/v3/";
+    this.stripePromise = loadScript(src).then(() => {
+      return Stripe("pk_test_GEDUNDpJeAljk63czVCfT9o0");
+    });
   }
 
-  public componentDidMount() {
-    // Add an instance of the card Element into the `card-element` <div>
-    cardNumber.mount("#card-number");
-    cardNumber.on("change", res => {
+  public async componentDidMount() {
+    const style = {
+      base: {
+        // Add your base input styles here. For example:
+        fontSize: "16px"
+      }
+    };
+    const stripe = await this.stripePromise;
+    const elements = stripe.elements();
+    this.cardNumber = elements.create("cardNumber", { style });
+    this.cardExpiration = elements.create("cardExpiry", { style });
+    this.cardCVC = elements.create("cardCvc", { style });
+    this.cardPostal = elements.create("postalCode", { style });
+
+    this.cardNumber.mount("#card-number");
+    this.cardNumber.on("change", res => {
       const displayError = document.getElementById("card-number-errors");
       if (displayError) {
         if (res && res.error) {
@@ -39,8 +47,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         }
       }
     });
-    cardExpiration.mount("#card-expiration");
-    cardExpiration.on("change", res => {
+    this.cardExpiration.mount("#card-expiration");
+    this.cardExpiration.on("change", res => {
       const displayError = document.getElementById("card-expiration-errors");
       if (displayError) {
         if (res && res.error) {
@@ -50,8 +58,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         }
       }
     });
-    cardCVC.mount("#card-cvc");
-    cardCVC.on("change", res => {
+    this.cardCVC.mount("#card-cvc");
+    this.cardCVC.on("change", res => {
       const displayError = document.getElementById("card-cvc-errors");
       if (displayError) {
         if (res && res.error) {
@@ -61,8 +69,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         }
       }
     });
-    cardPostal.mount("#card-postal");
-    cardPostal.on("change", res => {
+    this.cardPostal.mount("#card-postal");
+    this.cardPostal.on("change", res => {
       const displayError = document.getElementById("card-postal-errors");
       if (displayError) {
         if (res && res.error) {
@@ -74,10 +82,10 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
     });
   }
   public componentWillUnmount() {
-    cardNumber.unmount();
-    cardExpiration.unmount();
-    cardCVC.unmount();
-    cardPostal.unmount();
+    this.cardNumber.unmount();
+    this.cardExpiration.unmount();
+    this.cardCVC.unmount();
+    this.cardPostal.unmount();
   }
 
   public clickSave = async () => {
@@ -95,7 +103,8 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
 
   private submit = async (e: any) => {
     e.preventDefault();
-    const { token, error } = await stripe.createToken(cardNumber);
+    const stripe = await this.stripePromise;
+    const { token, error } = await stripe.createToken(this.cardNumber);
     if (error) {
       // Inform the user if there was an error
       const errorElement = document.getElementById("card-errors");
@@ -103,9 +112,7 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
         errorElement.textContent = error && error.message || "";
       }
     } else if (token) {
-      const res = await updatePromoterStripeAccount(token.id);
-      // tslint:disable-next-line:no-console
-      console.log(res);
+      await updatePromoterStripeAccount(token.id);
     }
   }
   public render() {
