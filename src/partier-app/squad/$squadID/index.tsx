@@ -49,7 +49,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<PView
                   </div>
                   <div className="info-row">
                     <div className="info-value">
-                      <Link to={`/partier/auction/${this.model.squadID}`}>
+                      <Link to={`/partier/squad/${this.model.squadID}/auction`}>
                         <button
                           type="button"
                           className="btn btn-xs btn-primary"

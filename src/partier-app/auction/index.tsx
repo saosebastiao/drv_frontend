@@ -7,7 +7,7 @@ export default class Auction extends React.Component<RouteComponentProps<any>, {
 
   public render() {
     return (
-      <div className="auction-wrapper">
+      <div>
         <Switch>
           <Route exact path="/partier/auction" component={AuctionList} />
           <Route path="/partier/auction/:squadID" component={AuctionID} />

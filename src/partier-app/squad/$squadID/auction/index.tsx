@@ -11,7 +11,7 @@ interface PAuctionForSquad {
 }
 
 @observer
-export default class AuctionID extends React.Component<RouteComponentProps<PAuctionForSquad>, {}> {
+export default class Auction extends React.Component<RouteComponentProps<PAuctionForSquad>, {}> {
 
   private model = new AuctionModel(parseInt(this.props.match.params.squadID, 10));
 
