@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import ShowVenueModel from "./Model";
+import GoogleMap from "shared/GoogleMap";
 
 interface PShowVenue {
   venueID: number;
@@ -68,6 +69,9 @@ export default class ShowVenue extends React.Component<RouteComponentProps<PShow
                 <div className="value-col">
                   {this.venue.regionID}
                 </div>
+              </div>
+              <div className="form-group">
+                <GoogleMap />
               </div>
             </div>
           </div>
