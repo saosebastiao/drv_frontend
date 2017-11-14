@@ -70,46 +70,48 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
     if (this.model.isReady) {
       const myParty = this.model.myParty;
       return (
-        <div className="auction-details-contents">
-          <div className="auction-details-row">
-            <div className="details-col">
-              <div className="parties-wrapper has-border">
-                <div className="details-title">Parties</div>
-                {this.renderPartiesCard()}
-              </div>
-            </div>
-            <div className="details-col">
-              <div className="squads-wrapper has-border">
-                <div className="details-title">Squads</div>
-                <div className="radio">
-                  <span>Sort By:</span>
-                  <label>
-                    <input type="radio" value="f"
-                      checked={this.model.sortType === "f"}
-                      onChange={this.handleSortChange} />
-                    Sort 1
-                  </label>
-                  <label>
-                    <input type="radio" value="r"
-                      checked={this.model.sortType === "r"}
-                      onChange={this.handleSortChange} />
-                    Sort 2
-                  </label>
+        <div className="auction-wrapper">
+          <div className="auction-details-contents">
+            <div className="auction-details-row">
+              <div className="details-col">
+                <div className="parties-wrapper has-border">
+                  <div className="details-title">Parties</div>
+                  {this.renderPartiesCard()}
                 </div>
-                {this.renderSquadsCard()}
+              </div>
+              <div className="details-col">
+                <div className="squads-wrapper has-border">
+                  <div className="details-title">Squads</div>
+                  <div className="radio">
+                    <span>Sort By:</span>
+                    <label>
+                      <input type="radio" value="f"
+                        checked={this.model.sortType === "f"}
+                        onChange={this.handleSortChange} />
+                      Sort 1
+                  </label>
+                    <label>
+                      <input type="radio" value="r"
+                        checked={this.model.sortType === "r"}
+                        onChange={this.handleSortChange} />
+                      Sort 2
+                  </label>
+                  </div>
+                  {this.renderSquadsCard()}
+                </div>
+              </div>
+              <div className="details-col">
+                <AuctionInfo auction={myParty.auction} currentState={this.model.auctionState}>
+                  <button type="button" onClick={this.refresh}>Refresh</button>
+                </AuctionInfo>
+                <div className="squad-info-wrapper">
+                  <div className="details-title">Your Party Info</div>
+                  <PartyCard partyID={myParty.partyID} />
+                  <div>{JSON.stringify(myParty.filters)}</div>
+                </div>
               </div>
             </div>
-            <div className="details-col">
-              <AuctionInfo auction={myParty.auction} currentState={this.model.auctionState}>
-                <button type="button" onClick={this.refresh}>Refresh</button>
-              </AuctionInfo>
-              <div className="squad-info-wrapper">
-                <div className="details-title">Your Party Info</div>
-                <PartyCard partyID={myParty.partyID} />
-                <div>{JSON.stringify(myParty.filters)}</div>
-              </div>
-            </div>
-          </div>
+          </div >
         </div >
       );
     } else return null;

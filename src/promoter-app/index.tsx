@@ -6,7 +6,6 @@ import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import Footer from "shared/Footer";
 import Header from "shared/Header";
 import NavLink from "shared/NavLink";
-import Auction from "./auction";
 import Parties from "./parties";
 import Profile from "./profile";
 import Venues from "./venues";
@@ -36,7 +35,6 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
           <NavLink route="/promoter/profile" label="Profile" />
           <NavLink route="/promoter/venues" label="Venues" />
           <NavLink route="/promoter/parties" label="Parties" />
-          <NavLink route="/promoter/auction" label="Auctions" />
         </Header>
         {this.loggedIn ?
           <Switch>
@@ -44,7 +42,6 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
             <Route path="/promoter/profile" component={Profile} />
             <Route path="/promoter/venues" component={Venues} />
             <Route path="/promoter/parties" component={Parties} />
-            <Route path="/promoter/auction" component={Auction} />
             <Route component={NoMatch} />
           </Switch>
           : <span>Logging In...</span>

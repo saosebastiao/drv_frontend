@@ -7,7 +7,7 @@ export default class SquadListModel {
   @computed get isReady() {
     return this.list.length > 0;
   }
-  public async refresh() {
+  public refresh = async () => {
     const x = await getPromoterParties();
     runInAction(() => {
       this.list = x;

@@ -32,7 +32,7 @@ export default class ViewParty extends React.Component<RouteComponentProps<PView
                   <div className="info-label">Auction Start Time</div>
                   <div className="info-value">{this.model.auction.startTime}</div>
                 </div>
-                <Link to={`/promoter/auction/${this.model.partyID}`}> Go To Auction Page</Link>
+                <Link to={`/promoter/parties/${this.model.partyID}/auction`}> Go To Auction Page</Link>
               </div>
               <div className="info-wrapper">
                 <div className="info-title">Party Information</div>
