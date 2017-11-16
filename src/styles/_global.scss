@@ -11,24 +11,6 @@ $colors: (
   logo-back:      #00F
 );
 
-.logo {
-  display: inline-block;
-  width: 200px;
-  height: 100px;
-  background: map-get($colors, logo-back);
-}
-
-.vertical-center-wrapper {
-  display: table;
-  width: 100%;
-  height: 100%;
-}
-
-.vertical-center-contents {
-  display: table-cell;
-  vertical-align: middle;
-}
-
 .has-border {
   border: 1px solid map-get($colors, border);
 }
