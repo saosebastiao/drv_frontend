@@ -7,6 +7,7 @@ files:
   include: 'src/styles/**/*.scss'
 # Rule Configuration
 rules:
+  final-newline: 0
   extends-before-mixins: 2
   extends-before-declarations: 2
   placeholder-in-extend: 2
@@ -19,7 +20,7 @@ rules:
 
   no-warn: 1
   no-debug: 1
-  no-ids: 2
+  no-ids: 0
   no-important: 2
   hex-notation:
     - 2

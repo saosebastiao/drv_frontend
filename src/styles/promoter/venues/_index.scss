@@ -2,17 +2,21 @@
 @import 'edit';
 @import 'create';
 @import 'auction';
+
 .profile-edit-wrapper {
   width: 100%;
   height: 100%;
   text-align: center;
+
   .profile-edit-contents {
     display: inline-block;
     width: 800px;
     margin-top: 20px;
     padding: 20px 40px;
   }
+
   .profile-top-contents {
+
     .profile-form {
       flex: 1;
       margin-left: 20px;
@@ -42,19 +46,24 @@
       }
     }
   }
+
   .btn-lg {
     min-width: 140px;
   }
+
   #file-selector {
     display: none;
   }
+
 }
 
 .profile-top-contents {
   display: flex;
+
   .photo-container {
     display: inline-block;
     width: 300px;
+
     .main-photo {
       display: inline-block;
       width: 200px;
@@ -65,13 +74,16 @@
       background-position: center center;
       margin-bottom: 20px;
     }
+
     .other-photos-container {
       @extend .container;
       width: 100%;
       padding: 0px;
+
       .other-photos-row {
         @extend .row;
         margin: 0px;
+        
         .other-photos-col {
           display: inline-block;
           width: 20%;
