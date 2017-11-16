@@ -3,8 +3,6 @@
 ## Sample Sass Lint File
 #########################
 # Linter Options
-options:
-# File Options
 files:
   include: 'src/styles/**/*.scss'
 # Rule Configuration

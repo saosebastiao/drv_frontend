@@ -1,44 +1,38 @@
 .header-wrapper {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
   width: 100%;
   min-width: 750px;
   height: 70px;
   border-bottom: 1px solid #ddd;
   background: map-get($colors, header-back);
-
   .logo {
-  	width: 120px;
-  	height: 100%;
+    width: 120px;
+    height: 100%;
   }
-
   .nav-wrapper {
-  	display: inline-block;
-  	position: relative;
-		width: 500px;
-		height: 100%;
+    display: inline-block;
+    position: relative;
+    width: 500px;
+    height: 100%;
     margin-left: 20px;
-
-	  .nav-tabs {
-	  	position: absolute;
-	  	left: 0px;
-	  	bottom: 0px;
-	    display: inline-block;
-	    height: 40px;
-	    border: none;
-
-	    li {
-	    	height: 40px;
-	    }
-	  }
-	}
-
-
-	.logout-button {
-		margin-left: auto;
-		button {
-			margin: 15px 20px 0px 20px;
-			height: 40px;
-		}
-	}
+    .nav-tabs {
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      display: inline-block;
+      height: 40px;
+      border: none;
+      li {
+        height: 40px;
+      }
+    }
+  }
+  .logout-button {
+    margin-left: auto;
+    button {
+      margin: 15px 20px 0px 20px;
+      height: 40px;
+    }
+  }
 }

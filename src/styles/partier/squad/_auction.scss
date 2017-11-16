@@ -1,99 +1,90 @@
 .auction-wrapper {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-
-	.auction-contents {
-		@extend .container;
-		display: inline-block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  .auction-contents {
+    @extend .container;
+    display: inline-block;
     width: 600px;
     margin-top: 20px;
     padding: 0px;
     border: 1px solid map-get($colors, border);
-
     .auction-row {
-    	@extend .row;
-	    height: 50px;
-	    line-height: 50px;
-	    margin: 0px;
-	    border-bottom: 1px solid map-get($colors, border);
-
-	    &:last-child {
-	    	border-bottom: none;
-	    }
-
-    	.date-col {
-    		@extend .col-sm-4, .col-xs-4;
-		    font-size: 1.6rem;
-		    font-weight: bold;
-		    text-align: left;
-    	}
-
-    	.city-col {
-    		@extend .col-sm-4, .col-xs-4;
-		    font-size: 1.6rem;
-		    text-align: left;
-    	}
-
-    	.button-col {
-    		@extend .col-sm-4, .col-xs-4;
-		    padding-top: 8px;
-		    text-align: left;
-
-		    .btn {
-		    	margin-right: 10px;
-		    }
-    	}
+      @extend .row;
+      height: 50px;
+      line-height: 50px;
+      margin: 0px;
+      border-bottom: 1px solid map-get($colors, border);
+      &:last-child {
+        border-bottom: none;
+      }
+      .date-col {
+        @extend .col-sm-4,
+        .col-xs-4;
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-align: left;
+      }
+      .city-col {
+        @extend .col-sm-4,
+        .col-xs-4;
+        font-size: 1.6rem;
+        text-align: left;
+      }
+      .button-col {
+        @extend .col-sm-4,
+        .col-xs-4;
+        padding-top: 8px;
+        text-align: left;
+        .btn {
+          margin-right: 10px;
+        }
+      }
     }
-	}
-
-	.auction-details-contents {
-		@extend .container;
-
-		display: inline-block;
+  }
+  .auction-details-contents {
+    @extend .container;
+    display: inline-block;
     width: 100%;
     height: 100%;
     padding: 20px;
     min-width: 800px;
-
     .auction-details-row {
-    	@extend .row;
-    	height: 100%;
-
-    	.details-col {
-    		@extend .col-sm-4, .col-xs-4;
-    		height: 100%;
-    		padding: 10px;
-    	}
-
-    	.details-title {
-    		height: 50px;
-		    padding: 10px;
-    		font-size: 1.6rem;
-    		font-weight: bold;
-    		text-align: center;
-    	}
-
-    	.parties-contents, .squads-contents {
-    		height: calc(100% - 50px);
-    		overflow: scroll;
-    		padding: 0px 10px;
-    	}
-
-    	.parties-card, .squads-card {
-				padding: 10px;
-		    margin-bottom: 10px;
-    	}
-
-    	.auction-info-wrapper, .squad-info-wrapper {
-    		height: calc(50% - 10px);
-    		padding: 10px;
-    		background: map-get($colors, info-back);
-    	}
-
-    	.auction-info-wrapper {
-    		margin-bottom: 20px;
-    	}
+      @extend .row;
+      height: 100%;
+      .details-col {
+        @extend .col-sm-4,
+        .col-xs-4;
+        height: 100%;
+        padding: 10px;
+      }
+      .details-title {
+        height: 50px;
+        padding: 10px;
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-align: center;
+      }
+      .parties-contents,
+      .squads-contents {
+        height: calc(100% - 50px);
+        overflow: scroll;
+        padding: 0px 10px;
+      }
+      .parties-card,
+      .squads-card {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .auction-info-wrapper,
+      .squad-info-wrapper {
+        height: calc(50% - 10px);
+        padding: 10px;
+        background: map-get($colors, info-back);
+      }
+      .auction-info-wrapper {
+        margin-bottom: 20px;
+      }
     }
-	}
+  }
 }
