@@ -56,12 +56,40 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
                   {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
                 </a>
               </div>
+              <div className="form-group">
+                <Link to="/partier/profile/filters">
+                  <button className="btn btn-md btn-primary">
+                    Edit default filters
+                  </button>
+                </Link>
+              </div>
+              <div className="form-group">
+                <Link to="/partier/profile/friends">
+                  <button className="btn btn-md btn-primary">
+                    Edit friend connections
+                  </button>
+                </Link>
+              </div>
+              <div className="form-group">
+                <Link to="/partier/profile/photos">
+                  <button className="btn btn-md btn-primary">
+                    Edit photos
+                    </button>
+                </Link>
+              </div>
+              <div className="form-group">
+                <Link to="/partier/profile/social">
+                  <button className="btn btn-md btn-primary">
+                    Edit social media connections
+                    </button>
+                </Link>
+              </div>
             </div>
           </div>
           <br />
           <FriendsWidget />
         </div>
-      </div>
+      </div >
     );
   }
 }
