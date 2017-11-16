@@ -40,7 +40,8 @@ module.exports = {
           {
             loader: "sass-loader", // compiles Sass to CSS
             options: {
-              sourceMap: true
+              sourceMap: true,
+              includePaths: ["node_modules/bulma"]
             }
           }
         ]

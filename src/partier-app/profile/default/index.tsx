@@ -3,19 +3,20 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import FriendsWidget from "./FriendsWidget";
-import ProfileModel from "./Model";
+import ProfileModel from "../Model";
 import { getUserID } from "modules/DroverClient";
 
-export interface IProfileModel {
-  profile: ProfileModel;
+export interface PProfile {
+  model: ProfileModel;
 }
 
 @observer
-export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
-  public profile = new ProfileModel;
+export default class Profile extends React.Component<RouteComponentProps<{}> & PProfile> {
+  private profile: ProfileModel;
 
-  constructor(props: any) {
+  constructor(props: RouteComponentProps<{}> & PProfile) {
     super(props);
+    this.profile = this.props.model;
   }
 
   public render() {
