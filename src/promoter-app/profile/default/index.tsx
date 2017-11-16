@@ -18,17 +18,29 @@ export default class Profile extends React.Component<RouteComponentProps<any>, {
   public render() {
     return (
       <div className="profile-wrapper">
-        < Link to={"/promoter/profile/edit"}>
-          <div className="profile-contents">
-            <div className="profile-top-contents">
-              <div className="profile-list">
-                <div> {this.profile.name}</div>
-                <div> {this.profile.email}</div>
-                <div> {this.profile.stripeAccount}</div>
-              </div>
+        <div className="profile-contents">
+          <div className="profile-top-contents">
+            <div className="profile-list">
+              <div> {this.profile.name}</div>
+              <div> {this.profile.email}</div>
+              <div> {this.profile.stripeAccount}</div>
             </div>
           </div>
-        </Link>
+          <div>
+            < Link to={"/promoter/profile/edit"}>
+              <button className="btn btn-md btn-primary">
+                Edit Profile
+            </button>
+            </Link>
+          </div>
+          <div>
+            < Link to={"/promoter/profile/payment"}>
+              <button className="btn btn-md btn-primary">
+                Edit Payment Methods
+            </button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

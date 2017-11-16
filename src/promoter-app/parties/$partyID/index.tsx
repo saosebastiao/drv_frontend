@@ -32,7 +32,9 @@ export default class ViewParty extends React.Component<RouteComponentProps<PView
                   <div className="info-label">Auction Start Time</div>
                   <div className="info-value">{this.model.auction.startTime}</div>
                 </div>
-                <Link to={`/promoter/parties/${this.model.partyID}/auction`}> Go To Auction Page</Link>
+                <Link to={`/promoter/parties/${this.model.partyID}/auction`}>
+                  <button className="btn btn-primary">Go To Auction</button>
+                </Link>
               </div>
               <div className="info-wrapper">
                 <div className="info-title">Party Information</div>
@@ -49,7 +51,26 @@ export default class ViewParty extends React.Component<RouteComponentProps<PView
                   <div className="info-label">Address</div>
                   <div className="info-value">{this.model.venue.address}</div>
                 </div>
-                <Link to={`/promoter/parties/${this.model.partyID}/edit`}> Edit Party Information</Link>
+                <div>
+                  <Link to={`/promoter/parties/${this.model.partyID}/edit`}>
+                    <button className="btn btn-primary">Edit Party</button>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={`/promoter/parties/${this.model.partyID}/filters`}>
+                    <button className="btn btn-primary">Edit Party Filters</button>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={`/promoter/parties/${this.model.partyID}/photos`}>
+                    <button className="btn btn-primary">Edit Party Photos</button>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={`/promoter/parties/${this.model.partyID}/social`}>
+                    <button className="btn btn-primary">Edit Party Social Media Kit</button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

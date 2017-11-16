@@ -33,6 +33,11 @@ export default class VenueList extends React.Component<RouteComponentProps<any>,
             <button className="btn btn-primary">Create a new Venue</button>
           </Link>
         </div>
+        <div>
+          <Link to={`/promoter/venues/import`}>
+            <button className="btn btn-primary">Import a new Venue</button>
+          </Link>
+        </div>
       </div>
     );
   }

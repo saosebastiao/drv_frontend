@@ -76,9 +76,21 @@ export default class ShowVenue extends React.Component<RouteComponentProps<PShow
             </div>
           </div>
           <br /><br />
-          <Link to={`/promoter/venues/${this.venue.venueID}/edit`}>
-            <button className="btn btn-lg btn-primary">Edit Venue Details</button>
-          </Link>
+          <div>
+            <Link to={`/promoter/venues/${this.venue.venueID}/edit`}>
+              <button className="btn btn-lg btn-primary">Edit Venue Details</button>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/promoter/venues/${this.venue.venueID}/filters`}>
+              <button className="btn btn-lg btn-primary">Edit Venue Filters</button>
+            </Link>
+          </div>
+          <div>
+            <Link to={`/promoter/venues/${this.venue.venueID}/photos`}>
+              <button className="btn btn-lg btn-primary">Edit Venue Photos</button>
+            </Link>
+          </div>
         </div>
       </div>
     ) : null;

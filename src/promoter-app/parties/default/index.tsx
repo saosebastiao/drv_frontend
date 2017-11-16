@@ -10,6 +10,11 @@ export default class SquadList extends React.Component<RouteComponentProps<any>,
   public render() {
     return (
       <div className="squad-wrapper">
+        <div>
+          <Link to={`/promoter/parties/import`}>
+            <button className="btn btn-primary">Import a Party</button>
+          </Link>
+        </div>
         <div className="squad-contents">
           {
             this.model.list.map((partyNight: IPromoterPartyNight) => {
