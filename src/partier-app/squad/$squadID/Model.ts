@@ -10,6 +10,7 @@ export default class ViewSquadModel {
   @observable public squadName: string = "";
   @observable public filters: ISquadFilters;
   @observable public squadMembers: Array<ISquadMember> = [];
+  @observable public winningBid: IWinningBid | null = null;
   @computed get potential() {
     return this.squadMembers
       .filter((x) => x.invited === false)

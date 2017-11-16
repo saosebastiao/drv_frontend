@@ -72,6 +72,14 @@ interface ISquadMember {
   invited?: boolean;
   accepted?: boolean;
 }
+interface IWinningBid {
+  bidID: number;
+  auctionID: number;
+  partyID: number;
+  squadID: number;
+  price: number;
+  bidTime: string;
+}
 
 interface ISquad {
   squadID: number;
@@ -80,6 +88,7 @@ interface ISquad {
   squadName: string;
   filters: ISquadFilters;
   squadMembers?: Array<ISquadMember>;
+  winningBid?: IWinningBid;
 }
 
 interface ICreateSquad {

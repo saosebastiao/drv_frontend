@@ -65,9 +65,73 @@ export default class ViewSquad extends React.Component<RouteComponentProps<PView
                         <Link to={`/partier/squad/${this.model.squadID}/edit`}>
                           <button
                             type="button"
-                            className="btn btn-xs btn-primary"
-                          >
-                            Edit Squad
+                            className="btn btn-xs btn-primary">
+                            Edit Squad Name
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
+                  {this.model.isOwned ? (
+                    <div className="info-row">
+                      <div className="info-value">
+                        <Link to={`/partier/squad/${this.model.squadID}/members`}>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-primary">
+                            Invite or Manage Squad Members
+                        </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
+                  {this.model.isOwned ? (
+                    <div className="info-row">
+                      <div className="info-value">
+                        <Link to={`/partier/squad/${this.model.squadID}/filters`}>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-primary">
+                            Manage Squad Filters
+                        </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
+                  {this.model.isOwned ? (
+                    <div className="info-row">
+                      <div className="info-value">
+                        <Link to={`/partier/squad/${this.model.squadID}/payouts`}>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-primary">
+                            Manage Squad Payouts
+                        </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
+                  {this.model.myself && this.model.myself.accepted || this.model.isOwned ? (
+                    <div className="info-row">
+                      <div className="info-value">
+                        <Link to={`/partier/squad/${this.model.squadID}/social`}>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-primary">
+                            Manage Squad Social Media Commitments
+                        </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
+                  {this.model.winningBid ? (
+                    <div className="info-row">
+                      <div className="info-value">
+                        <Link to={`/partier/squad/${this.model.squadID}/party`}>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-primary">
+                            View Party Assignment
                           </button>
                         </Link>
                       </div>
@@ -79,10 +143,9 @@ export default class ViewSquad extends React.Component<RouteComponentProps<PView
                         <button
                           type="button"
                           onClick={() => alert("Not Implemented")}
-                          className="btn btn-xs btn-primary"
-                        >
+                          className="btn btn-xs btn-primary">
                           Delete Squad
-                        </button>
+                          </button>
                       </div>
                     </div>
                   ) : null}
@@ -98,8 +161,7 @@ export default class ViewSquad extends React.Component<RouteComponentProps<PView
                           <button
                             type="button"
                             className="btn btn-xs btn-primary"
-                            onClick={this.model.rejectInvite}
-                          >
+                            onClick={this.model.rejectInvite}>
                             Reject
                           </button>
                         ) : null}
