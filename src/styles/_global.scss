@@ -14,3 +14,12 @@ $colors: (
 .has-border {
   border: 1px solid map-get($colors, border);
 }
+
+@import "sass/utilities/initial-variables";
+@import "sass/utilities/functions";
+@import "sass/utilities/_all";
+@import "sass/components/card";
+@import "sass/components/level";
+@import "sass/components/media";
+@import "sass/elements/image";
+

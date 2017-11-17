@@ -33,13 +33,20 @@ export default class PartierCard extends React.Component<PPartierCard, {}>{
   public model = new PartierCardModel(this.props.userID);
   public render() {
     return this.model.isReady ? (
-      <div className="member-card" >
-        <div className="card-photo" />
-        <div className="card-info">
-          <h5>{this.model.name}</h5>
-          {this.props.children}
+      <div className="partier-card">
+        <div role="body">
+          <div role="photo-container">
+            <div role="photo">
+              <figure>
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+              </figure>
+            </div>
+            <div role="name">
+              <p className="title is-4">{this.model.name}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </div >
     ) : null;
   }
 }
