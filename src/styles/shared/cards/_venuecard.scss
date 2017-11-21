@@ -1,0 +1,28 @@
+
+.partier-card {
+  @extend .card;
+
+  div[role="body"] {
+    @extend .card-content;
+    div[role="photo-container"] {
+      @extend .media;
+      div[role="photo"]{
+        @extend .media-left;
+        figure {
+          @extend .image, .is-48x48;
+        }
+      }
+    }
+    div[role="info"] {
+      @extend .media-content;
+      p {
+        @extend .title;
+      }
+      div {
+        p {
+          @extend .subtitle;
+        }
+      }
+    }
+  }
+}

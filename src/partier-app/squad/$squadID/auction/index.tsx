@@ -24,18 +24,22 @@ export default class Auction extends React.Component<RouteComponentProps<PAuctio
         {
           this.model.allParties.map((party: IPartyConfig, idx: number) => (
             <PartyCard key={`party:${idx}`} partyID={party.partyID} >
-              <label>
-                <input type="checkbox"
-                  checked={this.model.isVenueBlacklisted(party.venueID)}
-                  onChange={() => this.model.toggleVenueBlacklist(party.venueID)} />
-                Blacklist Venue
-              </label>
-              <label>
-                <input type="checkbox"
-                  checked={this.model.isPartyBlacklisted(party.partyID)}
-                  onChange={() => this.model.togglePartyBlacklist(party.partyID)} />
-                Blacklist Party
-              </label>
+              <div>
+                <label>
+                  <input type="checkbox"
+                    checked={this.model.isVenueBlacklisted(party.venueID)}
+                    onChange={() => this.model.toggleVenueBlacklist(party.venueID)} />
+                  Blacklist Venue
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input type="checkbox"
+                    checked={this.model.isPartyBlacklisted(party.partyID)}
+                    onChange={() => this.model.togglePartyBlacklist(party.partyID)} />
+                  Blacklist Party
+                </label>
+              </div>
             </PartyCard>
           ))
         }

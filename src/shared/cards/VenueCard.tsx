@@ -33,13 +33,27 @@ export default class SquadCard extends React.Component<PVenueCard, {}>{
   public model = new VenueCardModel(this.props.venueID);
   public render() {
     return this.model.isReady ? (
-      <div>
-        <div>Venue Name: {this.model.venueName}</div>
-        <div>Address: {this.model.address}</div>
-        <div>Region: {this.model.regionID}</div>
-        <div>Photos:</div>
-        {this.props.children}
-      </div>
+      <div className="venue-card">
+        <div role="body">
+          <div role="photo-container">
+            <div role="photo">
+              <figure>
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+              </figure>
+            </div>
+            <div role="info">
+              <p>{this.model.venueName}</p>
+              <div>
+                <p>{this.model.address}</p>
+                <p>{this.model.regionID}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          {this.props.children}
+        </div>
+      </div >
     ) : null;
   }
 }

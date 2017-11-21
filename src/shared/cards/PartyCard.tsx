@@ -34,17 +34,27 @@ interface PPartyCard {
 export default class PartyCard extends React.Component<PPartyCard, {}>{
   private model = new PartyCardModel(this.props.partyID);
   public render() {
-    if (this.model.isReady) {
-      return (
-        <div>
-          <div>Party Name: {this.model.partyName}</div>
-          <div>Venue:
-          <VenueCard venueID={this.model.venue.venueID} />
-            {this.props.children}
+    return this.model.isReady ? (
+      <div className="party-card">
+        <header>
+          <p>{this.model.partyName}</p>
+        </header>
+        <div role="body">
+          <div role="photo-container">
+            <div role="photo">
+              <figure>
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+              </figure>
+            </div>
+          </div>
+          <div role="venue">
+            <div><VenueCard key={this.model.venue.venueID} venueID={this.model.venue.venueID} /></div>
           </div>
         </div>
-      );
-
-    } else return null;
+        <footer>
+          {this.props.children}
+        </footer>
+      </div>
+    ) : null;
   }
 }

@@ -1,0 +1,40 @@
+
+.party-card {
+  @extend .card;
+
+  header {
+    @extend .card-header;
+    p {
+      @extend .card-header-title;
+    }
+  }
+
+  div[role="body"] {
+    @extend .card-content;
+    div[role="photo-container"] {
+      @extend .media;
+      div[role="photo"]{
+        @extend .media-left;
+        figure {
+          @extend .image, .is-48x48;
+        }
+      }
+      div[role="name"] {
+        @extend .media-content;
+        p {
+          @extend .title;
+        }
+      }
+    }
+    div[role="venue"] {
+      @extend .content;
+    }
+  }
+
+  footer {
+    @extend .card-footer;
+    div {
+      @extend .card-footer-item;
+    }
+  }
+}
