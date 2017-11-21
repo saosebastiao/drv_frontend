@@ -31,6 +31,12 @@ interface PSquadCard {
   squad?: ISquadConfig;
 }
 
+/**
+ * Different view types:
+ * Base, uses photo array
+ * Extended for modal, uses individual partiers
+ */
+
 @observer
 export default class SquadCard extends React.Component<PSquadCard, {}>{
   private model = new SquadCardModel(this.props.squadID);
@@ -41,14 +47,26 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
   }
   public render() {
     return this.model.isReady ? (
-      <div>
-        <div>SquadID: {this.props.squadID}</div>
-        <div>Squad Name: {this.model.squadName}</div>
-        <div>Owner: <PartierCard key={this.model.ownerID} userID={this.model.ownerID} /></div>
-        <div>Members:
-        {this.model.squadMembers.map((x) => {
-            return x.accepted ? <PartierCard key={x.userID} userID={x.userID} /> : null;
-          })}
+      <div className="squad-card">
+        <div role="body">
+          <div role="photo-container">
+            <div role="photo">
+              <figure>
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+              </figure>
+            </div>
+            <div role="name">
+              <p>{this.model.squadName}</p>
+            </div>
+          </div>
+          <div role="members">
+            <div><PartierCard key={this.model.ownerID} userID={this.model.ownerID} /></div>
+            <div>
+              {this.model.squadMembers.map((x) => {
+                return x.accepted ? <PartierCard key={x.userID} userID={x.userID} /> : null;
+              })}
+            </div>
+          </div>
         </div>
         {this.props.children}
       </div>

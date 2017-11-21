@@ -1,0 +1,29 @@
+
+.squad-card {
+  @extend .card;
+
+  div[role="body"] {
+    @extend .card-content;
+    div[role="squad-id"]{
+      @extend .is-invisible;
+    }
+    div[role="photo-container"] {
+      @extend .media;
+      div[role="photo"]{
+        @extend .media-left;
+        figure {
+          @extend .image, .is-48x48;
+        }
+      }
+      div[role="name"] {
+        @extend .media-content;
+        p {
+          @extend .title;
+        }
+      }
+    }
+    div[role="members"] {
+      @extend .content;
+    }
+  }
+}

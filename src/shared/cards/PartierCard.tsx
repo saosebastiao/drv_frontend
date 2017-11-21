@@ -42,7 +42,7 @@ export default class PartierCard extends React.Component<PPartierCard, {}>{
               </figure>
             </div>
             <div role="name">
-              <p className="title is-4">{this.model.name}</p>
+              <p>{this.model.name}</p>
             </div>
           </div>
         </div>
