@@ -46,6 +46,9 @@ export default class PartierCard extends React.Component<PPartierCard, {}>{
             </div>
           </div>
         </div>
+        <div>
+          {this.props.children}
+        </div>
       </div >
     ) : null;
   }

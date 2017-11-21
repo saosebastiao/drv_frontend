@@ -48,15 +48,15 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
   public render() {
     return this.model.isReady ? (
       <div className="squad-card">
+        <header>
+          <p>{this.model.squadName}</p>
+        </header>
         <div role="body">
           <div role="photo-container">
             <div role="photo">
               <figure>
                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
               </figure>
-            </div>
-            <div role="name">
-              <p>{this.model.squadName}</p>
             </div>
           </div>
           <div role="members">
@@ -68,7 +68,9 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
             </div>
           </div>
         </div>
-        {this.props.children}
+        <footer>
+          {this.props.children}
+        </footer>
       </div>
     ) : null;
   }

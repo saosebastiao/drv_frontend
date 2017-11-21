@@ -2,6 +2,12 @@
 .squad-card {
   @extend .card;
 
+  header {
+    @extend .card-header;
+    p {
+      @extend .card-header-title;
+    }
+  }
   div[role="body"] {
     @extend .card-content;
     div[role="squad-id"]{
@@ -24,6 +30,12 @@
     }
     div[role="members"] {
       @extend .content;
+    }
+  }
+  footer {
+    @extend .card-footer;
+    div {
+      @extend .card-footer-item;
     }
   }
 }

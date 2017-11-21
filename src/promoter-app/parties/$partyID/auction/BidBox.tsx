@@ -71,7 +71,7 @@ export default class BidBox extends React.Component<PBidBox>{
                 onChange={this.setSealedBid} />
               <button type="button" onClick={this.submitSealedBid}>
                 Submit Sealed Bid
-          </button>
+              </button>
             </div>
           </div >
         </div>

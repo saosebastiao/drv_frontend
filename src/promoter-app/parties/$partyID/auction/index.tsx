@@ -51,12 +51,14 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                 revokeBid={this.model.dropBid}
                 submitSealedBid={this.model.submitSealedBid}
               />
-              <label>
-                <input type="checkbox"
-                  checked={this.model.isSquadBlacklisted(squad.squadID)}
-                  onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />
-                Blacklist Squad
+              <div>
+                <label>
+                  <input type="checkbox"
+                    checked={this.model.isSquadBlacklisted(squad.squadID)}
+                    onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />
+                  Blacklist Squad
                 </label>
+              </div>
             </SquadCard>
           ))
         }
