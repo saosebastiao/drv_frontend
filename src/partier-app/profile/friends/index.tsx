@@ -1,65 +1,30 @@
-import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import FriendsWidget from "./FriendsWidget";
-import ProfileModel from "./Model";
-import { getUserID } from "modules/DroverClient";
+import ProfileModel from "../Model";
 
-export interface IProfileModel {
-  profile: ProfileModel;
+interface PProfile extends RouteComponentProps<{}> {
+  model: ProfileModel;
 }
 
 @observer
-export default class Profile extends React.Component<RouteComponentProps<any>, {}> {
-  public profile = new ProfileModel;
+export default class EditFriends extends React.Component<PProfile> {
 
   constructor(props: any) {
     super(props);
+  }
+  private clickSave = async () => {
+    await this.props.model.refresh();
+    this.props.history.push("/partier/profile");
   }
 
   public render() {
     return (
       <div className="profile-wrapper">
         <div className="profile-contents">
-          <div className="profile-top-contents">
-            <div className="photo-container">
-              <Link to={`/partier/profile/edit`}>
-                <div
-                  className="main-photo"
-                  style={this.profile.profilePhoto}
-                />
-              </Link>
-              <div className="other-photos-container">
-                <div className="other-photos-row" key="other_photos_row_1">
-                  {
-                    _range(4).map((colIndex: number) => {
-                      return <div
-                        className="other-photos-col"
-                        style={this.profile.otherPhotos[colIndex]}
-                        key={`other_photos_col_${colIndex}`}
-                      />;
-                    })
-                  }
-                </div>
-              </div>
-            </div>
-            <div className="profile-list">
-              {this.profile.name}<br />
-              {this.profile.defaultRegion}<br />
-              {this.profile.gender}<br />
-              <div className="form-group">
-                <a
-                  className="btn btn-md btn-primary"
-                  href={`/api/partier/${getUserID()}/stripe`}
-                  target="_blank">
-                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
-                </a>
-              </div>
-            </div>
-          </div>
-          <br />
           <FriendsWidget />
+          <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
         </div>
       </div>
     );

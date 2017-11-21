@@ -17,11 +17,11 @@ export default class Profile extends React.Component<{}> {
     return (
       <Switch>
         <Route exact path="/partier/profile" render={(p) => <ShowProfile model={this.model} {...p} />} />} />
-        <Route path="/partier/profile/edit" component={EditProfile} />
-        <Route path="/partier/profile/filters" component={EditFilters} />
-        <Route path="/partier/profile/friends" component={EditFriends} />
-        <Route path="/partier/profile/photos" component={EditPhotos} />
-        <Route path="/partier/profile/social" component={EditSocial} />
+        <Route exact path="/partier/profile/edit" render={(p) => <EditProfile model={this.model} {...p} />} />} />
+        <Route exact path="/partier/profile/photos" render={(p) => <EditPhotos model={this.model} {...p} />} />} />
+        <Route exact path="/partier/profile/filters" render={(p) => <EditFilters model={this.model} {...p} />} />} />
+        <Route exact path="/partier/profile/friends" render={(p) => <EditFriends model={this.model} {...p} />} />} />
+        <Route exact path="/partier/profile/social" render={(p) => <EditSocial model={this.model} {...p} />} />} />
       </Switch>
     );
   }

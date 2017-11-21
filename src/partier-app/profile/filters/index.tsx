@@ -1,86 +1,33 @@
-import { range as _range } from "lodash";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import FacebookImageSelector from "modules/FacebookImageSelector";
-import EditProfileModel from "./Model";
-import { getUserID, deletePartierProfile } from "modules/DroverClient";
+import EditFiltersModel from "./Model";
+import ProfileModel from "../Model";
+
+interface PProfile extends RouteComponentProps<{}> {
+  model: ProfileModel;
+}
 
 @observer
-export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
-  public profile = new EditProfileModel;
-  @observable public selIndex: number = -1;
-  @observable public showFacebookImageModal: boolean = false;
+export default class EditFilters extends React.Component<PProfile> {
+  private profile = new EditFiltersModel;
   constructor(props: any) {
     super(props);
   }
 
-  public onShowFacebookImageModal = (idx: any) => {
-    this.showFacebookImageModal = true;
-    this.selIndex = idx;
-  }
-
-  public onHideFacebookImageModal = () => {
-    this.showFacebookImageModal = false;
-  }
-
-  public onImageSelect = (url: any) => {
-    const idx = this.selIndex;
-    if (this.profile.photos.length > idx) {
-      this.profile.photos[idx] = url.source;
-    } else {
-      this.profile.photos.push(url.source);
-    }
-  }
-
-  public clickSave = async () => {
+  private clickSave = async () => {
     await this.profile.save();
+    await this.props.model.refresh();
     this.props.history.push("/partier/profile");
     // go back
   }
 
-  public changeName = (event: any) => {
+  private changeName = (event: any) => {
     this.profile.name = event.target.value;
   }
 
-  public changeHome = (event: any) => {
+  private changeHome = (event: any) => {
     this.profile.defaultRegion = event.target.value;
-  }
-
-  public changeGender = (event: any) => {
-    this.profile.gender = event.target.value;
-  }
-  public deleteProfile = async () => {
-    await deletePartierProfile();
-    this.props.history.replace("/");
-  }
-
-  public renderOtherPhotos() {
-    return (
-      <div className="other-photos-container">
-        <div className="other-photos-row">
-          {
-            _range(5).map((colIndex: number) => {
-              if (this.profile.otherPhotos.length > colIndex) {
-                return <div
-                  className="other-photos-col"
-                  key={`other_photos_col_${colIndex}`}
-                  style={this.profile.otherPhotos[colIndex]}
-                  onClick={() => this.onShowFacebookImageModal(colIndex + 1)}
-                />;
-              } else {
-                return <div
-                  className="other-photos-col"
-                  key={`other_photos_col_${colIndex}`}
-                  onClick={() => this.onShowFacebookImageModal(colIndex + 1)}
-                />;
-              }
-            })
-          }
-        </div>
-      </div>
-    );
   }
 
   public render() {
@@ -88,14 +35,6 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
       <div className="profile-edit-wrapper">
         <div className="profile-edit-contents">
           <div className="profile-top-contents">
-            <div className="photo-container">
-              <div
-                className="main-photo"
-                style={this.profile.profilePhoto}
-                onClick={() => this.onShowFacebookImageModal(0)}
-              />
-              {this.renderOtherPhotos()}
-            </div>
             <div className="profile-form">
               <div className="form-group">
                 <label htmlFor="input-name" className="label-col control-label">
@@ -140,64 +79,11 @@ export default class EditProfile extends React.Component<RouteComponentProps<{}>
                   </select>
                 </div>
               </div>
-
-              <div className="form-group">
-                <label htmlFor="input-gender" className="label-col control-label">
-                  <span data-toggle="tooltip" data-placement="top" title="Gender">Gender</span>
-                </label>
-                <div className="value-col">
-                  <label className="radio-inline">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="male"
-                      checked={this.profile.gender === "male"}
-                      onChange={this.changeGender}
-                    />Male
-                </label>
-                  <label className="radio-inline">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="female"
-                      checked={this.profile.gender === "female"}
-                      onChange={this.changeGender}
-                    />Female
-                </label>
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="input-stripe" className="label-col control-label">
-                  <span
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Stripe Account"
-                  >
-                    Stripe Account
-                  </span>
-                </label>
-                <a
-                  className="btn btn-md btn-primary"
-                  href={`/api/partier/${getUserID()}/stripe`}
-                  target="_blank">
-                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
-                </a>
-              </div>
             </div>
           </div>
           <br /><br />
           <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
-          <br />
-          <button className="btn btn-lg btn-danger" onClick={this.deleteProfile}>Delete Profile</button>
         </div>
-        {this.showFacebookImageModal &&
-          <FacebookImageSelector
-            getURL
-            appId="1063753666981488"
-            onCloseModal={this.onHideFacebookImageModal}
-            onSelection={this.onImageSelect}
-          />
-        }
       </div>
     ) : null;
   }

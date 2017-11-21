@@ -6,12 +6,12 @@ import FriendsWidget from "./FriendsWidget";
 import ProfileModel from "../Model";
 import { getUserID } from "modules/DroverClient";
 
-export interface PProfile {
+interface PProfile extends RouteComponentProps<{}> {
   model: ProfileModel;
 }
 
 @observer
-export default class Profile extends React.Component<RouteComponentProps<{}> & PProfile> {
+export default class Profile extends React.Component<PProfile> {
   private profile: ProfileModel;
 
   constructor(props: RouteComponentProps<{}> & PProfile) {
@@ -25,12 +25,10 @@ export default class Profile extends React.Component<RouteComponentProps<{}> & P
         <div className="profile-contents">
           <div className="profile-top-contents">
             <div className="photo-container">
-              <Link to={`/partier/profile/edit`}>
-                <div
-                  className="main-photo"
-                  style={this.profile.profilePhoto}
-                />
-              </Link>
+              <div
+                className="main-photo"
+                style={this.profile.profilePhoto}
+              />
               <div className="other-photos-container">
                 <div className="other-photos-row" key="other_photos_row_1">
                   {
@@ -50,12 +48,18 @@ export default class Profile extends React.Component<RouteComponentProps<{}> & P
               {this.profile.defaultRegion}<br />
               {this.profile.gender}<br />
               <div className="form-group">
-                <a
-                  className="btn btn-md btn-primary"
-                  href={`/api/partier/${getUserID()}/stripe`}
-                  target="_blank">
-                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
-                </a>
+                <Link to="/partier/profile/edit">
+                  <button className="btn btn-md btn-primary">
+                    Edit profile information
+                  </button>
+                </Link>
+              </div>
+              <div className="form-group">
+                <Link to="/partier/profile/photos">
+                  <button className="btn btn-md btn-primary">
+                    Edit photos
+                    </button>
+                </Link>
               </div>
               <div className="form-group">
                 <Link to="/partier/profile/filters">
@@ -72,18 +76,19 @@ export default class Profile extends React.Component<RouteComponentProps<{}> & P
                 </Link>
               </div>
               <div className="form-group">
-                <Link to="/partier/profile/photos">
-                  <button className="btn btn-md btn-primary">
-                    Edit photos
-                    </button>
-                </Link>
-              </div>
-              <div className="form-group">
                 <Link to="/partier/profile/social">
                   <button className="btn btn-md btn-primary">
                     Edit social media connections
                     </button>
                 </Link>
+              </div>
+              <div className="form-group">
+                <a
+                  className="btn btn-md btn-primary"
+                  href={`/api/partier/${getUserID()}/stripe`}
+                  target="_blank">
+                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
+                </a>
               </div>
             </div>
           </div>
