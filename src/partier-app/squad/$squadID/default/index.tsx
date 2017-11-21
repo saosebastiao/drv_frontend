@@ -2,19 +2,18 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import PartierCard from "shared/cards/PartierCard";
-import ViewSquadModel from "./Model";
+import ViewSquadModel from "../Model";
 
-interface PViewSquad {
-  squadID: string;
+interface PViewSquad extends RouteComponentProps<{}> {
+  model: ViewSquadModel;
 }
 
 @observer
-export default class ViewSquad extends React.Component<RouteComponentProps<PViewSquad>, {}> {
+export default class ViewSquad extends React.Component<PViewSquad> {
   public model: ViewSquadModel;
-  constructor(props: RouteComponentProps<PViewSquad>) {
+  constructor(props: PViewSquad) {
     super(props);
-    const squadID = parseInt(props.match.params.squadID, 10);
-    this.model = new ViewSquadModel(squadID);
+    this.model = this.props.model;
   }
 
   public render() {
