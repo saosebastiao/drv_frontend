@@ -3,17 +3,18 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import PartyCard from "shared/cards/PartyCard";
 import SquadCard from "shared/cards/SquadCard";
-import AuctionModel from "./Model";
+import SquadAuctionModel from "./Model";
+import ViewSquadModel from "../Model";
 import AuctionInfo from "shared/AuctionInfo";
 
-interface PAuctionForSquad {
-  squadID: string;
+interface PSquadAuction extends RouteComponentProps<{}> {
+  model: ViewSquadModel;
 }
 
 @observer
-export default class Auction extends React.Component<RouteComponentProps<PAuctionForSquad>, {}> {
+export default class SquadAuction extends React.Component<PSquadAuction> {
 
-  private model = new AuctionModel(parseInt(this.props.match.params.squadID, 10));
+  private model = new SquadAuctionModel(this.props.model);
 
   public componentWillUnmount() {
     this.model.quit();
@@ -62,7 +63,6 @@ export default class Auction extends React.Component<RouteComponentProps<PAuctio
 
   public render() {
     if (this.model.isReady) {
-      const mySquad = this.model.mySquad;
       return (
         <div className="auction-wrapper">
           <div className="auction-details-contents">
@@ -80,13 +80,12 @@ export default class Auction extends React.Component<RouteComponentProps<PAuctio
                 </div>
               </div>
               <div className="details-col">
-                <AuctionInfo auction={mySquad.auction} currentState={this.model.auctionState}>
+                <AuctionInfo auction={this.model.mySquad.auction} currentState={this.model.auctionState}>
                   <button type="button" onClick={this.refresh}>Refresh</button>
                 </AuctionInfo>
                 <div className="squad-info-wrapper">
                   <div className="details-title">Your Squad Info</div>
-                  <SquadCard squadID={mySquad.squadID} />
-                  <div>{JSON.stringify(mySquad.filters)}</div>
+                  <SquadCard squadID={this.model.squadID} />
                 </div>
               </div>
             </div>

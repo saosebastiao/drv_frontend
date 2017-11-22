@@ -1,8 +1,11 @@
 import { action, computed, observable, runInAction } from "mobx";
 import { getSquad, getSquadAuctionWS, updateSquadFilters } from "modules/DroverClient";
 import Logger from "modules/Logger";
+import ViewSquadModel from "../Model";
+import { WebSocketSubject } from "rxjs/observable/dom/WebSocketSubject";
 
 export default class AuctionModel {
+  @observable public squadID: number;
   @observable public auctionState: IAuctionState;
   @observable public allSquads: Array<ISquadConfig> = [];
   @observable public allParties: Array<IPartyConfig> = [];
@@ -47,7 +50,7 @@ export default class AuctionModel {
   @computed get isReady() {
     return this.mySquad != null && this.auctionState != null;
   }
-  private subscription = getSquadAuctionWS(this.squadID);
+  private subscription: WebSocketSubject<string | ICurrentState | ISquadBidSuccessful>;
   @action private processEvents(message: ISquadAuctionMessage | string) {
     if (typeof message !== "string") {
       if (message.msg === "CurrentState") {
@@ -59,6 +62,16 @@ export default class AuctionModel {
         Logger.info(message);
       }
     }
+  }
+  public reconnect() {
+    this.subscription.complete();
+    this.subscription.unsubscribe();
+    this.subscription = getSquadAuctionWS(this.squadID);
+    this.subscription.subscribe(
+      (msg) => this.processEvents(msg),
+      (err: any) => Logger.error(err),
+      () => Logger.info("Closing Auction Page websocket")
+    );
   }
   public quit() {
     this.subscription.complete();
@@ -73,8 +86,10 @@ export default class AuctionModel {
       this.mySquad = s;
     });
   }
-  constructor(private squadID: number) {
+  constructor(private source: ViewSquadModel) {
+    this.squadID = this.source.squadID;
     this.refresh();
+    this.subscription = getSquadAuctionWS(this.squadID);
     this.subscription.subscribe(
       (msg) => this.processEvents(msg),
       (err: any) => Logger.error(err),
