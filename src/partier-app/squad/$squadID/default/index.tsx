@@ -33,6 +33,8 @@ export default class ViewSquad extends React.Component<PViewSquad> {
                     <div className="info-label">Owner</div>
                     <PartierCard userID={this.model.ownerID} />
                   </div>
+                  {/*
+                  */}
                   <div className="info-title">Auction Information</div>
                   <div className="info-row">
                     <div className="info-label">City</div>

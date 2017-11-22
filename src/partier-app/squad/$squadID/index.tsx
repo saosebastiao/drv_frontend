@@ -1,4 +1,5 @@
 import * as React from "react";
+import { observer } from "mobx-react";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import EditSquad from "./edit";
 import EditFilters from "./filters";
@@ -14,24 +15,24 @@ interface PSquadID {
   squadID: string;
 }
 
+@observer
 export default class SquadID extends React.Component<RouteComponentProps<PSquadID>> {
-
   private model = new ViewSquadModel(parseInt(this.props.match.params.squadID, 10));
   public render() {
-    return (
+    return this.model.isReady ? (
       <div className="squad-wrapper">
         <Switch>
-          <Route path="/partier/squad/:squadID/edit" component={EditSquad} />
+          <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
+          <Route exact path="/partier/squad/:squadID/edit" render={(p) => <EditSquad model={this.model} {...p} />} />
           <Route path="/partier/squad/:squadID/filters" component={EditFilters} />
           <Route path="/partier/squad/:squadID/members" component={EditMembers} />
           <Route path="/partier/squad/:squadID/payouts" component={EditPayouts} />
           <Route path="/partier/squad/:squadID/social" component={EditSocial} />
           <Route path="/partier/squad/:squadID/auction" component={ViewAuction} />
           <Route path="/partier/squad/:squadID/party" component={ViewParty} />
-          <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
         </Switch>
       </div>
-    );
+    ) : null;
   }
 
 }

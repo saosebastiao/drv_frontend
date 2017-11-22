@@ -2,7 +2,6 @@ import { computed, observable, runInAction } from "mobx";
 import { acceptInvite, getSquad, getUserID, rejectInvite } from "modules/DroverClient";
 
 export default class ViewSquadModel {
-  @observable public squad: ISquad;
   @observable public userID: string = "";
   @observable public ownerID: string = "";
   @observable public squadID: number;
@@ -38,7 +37,7 @@ export default class ViewSquadModel {
     return this.userID === this.ownerID;
   }
   @computed get isReady() {
-    return this.ownerID.length > 0;
+    return this.ownerID != null && this.auction != null;
   }
   public isSelf = (userID: string) => {
     return this.userID === userID;
@@ -57,7 +56,6 @@ export default class ViewSquadModel {
     const squad = await getSquad(this.squadID);
     runInAction(() => {
       this.userID = userID || "";
-      this.squad = squad;
       Object.assign(this, squad);
     });
   }
