@@ -9,7 +9,6 @@ export default class EditSquadModel {
     return this._squadName;
   }
   set squadName(val: string) {
-    console.log("boo");
     this._isDirty = true;
     this._squadName = val;
   }

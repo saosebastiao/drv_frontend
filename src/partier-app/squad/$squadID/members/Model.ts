@@ -1,21 +1,16 @@
 import { computed, observable, runInAction } from "mobx";
 import {
-  getSquad,
   getUserID,
+  getSquad,
   inviteToSquad,
-  uninviteFromSquad,
-  updateSquad
+  uninviteFromSquad
 } from "modules/DroverClient";
 
-export default class EditSquadModel {
-  @observable public squad: ISquad;
+export default class EditMembersModel {
+  @observable public squadID: number;
   @computed get isReady() {
-    return this.squad != null;
+    return this.squadMembers != null;
   }
-  @observable public squadName: string;
-  @observable public venueBlacklist: Map<number, null> = new Map();
-  @observable public venueTypes: Map<string, null> = new Map();
-  @observable public interactionTypes: Map<string, null> = new Map;
   @observable public squadMembers: Array<ISquadMember> = [];
   @computed get potential() {
     return this.squadMembers
@@ -42,34 +37,20 @@ export default class EditSquadModel {
   }
   public inviteUser = async (userID: string) => {
     await inviteToSquad(this.squadID, userID);
-    this.refresh();
+    const res = await getSquad(this.squadID);
+    runInAction(() => {
+      this.squadMembers = res.squadMembers || [];
+    });
   }
   public uninviteUser = async (userID: string) => {
     await uninviteFromSquad(this.squadID, userID);
-    this.refresh();
-  }
-  public updateSquad = async () => {
-    const squadName = this.squad.squadName !== this.squadName ? this.squadName : undefined;
-    const filters = undefined;
-    const squad = await updateSquad(this.squadID, { squadName, filters });
+    const res = await getSquad(this.squadID);
     runInAction(() => {
-      this.squad = squad;
-      if (squad.squadMembers) {
-        this.squadMembers = squad.squadMembers;
-        this.squadName = squad.squadName;
-      }
+      this.squadMembers = res.squadMembers || [];
     });
   }
-  public refresh = async () => {
-    const squad = await getSquad(this.squadID);
-    runInAction(() => {
-      this.squad = squad;
-      if (squad.squadMembers) {
-        this.squadMembers = squad.squadMembers;
-      }
-    });
-  }
-  constructor(public squadID: number) {
-    this.refresh();
+  constructor(squadID: number, squadMembers: Array<ISquadMember>) {
+    this.squadID = squadID;
+    this.squadMembers = squadMembers;
   }
 }

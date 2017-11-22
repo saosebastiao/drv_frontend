@@ -1,70 +1,23 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import PartierCard from "shared/cards/PartierCard";
-import EditSquadModel from "./Model";
+import EditMembersModel from "./Model";
+import ViewSquadModel from "../Model";
 
-interface PEditSquad {
-  squadID: string;
+interface PEditSquad extends RouteComponentProps<{}> {
+  model: ViewSquadModel;
 }
 
 @observer
-export default class EditSquad extends React.Component<RouteComponentProps<PEditSquad>, {}> {
-  private model = new EditSquadModel(parseInt(this.props.match.params.squadID, 10));
-  private changeSquadName = (e: any) => {
-    this.model.squadName = e.target.value;
-  }
+export default class EditSquad extends React.Component<PEditSquad> {
+  private model = new EditMembersModel(this.props.model.squadID, this.props.model.squadMembers);
 
   public render() {
     return this.model.isReady ? (
       <div className="squad-wrapper">
         <div className="squad-details-contents">
           <div className="squad-details-row">
-            <div className="details-col">
-              <div className="info-wrapper">
-                <div className="info-title">Squad Information</div>
-                <div className="info-row">
-                  <div className="info-label">Name</div>
-                  <input
-                    type="text"
-                    defaultValue={this.model.squad.squadName}
-                    onChange={this.changeSquadName}
-                  />
-                </div>
-                <div className="info-row">
-                  <div className="info-label">Owner</div>
-                  <PartierCard userID={this.model.squad.ownerID} />
-                </div>
-                <div className="info-row">
-                  <div className="info-value">
-                    <button
-                      type="button"
-                      className="btn btn-xs btn-primary"
-                      onClick={this.model.updateSquad}>
-                      Save
-                    </button>
-                  </div>
-                </div>
-                <div className="info-row">
-                  <div className="info-value">
-                    <Link to={`/partier/squad/${this.model.squadID}`}>
-                      <button type="button" className="btn btn-xs btn-primary">
-                        Go To Squad Page
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-                <div className="info-row">
-                  <div className="info-value">
-                    <Link to={`/partier/auction/${this.model.squadID}`}>
-                      <button type="button" className="btn btn-xs btn-primary">
-                        Go To Auction Page
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="details-col has-border">
               <div className="member-wrapper">
                 {this.model.accepted.length > 0 ? <div>Accepted</div> : null}
