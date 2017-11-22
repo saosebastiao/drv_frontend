@@ -9,9 +9,10 @@ import EditPayouts from "./payouts";
 import EditSocial from "./social";
 import ViewSquad from "./default";
 import ViewAuction from "./auction";
-import ViewParty from "./party";
+// import ViewParty from "./party";
 import ViewSquadModel from "./Model";
 
+const NotImplemented = () => <div>Not Implemented</div>;
 interface PSquadID {
   squadID: string;
 }
@@ -30,8 +31,7 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
           <Route exact path="/partier/squad/:squadID/payouts" render={(p) => <EditPayouts model={this.model} {...p} />} />
           <Route exact path="/partier/squad/:squadID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
           <Route exact path="/partier/squad/:squadID/auction" render={(p) => <ViewAuction model={this.model} {...p} />} />
-          <Route path="/partier/squad/:squadID/auction" component={ViewAuction} />
-          <Route path="/partier/squad/:squadID/party" component={ViewParty} />
+          <Route exact path="/partier/squad/:squadID/party" render={() => <NotImplemented />} />
         </Switch>
       </div>
     ) : null;
