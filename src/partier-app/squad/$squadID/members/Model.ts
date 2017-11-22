@@ -1,12 +1,13 @@
 import { computed, observable, runInAction } from "mobx";
 import {
   getUserID,
-  getSquad,
   inviteToSquad,
   uninviteFromSquad
 } from "modules/DroverClient";
+import ViewSquadModel from "../Model";
 
 export default class EditMembersModel {
+  private model: ViewSquadModel;
   @observable public squadID: number;
   @computed get isReady() {
     return this.squadMembers != null;
@@ -37,20 +38,22 @@ export default class EditMembersModel {
   }
   public inviteUser = async (userID: string) => {
     await inviteToSquad(this.squadID, userID);
-    const res = await getSquad(this.squadID);
-    runInAction(() => {
-      this.squadMembers = res.squadMembers || [];
-    });
+    this.refresh();
   }
   public uninviteUser = async (userID: string) => {
     await uninviteFromSquad(this.squadID, userID);
-    const res = await getSquad(this.squadID);
+    this.refresh();
+  }
+  public refresh = async () => {
+    await this.model.refresh();
     runInAction(() => {
-      this.squadMembers = res.squadMembers || [];
+      this.squadID = this.model.squadID;
+      this.squadMembers = this.model.squadMembers;
     });
   }
-  constructor(squadID: number, squadMembers: Array<ISquadMember>) {
-    this.squadID = squadID;
-    this.squadMembers = squadMembers;
+  constructor(model: ViewSquadModel) {
+    this.model = model;
+    this.squadID = this.model.squadID;
+    this.squadMembers = this.model.squadMembers;
   }
 }

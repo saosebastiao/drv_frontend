@@ -11,7 +11,10 @@ interface PEditSquad extends RouteComponentProps<{}> {
 
 @observer
 export default class EditSquad extends React.Component<PEditSquad> {
-  private model = new EditMembersModel(this.props.model.squadID, this.props.model.squadMembers);
+  private model = new EditMembersModel(this.props.model);
+  private goBack = () => {
+    this.props.history.goBack();
+  }
 
   public render() {
     return this.model.isReady ? (
@@ -73,12 +76,23 @@ export default class EditSquad extends React.Component<PEditSquad> {
                           </button>
                         </PartierCard>
                       );
-                    })};
+                    })}
                   </div>
                 ) : null}
               </div>
             </div>
           </div>
+          <div className="info-row">
+            <div className="info-value">
+              <button
+                type="button"
+                className="btn btn-xs btn-primary"
+                onClick={this.goBack}>
+                Go Back to Squad
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     ) : null;
