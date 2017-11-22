@@ -2,18 +2,16 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import PartierCard from "shared/cards/PartierCard";
-import EditSquadModel from "./Model";
+import EditSocialModel from "./Model";
+import ViewSquadModel from "../Model";
 
-interface PEditSquad {
-  squadID: string;
+interface PEditSocial extends RouteComponentProps<{}> {
+  model: ViewSquadModel;
 }
 
 @observer
-export default class EditSquad extends React.Component<RouteComponentProps<PEditSquad>, {}> {
-  private model = new EditSquadModel(parseInt(this.props.match.params.squadID, 10));
-  private changeSquadName = (e: any) => {
-    this.model.squadName = e.target.value;
-  }
+export default class EditSocial extends React.Component<PEditSocial> {
+  private model = new EditSocialModel(this.props.model);
 
   public render() {
     return this.model.isReady ? (
@@ -24,105 +22,31 @@ export default class EditSquad extends React.Component<RouteComponentProps<PEdit
               <div className="info-wrapper">
                 <div className="info-title">Squad Information</div>
                 <div className="info-row">
-                  <div className="info-label">Name</div>
-                  <input
-                    type="text"
-                    defaultValue={this.model.squad.squadName}
-                    onChange={this.changeSquadName}
-                  />
+                  {this.props.model.squadName}
                 </div>
                 <div className="info-row">
                   <div className="info-label">Owner</div>
-                  <PartierCard userID={this.model.squad.ownerID} />
+                  <PartierCard userID={this.props.model.ownerID} />
                 </div>
                 <div className="info-row">
                   <div className="info-value">
                     <button
                       type="button"
                       className="btn btn-xs btn-primary"
-                      onClick={this.model.updateSquad}>
+                      onClick={this.model.refresh}>
                       Save
                     </button>
                   </div>
                 </div>
                 <div className="info-row">
                   <div className="info-value">
-                    <Link to={`/partier/squad/${this.model.squadID}`}>
+                    <Link to={`/partier/squad/${this.props.model.squadID}`}>
                       <button type="button" className="btn btn-xs btn-primary">
                         Go To Squad Page
                       </button>
                     </Link>
                   </div>
                 </div>
-                <div className="info-row">
-                  <div className="info-value">
-                    <Link to={`/partier/auction/${this.model.squadID}`}>
-                      <button type="button" className="btn btn-xs btn-primary">
-                        Go To Auction Page
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="details-col has-border">
-              <div className="member-wrapper">
-                {this.model.accepted.length > 0 ? <div>Accepted</div> : null}
-                {this.model.accepted.map(x => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      <button
-                        type="button"
-                        className="btn btn-xs btn-primary"
-                        onClick={() => this.model.uninviteUser(x)}>
-                        Uninvite
-                      </button>
-                    </PartierCard>
-                  );
-                })}
-                {this.model.invited.length > 0 ? <div>Invited</div> : null}
-                {this.model.invited.map(x => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      <button
-                        type="button"
-                        className="btn btn-xs btn-primary"
-                        onClick={() => this.model.uninviteUser(x)}>
-                        Uninvite
-                      </button>
-                    </PartierCard>
-                  );
-                })}
-                {this.model.rejected.length > 0 ? <div>Rejected</div> : null}
-                {this.model.rejected.map(x => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      <button
-                        type="button"
-                        className="btn btn-xs btn-primary"
-                        onClick={() => this.model.uninviteUser(x)}>
-                        Uninvite
-                      </button>
-                    </PartierCard>
-                  );
-                })}
-                {this.model.potential.length > 0 ? (
-                  <div>
-                    <div>Potential Invites</div>
-                    {this.model.potential.map(x => {
-                      return (
-                        <PartierCard key={x} userID={x}>
-                          <button
-                            type="button"
-                            className="btn btn-xs btn-primary"
-                            onClick={() => this.model.inviteUser(x)}>
-                            Invite
-                          </button>
-                        </PartierCard>
-                      );
-                    })};
-                  </div>
-                ) : null}
               </div>
             </div>
           </div>

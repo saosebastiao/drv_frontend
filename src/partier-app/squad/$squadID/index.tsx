@@ -27,8 +27,8 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
           <Route exact path="/partier/squad/:squadID/edit" render={(p) => <EditSquad model={this.model} {...p} />} />
           <Route exact path="/partier/squad/:squadID/members" render={(p) => <EditMembers model={this.model} {...p} />} />
           <Route exact path="/partier/squad/:squadID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
-          <Route path="/partier/squad/:squadID/payouts" component={EditPayouts} />
-          <Route path="/partier/squad/:squadID/social" component={EditSocial} />
+          <Route exact path="/partier/squad/:squadID/payouts" render={(p) => <EditPayouts model={this.model} {...p} />} />
+          <Route exact path="/partier/squad/:squadID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
           <Route path="/partier/squad/:squadID/auction" component={ViewAuction} />
           <Route path="/partier/squad/:squadID/party" component={ViewParty} />
         </Switch>
