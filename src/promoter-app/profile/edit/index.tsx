@@ -3,11 +3,16 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import EditProfileModel from "./Model";
+import ProfileModel from "../Model";
 import { updatePromoterStripeAccount } from "modules/DroverClient";
 import loadScript from "modules/loadScript";
 
+interface PProfile extends RouteComponentProps<{}> {
+  model: ProfileModel;
+}
+
 @observer
-export default class EditProfile extends React.Component<RouteComponentProps<{}>, {}> {
+export default class EditProfile extends React.Component<PProfile> {
   private stripePromise: Promise<stripe.Stripe>;
   private profile = new EditProfileModel;
   private cardNumber: stripe.elements.Element;

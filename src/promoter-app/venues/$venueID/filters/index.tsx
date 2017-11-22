@@ -4,15 +4,16 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import FacebookImageSelector from "../../../../modules/FacebookImageSelector";
-import EditVenueModel from "./Model";
+import EditFiltersModel from "./Model";
+import ShowVenueModel from "../Model";
 
-interface PEditVenue {
-  venueID: number;
+interface PEditFilters extends RouteComponentProps<{}> {
+  model: ShowVenueModel;
 }
 
 @observer
-export default class EditVenue extends React.Component<RouteComponentProps<PEditVenue>, {}> {
-  public venue = new EditVenueModel(this.props.match.params.venueID);
+export default class EditFilters extends React.Component<PEditFilters> {
+  public venue = new EditFiltersModel(this.props.model.venueID);
 
   @observable public selIndex: number = -1;
   @observable public showFacebookImageModal: boolean = false;
