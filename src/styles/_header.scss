@@ -13,12 +13,20 @@
     }
   }
   .menu {
-    @extend .navbar-menu, .is-active;
+    @extend .navbar-menu;
     .main {
       @extend .navbar-start;
-      ul {
-        li {
-          @extend .navbar-item;
+      div {
+        @extend .tabs;
+        @extend .is-boxed;
+        ul {
+          li.active {
+            @extend .navbar-item;
+            @extend .is-active;
+          }
+          li {
+            @extend .navbar-item;
+          }
         }
       }
     }

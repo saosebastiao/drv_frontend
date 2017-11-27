@@ -32,7 +32,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
       <div className="partier-wrapper">
         <Header>
           <NavLink to="/partier/profile" activeClassName="active">Profile</NavLink>
-          <NavLink to="/partier/squads" activeClassName="active">Squads</NavLink>
+          <NavLink to="/partier/squad" activeClassName="active">Squads</NavLink>
         </Header>
         {this.loggedIn ?
           <Switch>

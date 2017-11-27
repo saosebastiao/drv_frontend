@@ -20,9 +20,11 @@ export default class Header extends React.Component<{}, {}> {
         </div>
         <div className="menu">
           <div className="main">
-            <ul className="nav nav-tabs">
-              {this.props.children}
-            </ul>
+            <div>
+              <ul>
+                {this.props.children}
+              </ul>
+            </div>
           </div>
           <div className="logout">
             <button

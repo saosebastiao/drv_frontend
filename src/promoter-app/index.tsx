@@ -2,7 +2,8 @@ import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { promoterLogin } from "modules/DroverClient";
 import * as React from "react";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import NavTab from "shared/NavTab";
 import Footer from "shared/Footer";
 import Header from "shared/Header";
 import Parties from "./parties";
@@ -33,9 +34,9 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
         {this.loggedIn ?
           <div className="partier-wrapper">
             <Header>
-              <NavLink to="/promoter/profile" activeClassName="active">Profile</NavLink>
-              <NavLink to="/promoter/venues" activeClassName="active">Venues</NavLink>
-              <NavLink to="/promoter/parties" activeClassName="active">Parties</NavLink>
+              <NavTab to="/promoter/profile">Profile</NavTab>
+              <NavTab to="/promoter/venues">Venues</NavTab>
+              <NavTab to="/promoter/parties">Parties</NavTab>
             </Header>
             <Switch>
               <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
