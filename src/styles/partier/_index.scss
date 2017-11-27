@@ -1,0 +1,20 @@
+
+.squad-list {
+  @extend .container;
+  .date-row {
+    @extend .level-left;
+    .date-col {
+      @extend .level-left;
+    }
+    .options-col {
+      @extend .level-item;
+      a {
+        @extend .level-item;
+      }
+    }
+
+  }
+  .squad {
+    @extend .container;
+  }
+}

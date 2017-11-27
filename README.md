@@ -36,8 +36,6 @@ https://palantir.github.io/tslint/rules/
 
 * I like to keep layout and CSS as decoupled from the HTML as possible, as it helps keep the code readable and understandable for me. Since this is a React app, there is some amount of coupling, but I'd like to minimize that. I strongly prefer using CSS selectors in CSS files over using CSS-in-javascript, and keeping source files as closely scoped as possible to the React Component they affect.
 
-* I guess bootstrap is okay, but I don't want this to look like I just slapped bootrstrap on it and called it good. It would be up to you if you want to use a different framework (I like what I see from PureCSS, Bulma, Bourbon, Compass, Skeleton). 
-
 * I prefer forms of interactivity that work well with React and minimize the javascript necessary (Bootstrap modals, for example, require jquery, which doesn't play nicely with React). I'm ready and willing to sacrifice flashiness for simplicity.
 
 * I need your strong experience to guide the decision making on layout and design. We may need to discuss your plans and ideas before working on them, but I will likely defer to your expertise unless I find something objectionable.  In particular, the auction and spot market pages will require a lot of information in order for promoters to make decisions, which means a bad design could lead to information overload, confusion, and ultiminately unhappy customers. I really need guidance on how to solve that problem. 

@@ -35,16 +35,18 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
           <NavTab to="/partier/profile">Profile</NavTab>
           <NavTab to="/partier/squad">Squads</NavTab>
         </Header>
-        {this.loggedIn ?
-          <Switch>
-            <Route exact path="/partier" render={() => <Redirect to="/partier/profile" />} />
-            <Route path="/partier/profile" component={Profile} />
-            <Route path="/partier/squad" component={Squad} />
-            <Route path="/partier/stripe" component={Stripe} />
-            <Route component={NoMatch} />
-          </Switch>
-          : <span>Logging In...</span>
-        }
+        <div className="body">
+          {this.loggedIn ?
+            <Switch>
+              <Route exact path="/partier" render={() => <Redirect to="/partier/profile" />} />
+              <Route path="/partier/profile" component={Profile} />
+              <Route path="/partier/squad" component={Squad} />
+              <Route path="/partier/stripe" component={Stripe} />
+              <Route component={NoMatch} />
+            </Switch>
+            : <span>Logging In...</span>
+          }
+        </div>
         <Footer />
       </div>);
   }
