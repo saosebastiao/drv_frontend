@@ -2,8 +2,9 @@ import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { partierLogin } from "modules/DroverClient";
 import * as React from "react";
-import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import Footer from "shared/Footer";
+import NavTab from "shared/NavTab";
 import Header from "shared/Header";
 import Profile from "./profile";
 import Squad from "./squad";
@@ -31,8 +32,8 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
     return (
       <div className="partier-wrapper">
         <Header>
-          <NavLink to="/partier/profile" activeClassName="active">Profile</NavLink>
-          <NavLink to="/partier/squad" activeClassName="active">Squads</NavLink>
+          <NavTab to="/partier/profile">Profile</NavTab>
+          <NavTab to="/partier/squad">Squads</NavTab>
         </Header>
         {this.loggedIn ?
           <Switch>

@@ -6,9 +6,9 @@ export default class Footer extends React.Component<{}, {}> {
 
   public render() {
     return (
-      <footer className="footer-wrapper">
-        © 2017 Drover Ltd.
-    </footer>
+      <footer className="my-footer">
+        <span>© 2017 Drover Ltd.</span>
+      </footer>
     );
   }
 
