@@ -1,0 +1,48 @@
+.app {
+  @extend .container;
+  .header {
+    @extend .navbar;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #ddd;
+    background: map-get($colors, header-back);
+
+    .logo {
+      //@extend .navbar-brand;
+      img {
+        width: 250px;
+        height: 100%;
+      }
+    }
+    .menu {
+      @extend .navbar-menu;
+      .main {
+        @extend .navbar-start;
+        div {
+          @extend .tabs;
+          @extend .is-boxed;
+          ul {
+            li {
+              @extend .navbar-item;
+              &.active{
+              @extend .is-active;
+              }
+            }
+          }
+        }
+      }
+      .logout {
+        @extend .navbar-end;
+        button {
+          margin: 15px 20px 0px 20px;
+          height: 40px;
+        }
+      }
+    }
+  }
+  .my-footer {
+    @extend .footer;
+    width: 100%;
+    text-align: center;
+  }
+}

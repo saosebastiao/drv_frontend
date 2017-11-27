@@ -30,7 +30,7 @@ export default class PartierHome extends React.Component<RouteComponentProps<{}>
   }
   public render() {
     return (
-      <div className="partier-wrapper">
+      <div className="app">
         <Header>
           <NavTab to="/partier/profile">Profile</NavTab>
           <NavTab to="/partier/squad">Squads</NavTab>

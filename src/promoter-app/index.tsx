@@ -32,7 +32,7 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
     return (
       <div>
         {this.loggedIn ?
-          <div className="partier-wrapper">
+          <div className="app">
             <Header>
               <NavTab to="/promoter/profile">Profile</NavTab>
               <NavTab to="/promoter/venues">Venues</NavTab>

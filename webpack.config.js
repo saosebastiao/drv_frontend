@@ -11,8 +11,7 @@ console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
   entry: {
-    index: ["./src/index.tsx"],
-    bootstrap: ["bootstrap-loader"]
+    index: ["./src/index.tsx"]
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -45,10 +44,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/,
-        loader: "imports-loader?jQuery=jquery"
       },
       { test: /\.(ttf|eot)$/, loader: "file-loader" },
       {

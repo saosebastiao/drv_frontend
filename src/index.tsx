@@ -7,7 +7,7 @@ import Partier from "./partier-app";
 import Promoter from "./promoter-app";
 // import DevTool from "mobx-react-devtools";
 
-import "./styles/app.scss";
+import "./styles/index.scss";
 
 class AppRouter extends React.Component<{}, {}> {
   public render() {
