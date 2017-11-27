@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 import ProfileModel from "./Model";
 import ShowProfile from "./default";
 import EditProfile from "./edit";
@@ -14,12 +14,20 @@ export default class Profile extends React.Component<{}> {
 
   public render() {
     return (
-      <Switch>
-        <Route exact path="/promoter/profile" render={(p) => <ShowProfile model={this.model} {...p} />} />} />
-        <Route exact path="/promoter/profile/edit" render={(p) => <EditProfile model={this.model} {...p} />} />} />
-        <Route exact path="/promoter/profile/payment" render={(p) => <EditPayment model={this.model} {...p} />} />} />
-        <Route exact path="/promoter/profile/filters" render={() => <NotImplemented />} />
-      </Switch>
+      <div>
+        <nav>
+          <NavLink to={`/promoter/profile`} activeClassName="active">View Profile</NavLink>
+          <NavLink to={`/promoter/profile/edit`} activeClassName="active">Edit Profile</NavLink>
+          <NavLink to={`/promoter/profile/payment`} activeClassName="active">Edit Payment Methods</NavLink>
+          <NavLink to={`/promoter/profile/filters`} activeClassName="active">Edit Filters</NavLink>
+        </nav>
+        <Switch>
+          <Route exact path="/promoter/profile" render={(p) => <ShowProfile model={this.model} {...p} />} />
+          <Route exact path="/promoter/profile/edit" render={(p) => <EditProfile model={this.model} {...p} />} />
+          <Route exact path="/promoter/profile/payment" render={(p) => <EditPayment model={this.model} {...p} />} />
+          <Route exact path="/promoter/profile/filters" render={() => <NotImplemented />} />
+        </Switch>
+      </div>
     );
   }
 }

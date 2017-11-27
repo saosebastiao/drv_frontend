@@ -2,10 +2,9 @@ import { observable, runInAction } from "mobx";
 import { observer } from "mobx-react";
 import { promoterLogin } from "modules/DroverClient";
 import * as React from "react";
-import { Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, RouteComponentProps, Switch } from "react-router-dom";
 import Footer from "shared/Footer";
 import Header from "shared/Header";
-import NavLink from "shared/NavLink";
 import Parties from "./parties";
 import Profile from "./profile";
 import Venues from "./venues";
@@ -30,20 +29,22 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
   }
   public render() {
     return (
-      <div className="partier-wrapper">
-        <Header>
-          <NavLink route="/promoter/profile" label="Profile" />
-          <NavLink route="/promoter/venues" label="Venues" />
-          <NavLink route="/promoter/parties" label="Parties" />
-        </Header>
+      <div>
         {this.loggedIn ?
-          <Switch>
-            <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
-            <Route path="/promoter/profile" component={Profile} />
-            <Route path="/promoter/venues" component={Venues} />
-            <Route path="/promoter/parties" component={Parties} />
-            <Route component={NoMatch} />
-          </Switch>
+          <div className="partier-wrapper">
+            <Header>
+              <NavLink to="/promoter/profile" activeClassName="active">Profile</NavLink>
+              <NavLink to="/promoter/venues" activeClassName="active">Venues</NavLink>
+              <NavLink to="/promoter/parties" activeClassName="active">Parties</NavLink>
+            </Header>
+            <Switch>
+              <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
+              <Route path="/promoter/profile" component={Profile} />
+              <Route path="/promoter/venues" component={Venues} />
+              <Route path="/promoter/parties" component={Parties} />
+              <Route component={NoMatch} />
+            </Switch>
+          </div>
           : <span>Logging In...</span>
         }
         <Footer />
