@@ -3,14 +3,12 @@
   height: 100%;
   text-align: center;
   .auction-contents {
-    @extend .container;
     display: inline-block;
     width: 80%;
     margin-top: 20px;
     padding: 0px;
     border: 1px solid map-get($colors, border);
     .auction-row {
-      @extend .row;
       height: 50px;
       line-height: 50px;
       margin: 0px;
@@ -19,27 +17,19 @@
         border-bottom: none;
       }
       .date-col {
-        @extend .col-sm-3,
-        .col-xs-3;
         font-size: 1.6rem;
         font-weight: bold;
         text-align: left;
       }
       .city-col {
-        @extend .col-sm-3,
-        .col-xs-3;
         font-size: 1.6rem;
         text-align: left;
       }
       .party-col {
-        @extend .col-sm-3,
-        .col-xs-3;
         font-size: 1.6rem;
         text-align: left;
       }
       .button-col {
-        @extend .col-sm-3,
-        .col-xs-3;
         padding-top: 8px;
         text-align: center;
         .btn {
@@ -49,18 +39,14 @@
     }
   }
   .auction-details-contents {
-    @extend .container;
     display: inline-block;
     width: 100%;
     height: 100%;
     padding: 20px;
     min-width: 800px;
     .auction-details-row {
-      @extend .row;
       height: 100%;
       .details-col {
-        @extend .col-sm-4,
-        .col-xs-4;
         height: 100%;
         padding: 10px;
       }

@@ -16,11 +16,9 @@
       margin-bottom: 20px;
     }
     .other-photos-container {
-      @extend .container;
       width: 100%;
       padding: 0px;
       .other-photos-row {
-        @extend .row;
         margin: 0px;
         .other-photos-col {
           display: inline-block;

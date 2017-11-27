@@ -4,26 +4,35 @@ import { Link } from "react-router-dom";
 
 export default class Header extends React.Component<{}, {}> {
 
+  private logout = (e: any) => {
+    e.preventDefault();
+    logout().then(() => {
+      window.location.replace("/");
+    });
+  }
   public render() {
     return (
-      <nav className="header-wrapper">
-        <Link to={`/`}><div className="logo" /></Link>
-        <div className="nav-wrapper">
-          <ul className="nav nav-tabs">
-            {this.props.children}
-          </ul>
-        </div>
-        <div className="logout-button">
-          <Link to={`/`}>
-            <button
-              className="btn btn-default logout-button"
-              onClick={() => logout()}
-            >
-              Logout
-            </button>
+      <nav className="header" role="navigation" aria-label="main navigation">
+        <div className="logo">
+          <Link to="/">
+            <img src="./shared/logo/svg/color_logo_transparent.svg" />
           </Link>
         </div>
-      </nav>
+        <div className="menu">
+          <div className="main">
+            <ul className="nav nav-tabs">
+              {this.props.children}
+            </ul>
+          </div>
+          <div className="logout">
+            <button
+              className="btn btn-default logout-button"
+              onClick={this.logout}>
+              Logout
+            </button>
+          </div>
+        </div>
+      </nav >
     );
   }
 

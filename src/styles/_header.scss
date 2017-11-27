@@ -1,38 +1,33 @@
-.header-wrapper {
-  display: flex;
-  flex-direction: row;
+.header {
+  @extend .navbar;
   width: 100%;
-  min-width: 750px;
   height: 70px;
   border-bottom: 1px solid #ddd;
   background: map-get($colors, header-back);
+
   .logo {
-    width: 120px;
-    height: 100%;
-  }
-  .nav-wrapper {
-    display: inline-block;
-    position: relative;
-    width: 500px;
-    height: 100%;
-    margin-left: 20px;
-    .nav-tabs {
-      position: absolute;
-      left: 0px;
-      bottom: 0px;
-      display: inline-block;
-      height: 40px;
-      border: none;
-      li {
-        height: 40px;
-      }
+    //@extend .navbar-brand;
+    img {
+      width: 250px;
+      height: 100%;
     }
   }
-  .logout-button {
-    margin-left: auto;
-    button {
-      margin: 15px 20px 0px 20px;
-      height: 40px;
+  .menu {
+    @extend .navbar-menu, .is-active;
+    .main {
+      @extend .navbar-start;
+      ul {
+        li {
+          @extend .navbar-item;
+        }
+      }
+    }
+    .logout {
+      @extend .navbar-end;
+      button {
+        margin: 15px 20px 0px 20px;
+        height: 40px;
+      }
     }
   }
 }

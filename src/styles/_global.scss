@@ -1,27 +1,17 @@
-$bootstrap-sass-asset-helper: true;
-@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
-
-$font-stack: Helvetica, sans-serif;
-
-$colors: (
-  border:         #DDD,
-  info-back:      #EEE,
-  header-back:    #EEE,
-  profile-back:   #00F,
-  logo-back:      #00F
-);
-
-.has-border {
-  border: 1px solid map-get($colors, border);
-}
-
 @import "sass/utilities/initial-variables";
 @import "sass/utilities/functions";
 // insert variables here
-@import "sass/utilities/_all";
+
+$family-primary: Helvetica, sans-serif;
+
+@import "sass/utilities/derived-variables.sass";
+@import "sass/utilities/animations";
+@import "sass/utilities/mixins";
+@import "sass/utilities/controls";
 @import "sass/components/card";
 @import "sass/components/level";
 @import "sass/components/media";
+@import "sass/components/navbar";
 @import "sass/elements/image";
 @import "sass/base/helpers";
 

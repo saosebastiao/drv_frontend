@@ -8,6 +8,7 @@ staticassets:
 	rsync -avm \
 	--include='*.html' \
 	--include='*.css' \
+	--include='*.svg' \
 	--include='*.png' \
 	-f 'hide,! */' src/ dist/
 

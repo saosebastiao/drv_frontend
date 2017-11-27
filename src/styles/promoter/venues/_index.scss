@@ -29,13 +29,9 @@
       .form-group {
         height: 40px;
         .label-col {
-          @extend .col-sm-4,
-          .col-xs-4;
           padding: 0px;
         }
         .value-col {
-          @extend .col-sm-8,
-          .col-xs-8;
           padding-right: 0px;
         }
         .radio-inline {
@@ -76,12 +72,10 @@
     }
 
     .other-photos-container {
-      @extend .container;
       width: 100%;
       padding: 0px;
 
       .other-photos-row {
-        @extend .row;
         margin: 0px;
         
         .other-photos-col {
