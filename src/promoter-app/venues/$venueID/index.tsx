@@ -1,7 +1,8 @@
 // tslint:disable:max-line-length
 import { observer } from "mobx-react";
 import * as React from "react";
-import { NavLink, Switch, Route, RouteComponentProps } from "react-router-dom";
+import { Switch, Route, RouteComponentProps } from "react-router-dom";
+import NavTab from "shared/NavTab";
 import ShowVenueModel from "./Model";
 import ShowVenue from "./default";
 import EditVenue from "./edit";
@@ -21,11 +22,19 @@ export default class VenueID extends React.Component<RouteComponentProps<PShowVe
       const venueID = this.model.venueID;
       return (
         <div>
-          <nav>
-            <NavLink to={`/promoter/venues/${venueID}`} activeClassName="active">View Venue Profile</NavLink>
-            <NavLink to={`/promoter/venues/${venueID}/edit`} activeClassName="active">Edit Venue Profile</NavLink>
-            <NavLink to={`/promoter/venues/${venueID}/filters`} activeClassName="active">Edit Venue Filters</NavLink>
-            <NavLink to={`/promoter/venues/${venueID}/photos`} activeClassName="active">Edit Venue Photos</NavLink>
+          <nav className="navbar" role="navigation" aria-label="squad navigation">
+            <div className="navbar-menu">
+              <div className="navbar-start">
+                <div className="tabs is-boxed">
+                  <ul className="menu">
+                    <NavTab to={`/promoter/venues/${venueID}`} >View Venue</NavTab>
+                    <NavTab to={`/promoter/venues/${venueID}/edit`} >Edit Venue</NavTab>
+                    <NavTab to={`/promoter/venues/${venueID}/filters`} >Manage Filters</NavTab>
+                    <NavTab to={`/promoter/venues/${venueID}/photos`} >Manage Photos</NavTab>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </nav>
           <Switch>
             <Route exact path="/promoter/venues/:venueID" render={(p) => <ShowVenue model={this.model} {...p} />} />

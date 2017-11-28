@@ -10,7 +10,6 @@ import EditPayouts from "./payouts";
 import EditSocial from "./social";
 import ViewSquad from "./default";
 import ViewAuction from "./auction";
-// import ViewParty from "./party";
 import ViewSquadModel from "./Model";
 
 const NotImplemented = () => <div>Not Implemented</div>;
