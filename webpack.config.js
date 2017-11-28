@@ -33,10 +33,6 @@ module.exports = {
             loader: "css-loader" // translates CSS into CommonJS
           },
           {
-            loader: "postcss-loader", // runs autoprefixer
-            options: { sourceMap: true }
-          },
-          {
             loader: "sass-loader", // compiles Sass to CSS
             options: {
               sourceMap: true,
@@ -72,7 +68,8 @@ module.exports = {
       name: "manifest" //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NamedModulesPlugin()
   ],
   devServer: {
     contentBase: "./dist",

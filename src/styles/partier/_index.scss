@@ -1,5 +1,4 @@
 .squad {
-  @extend .container;
   @extend .columns;
   .menu-column {
     @extend .column;
@@ -17,7 +16,6 @@
     }
   }
   .squad-view {
-    @extend .container;
     @extend .column;
     .navbar {
       @extend .navbar;

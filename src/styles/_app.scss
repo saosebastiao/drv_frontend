@@ -1,5 +1,4 @@
 .app {
-  @extend .container;
   .header {
     @extend .navbar;
     width: 100%;
@@ -11,7 +10,7 @@
       //@extend .navbar-brand;
       img {
         width: 250px;
-        height: 80%;
+        height: 100%;
       }
     }
     .menu {
@@ -41,7 +40,7 @@
     }
   }
   .body {
-    @extend .container;
+    @extend .section;
     @import "partier/index";
     @import "promoter/index";
   }

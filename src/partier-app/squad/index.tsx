@@ -44,10 +44,12 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
             </ul>
           </aside>
         </div>
-        <Switch>
-          <Route path="/partier/squad/new/:partyNight" component={NewSquad} />
-          <Route path="/partier/squad/:squadID" component={SquadID} />
-        </Switch>
+        <div className="squad-view">
+          <Switch>
+            <Route path="/partier/squad/new/:partyNight" component={NewSquad} />
+            <Route path="/partier/squad/:squadID" component={SquadID} />
+          </Switch>
+        </div>
       </div >
     );
   }
