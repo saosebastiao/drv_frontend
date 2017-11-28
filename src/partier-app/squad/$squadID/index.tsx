@@ -1,7 +1,8 @@
 // tslint:disable:max-line-length
 import * as React from "react";
 import { observer } from "mobx-react";
-import { Route, RouteComponentProps, Switch, NavLink } from "react-router-dom";
+import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import NavTab from "shared/NavTab";
 import EditSquad from "./edit";
 import EditFilters from "./filters";
 import EditMembers from "./members";
@@ -25,17 +26,23 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
       const squadID = this.model.squadID;
       return (
         <div>
-          <nav className="navbar">
-            <ul className="menu">
-              <NavLink to={`/partier/squad/${squadID}`} activeClassName="active">View Squad</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/edit`} activeClassName="active">Edit Squad Name</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/members`} activeClassName="active">Manage Squad Members</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/filters`} activeClassName="active">Manage Filters</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/payouts`} activeClassName="active">Manage Payouts</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/social`} activeClassName="active">Manage Social Media Commitments</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/auction`} activeClassName="active">View Auction</NavLink>
-              <NavLink to={`/partier/squad/${squadID}/party`} activeClassName="active">View Assigned Party</NavLink>
-            </ul>
+          <nav className="navbar" role="navigation" aria-label="squad navigation">
+            <div className="navbar-menu">
+              <div className="navbar-start">
+                <div className="tabs is-boxed">
+                  <ul className="menu">
+                    <NavTab to={`/partier/squad/${squadID}`} >View Squad</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/edit`} >Edit Squad Name</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/members`} >Manage Squad Members</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/filters`} >Manage Filters</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/payouts`} >Manage Payouts</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/social`} >Manage Social Media Commitments</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/auction`} >View Auction</NavTab>
+                    <NavTab to={`/partier/squad/${squadID}/party`} >View Assigned Party</NavTab>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </nav>
           <Switch>
             <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
