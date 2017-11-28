@@ -5,13 +5,6 @@
 $family-primary: Helvetica, sans-serif;
 
 @import "sass/utilities/derived-variables.sass";
-@import "sass/utilities/animations";
-@import "sass/utilities/mixins";
-@import "sass/utilities/controls";
-@import "sass/base/helpers";
-@import "sass/grid/all";
-@import "sass/components/all";
-@import "sass/elements/all";
-@import "sass/layout/all";
+@import "bulma";
 @import 'shared/index';
 @import 'app';

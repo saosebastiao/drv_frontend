@@ -12,23 +12,9 @@
         height: 100%;
       }
     }
-    .menu {
-      .main {
-        div {
-          ul {
-            li {
-              @extend .navbar-item;
-              &.active{
-              @extend .is-active;
-              }
-            }
-          }
-        }
-      }
-      .logout {
-        button {
-          height: 40px;
-        }
+    .logout {
+      button {
+        height: 40px;
       }
     }
   }
