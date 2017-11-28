@@ -1,6 +1,5 @@
 .app {
   .header {
-    @extend .navbar;
     width: 100%;
     height: 70px;
     border-bottom: 1px solid #ddd;
@@ -14,12 +13,8 @@
       }
     }
     .menu {
-      @extend .navbar-menu;
       .main {
-        @extend .navbar-start;
         div {
-          @extend .tabs;
-          @extend .is-boxed;
           ul {
             li {
               @extend .navbar-item;
@@ -31,9 +26,7 @@
         }
       }
       .logout {
-        @extend .navbar-end;
         button {
-          margin: 15px 20px 0px 20px;
           height: 40px;
         }
       }
@@ -44,7 +37,7 @@
     @import "partier/index";
     @import "promoter/index";
   }
-  .my-footer {
+  .footer {
     @extend .footer;
     width: 100%;
     text-align: center;

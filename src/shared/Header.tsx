@@ -12,23 +12,22 @@ export default class Header extends React.Component<{}, {}> {
   }
   public render() {
     return (
-      <nav className="header" role="navigation" aria-label="main navigation">
+      <nav className="navbar header" role="navigation" aria-label="main navigation">
         <div className="logo">
           <Link to="/">
             <img src="./shared/logo/svg/color_logo_transparent.svg" />
           </Link>
         </div>
-        <div className="menu">
-          <div className="main">
-            <div>
+        <div className="navbar-menu">
+          <div className="navbar-start">
+            <div className="tabs is-boxed">
               <ul>
                 {this.props.children}
               </ul>
             </div>
           </div>
-          <div className="logout">
+          <div className="navbar-end logout">
             <button
-              className="btn btn-default logout-button"
               onClick={this.logout}>
               Logout
             </button>
