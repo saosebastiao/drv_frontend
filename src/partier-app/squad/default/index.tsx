@@ -20,6 +20,9 @@ export default class SquadJoin extends React.Component<PNewSquad> {
     await this.props.model.refresh();
     this.props.history.push(`/partier/squad/${squad}`);
   }
+  public componentWillReceiveProps(newProps: PNewSquad) {
+    this.model.partyNight = newProps.match.params.partyNight;
+  }
 
   public render() {
     return (

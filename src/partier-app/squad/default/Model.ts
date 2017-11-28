@@ -4,7 +4,14 @@ import { createSquad, getAuctionsForPartyNight, getPartierInvites, getPartierPro
 export default class SquadJoinModel {
   @observable public invites: Array<number> = [];
   @observable public ownerID: string = "";
-  @observable public partyNight: string;
+  @observable private _partyNight: string;
+  @computed get partyNight() {
+    return this._partyNight;
+  }
+  set partyNight(val: string) {
+    this._partyNight = val;
+    this.refresh();
+  }
   @observable public squadName: string = "";
   @observable public regionID: string = "boo";
   @observable public auctions: Array<IAuction> = [];
@@ -23,14 +30,19 @@ export default class SquadJoinModel {
     } else throw new Error("boop");
 
   }
-  public async refresh() {
+  public async init() {
     const profile = await getPartierProfile();
+    runInAction(() => {
+      this.regionID = profile.defaultRegion || "";
+      this.ownerID = profile.userID;
+    });
+    this.refresh();
+  }
+  public async refresh() {
     const auctions = await getAuctionsForPartyNight(this.partyNight);
     const invites = await getPartierInvites(this.partyNight);
     runInAction(() => {
       this.auctions = auctions || [];
-      this.regionID = profile.defaultRegion || "";
-      this.ownerID = profile.userID;
       this.invites = invites.map(x => x.squadID);
     });
   }
