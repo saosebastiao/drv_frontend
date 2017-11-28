@@ -9,16 +9,19 @@ interface PCreateParty {
 
 @observer
 export default class CreateParty extends React.Component<RouteComponentProps<PCreateParty>, {}> {
-  public model = new CreatePartyModel(this.props.match.params.partyNight);
-  public submit = async () => {
+  private model = new CreatePartyModel(this.props.match.params.partyNight);
+  private submit = async () => {
     const partyID = await this.model.create();
     this.props.history.push(`/promoter/parties/${partyID}`);
   }
-  public updatePartyName = (e: any) => {
+  private updatePartyName = (e: any) => {
     this.model.partyName = e.target.value;
   }
-  public updateVenue = (e: any) => {
+  private updateVenue = (e: any) => {
     this.model.venueID = e.target.value;
+  }
+  public componentWillReceiveProps(next: RouteComponentProps<PCreateParty>) {
+    this.model.partyNight = next.match.params.partyNight;
   }
 
   public render() {

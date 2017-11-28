@@ -1,7 +1,7 @@
 import { computed, observable, runInAction } from "mobx";
 import { getPromoterParties } from "modules/DroverClient";
 
-export default class SquadListModel {
+export default class PartyListModel {
   @observable public list: Array<IPromoterPartyNight> = [];
 
   @computed get isReady() {
