@@ -1,20 +1,41 @@
-
-.squad-list {
+.squad {
   @extend .container;
-  .date-row {
-    @extend .level-left;
-    .date-col {
-      @extend .level-left;
-    }
-    .options-col {
-      @extend .level-item;
-      a {
-        @extend .level-item;
+  @extend .columns;
+  .menu-column {
+    @extend .column;
+    @extend .is-one-fifth;
+    .squad-menu {
+      @extend .menu;
+      .date-list {
+        @extend .menu-list;
+        li {
+          &.active{
+            @extend .is-active;
+          }
+        }
       }
     }
-
   }
-  .squad {
+  .squad-view {
     @extend .container;
+    @extend .column;
+    .navbar {
+      @extend .navbar;
+      .menu {
+        @extend .navbar-menu;
+        div {
+          @extend .tabs;
+          @extend .is-boxed;
+          ul {
+            li {
+              @extend .navbar-item;
+              &.active{
+              @extend .is-active;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -24,16 +24,18 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
     if (this.model.isReady) {
       const squadID = this.model.squadID;
       return (
-        <div className="squad-wrapper">
-          <nav>
-            <NavLink to={`/partier/squad/${squadID}`} activeClassName="active">View Squad</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/edit`} activeClassName="active">Edit Squad Name</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/members`} activeClassName="active">Manage Squad Members</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/filters`} activeClassName="active">Manage Filters</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/payouts`} activeClassName="active">Manage Payouts</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/social`} activeClassName="active">Manage Social Media Commitments</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/auction`} activeClassName="active">View Auction</NavLink>
-            <NavLink to={`/partier/squad/${squadID}/party`} activeClassName="active">View Assigned Party</NavLink>
+        <div>
+          <nav className="navbar">
+            <ul className="menu">
+              <NavLink to={`/partier/squad/${squadID}`} activeClassName="active">View Squad</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/edit`} activeClassName="active">Edit Squad Name</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/members`} activeClassName="active">Manage Squad Members</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/filters`} activeClassName="active">Manage Filters</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/payouts`} activeClassName="active">Manage Payouts</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/social`} activeClassName="active">Manage Social Media Commitments</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/auction`} activeClassName="active">View Auction</NavLink>
+              <NavLink to={`/partier/squad/${squadID}/party`} activeClassName="active">View Assigned Party</NavLink>
+            </ul>
           </nav>
           <Switch>
             <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
