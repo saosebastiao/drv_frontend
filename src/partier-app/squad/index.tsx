@@ -34,23 +34,26 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
 
   public render() {
     return (
-      <div className="squad">
-        <div className="menu-column">
-          <aside className="squad-menu">
-            <ul className="date-list">
-              {
-                this.model.list.map(pn => this.renderPartyNight(pn))
-              }
-            </ul>
-          </aside>
+      <section className="section">
+        <div className="columns">
+          <div className="column is-one-fifth">
+            <aside className="menu">
+              <ul className="menu-list">
+                {
+                  this.model.list.map(pn => this.renderPartyNight(pn))
+                }
+              </ul>
+            </aside>
+          </div>
+          <div className="column">
+            <Switch>
+              <Route path="/partier/squad/new/:partyNight" render={(m) =>
+                <NewSquad model={this.model} {...m} />} />
+              <Route path="/partier/squad/:squadID" component={SquadID} />
+            </Switch>
+          </div>
         </div>
-        <div className="squad-view">
-          <Switch>
-            <Route path="/partier/squad/new/:partyNight" component={NewSquad} />
-            <Route path="/partier/squad/:squadID" component={SquadID} />
-          </Switch>
-        </div>
-      </div >
+      </section >
     );
   }
 }

@@ -1,31 +1,53 @@
 import * as React from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
 import { observer } from "mobx-react";
+import SquadJoinModel from "./Model";
+import SquadCard from "shared/cards/SquadCard";
+import PartyNightModel from "../Model";
+import { RouteComponentProps } from "react-router";
 
-interface PDefault extends RouteComponentProps<{
-  partyNight?: string;
-}> { }
+interface IPartyNight {
+  partyNight: string;
+}
+interface PNewSquad extends RouteComponentProps<IPartyNight> {
+  model: PartyNightModel;
+}
 
 @observer
-export default class NewSquad extends React.Component<PDefault> {
+export default class SquadJoin extends React.Component<PNewSquad> {
+  private model = new SquadJoinModel(this.props.match.params.partyNight);
+  public submit = async () => {
+    const squad = await this.model.create();
+    await this.props.model.refresh();
+    this.props.history.push(`/partier/squad/${squad}`);
+  }
 
   public render() {
-    if (this.props.match.params.partyNight) {
-      const partyNight = this.props.match.params.partyNight;
-      return (
+    return (
+      <div>
         <div>
-          <div className="options-col">
-            <Link to={`/partier/squad/create/${partyNight}`}>
-              <button className="btn btn-primary">Create a squad</button>
-            </Link>
-            <Link to={`/partier/squad/invites/${partyNight}`}>
-              <button className="btn btn-primary">View Squad Invites</button>
-            </Link>
+          <div>
+            <div>Create a new Squad for {this.model.partyNight}<div />
+              <div>
+                <select value={this.model.regionID} onChange={(e: any) => this.model.regionID = e.target.value}>
+                  <option value="">Select a Region</option>
+                  {this.model.auctions.map((x) => <option key={x.regionID} value={x.regionID}>{x.regionID}</option>)}
+                </select>
+              </div>
+              <div>
+                <label>Squad Name</label>
+                <input value={this.model.squadName} onChange={(e: any) => this.model.squadName = e.target.value} />
+              </div>
+              <button type="button" onClick={() => this.submit()}>Create</button>
+            </div>
           </div>
         </div>
-      );
-    } else {
-      return <div>Please Select a Date</div>;
-    }
+        <div className="squad-wrapper">
+          <span>Or join an existing squad</span>
+          <div className="squad-contents">
+            {this.model.invites.map((s) => <SquadCard key={s} squadID={s} />)}
+          </div>
+        </div>
+      </div>
+    );
   }
 }
