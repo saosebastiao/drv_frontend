@@ -30,14 +30,14 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
   }
   public render() {
     return (
-      <div>
-        {this.loggedIn ?
-          <div className="app">
-            <Header>
-              <NavTab to="/promoter/profile">Profile</NavTab>
-              <NavTab to="/promoter/venues">Venues</NavTab>
-              <NavTab to="/promoter/parties">Parties</NavTab>
-            </Header>
+      <div className="app">
+        <Header>
+          <NavTab to="/promoter/profile">Profile</NavTab>
+          <NavTab to="/promoter/venues">Venues</NavTab>
+          <NavTab to="/promoter/parties">Parties</NavTab>
+        </Header>
+        <section className="section">
+          {this.loggedIn ?
             <Switch>
               <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
               <Route path="/promoter/profile" component={Profile} />
@@ -45,9 +45,9 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
               <Route path="/promoter/parties" component={Parties} />
               <Route component={NoMatch} />
             </Switch>
-          </div>
-          : <span>Logging In...</span>
-        }
+            : <span>Logging In...</span>
+          }
+        </section>
         <Footer />
       </div>
     );
