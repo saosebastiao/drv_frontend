@@ -1,7 +1,7 @@
 import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import ShowVenueModel from "../Model";
 // import GoogleMap from "shared/GoogleMap";
 
@@ -74,22 +74,6 @@ export default class ShowVenue extends React.Component<PShowVenue> {
                 Map
               </div>
             </div>
-          </div>
-          <br /><br />
-          <div>
-            <Link to={`/promoter/venues/${this.venue.venueID}/edit`}>
-              <button className="btn btn-lg btn-primary">Edit Venue Details</button>
-            </Link>
-          </div>
-          <div>
-            <Link to={`/promoter/venues/${this.venue.venueID}/filters`}>
-              <button className="btn btn-lg btn-primary">Edit Venue Filters</button>
-            </Link>
-          </div>
-          <div>
-            <Link to={`/promoter/venues/${this.venue.venueID}/photos`}>
-              <button className="btn btn-lg btn-primary">Edit Venue Photos</button>
-            </Link>
           </div>
         </div>
       </div>

@@ -36,12 +36,14 @@ export default class VenueID extends React.Component<RouteComponentProps<PShowVe
               </div>
             </div>
           </nav>
-          <Switch>
-            <Route exact path="/promoter/venues/:venueID" render={(p) => <ShowVenue model={this.model} {...p} />} />
-            <Route exact path="/promoter/venues/:venueID/edit" render={(p) => <EditVenue model={this.model} {...p} />} />
-            <Route exact path="/promoter/venues/:venueID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
-            <Route exact path="/promoter/venues/:venueID/photos" render={(p) => <EditPhotos model={this.model} {...p} />} />
-          </Switch>
+          <section className="section">
+            <Switch>
+              <Route exact path="/promoter/venues/:venueID" render={(p) => <ShowVenue model={this.model} {...p} />} />
+              <Route exact path="/promoter/venues/:venueID/edit" render={(p) => <EditVenue model={this.model} {...p} />} />
+              <Route exact path="/promoter/venues/:venueID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
+              <Route exact path="/promoter/venues/:venueID/photos" render={(p) => <EditPhotos model={this.model} {...p} />} />
+            </Switch>
+          </section>
         </div>
       );
     } else return null;

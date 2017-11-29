@@ -12,33 +12,46 @@ import PartyListModel from "./Model";
 export default class Squad extends React.Component<RouteComponentProps<{}>, {}> {
   private model = new PartyListModel;
 
-  private renderPartyNight(pn: IPromoterPartyNight) {
+  private renderPartyNight(partyNight: string) {
     return (
-      <div className="squad-row" key={pn.partyNight}>
-        <div className="date-col">{moment(pn.partyNight).format("ll")}</div>
-        <div className="button-col">
-          {pn.parties.map((party) => {
-            return <NavTab key={party.partyID} to={`/promoter/parties/${party.partyID}`}>
-              View {party.partyName} at {party.venue.venueName}
-            </NavTab>;
-          })}
-          <NavTab to={`/promoter/parties/create/${pn.partyNight}`}>
-            Create a Party
-          </NavTab>
-        </div>
-      </div >
+      <NavTab key={partyNight} to={`/promoter/parties/create/${partyNight}`}>
+        {moment(partyNight).format("ll")}
+      </NavTab>
     );
+  }
+  private renderVenueOptions(parties: Array<IParty>) {
+    return this.model.venues.map(v => {
+      const party = parties.find(p => p.venue.venueID === v.venueID);
+      return party ? (
+        <NavTab key={party.partyID} to={`/promoter/parties/${party.partyID}`}>
+          {party.partyName} as {v.venueName}
+        </NavTab>
+      ) : (
+          <NavTab key={`v:${v.venueID}`} to={`/promoter/parties/create/`}>
+            Create Party at {v.venueName}
+          </NavTab>
+        );
+    });
   }
 
   public render() {
     return (
-      <section className="section">
+      <section className="section" >
         <div className="columns">
           <div className="column is-one-fifth">
             <aside className="menu">
               <ul className="menu-list">
                 {
-                  this.model.list.map(pn => this.renderPartyNight(pn))
+                  this.model.partyNights.map(pn => this.renderPartyNight(pn.partyNight))
+                }
+              </ul>
+            </aside>
+          </div>
+          <div className="column is-one-fifth">
+            <aside className="menu">
+              <ul className="menu-list">
+                {
+                  this.model.partyNights.map(pn => this.renderVenueOptions(pn.parties))
                 }
               </ul>
             </aside>

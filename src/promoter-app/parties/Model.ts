@@ -1,18 +1,19 @@
 import { computed, observable, runInAction } from "mobx";
-import { getPromoterParties } from "modules/DroverClient";
+import { getPromoterVenues, getPromoterParties } from "modules/DroverClient";
 
 export default class PartyListModel {
-  @observable public list: Array<IPromoterPartyNight> = [];
-
+  @observable public partyNights: Array<IPromoterPartyNight> = [];
+  @observable public venues: Array<IVenue> = [];
   @computed get isReady() {
-    return this.list.length > 0;
+    return this.partyNights.length > 0;
   }
   public refresh = async () => {
-    const x = await getPromoterParties();
+    const v = await getPromoterVenues();
+    const p = await getPromoterParties();
     runInAction(() => {
-      this.list = x;
+      this.partyNights = p;
+      this.venues = v.sort((a, b) => a.venueID - b.venueID);
     });
-
   }
   constructor() {
     this.refresh();
