@@ -9,6 +9,7 @@ import BidBox from "./BidBox";
 
 interface PPartyID {
   partyID: number;
+  partyNight: number;
 }
 
 @observer

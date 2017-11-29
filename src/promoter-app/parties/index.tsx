@@ -7,38 +7,25 @@ import PartyID from "./$partyID";
 import CreateParty from "./create";
 import ImportParty from "./import";
 import PartyListModel from "./Model";
+import VenueSelector from "./VenueSelector";
 
 @observer
-export default class Squad extends React.Component<RouteComponentProps<{}>, {}> {
+export default class Parties extends React.Component<RouteComponentProps<{}>, {}> {
   private model = new PartyListModel;
 
   private renderPartyNight(partyNight: string) {
     return (
-      <NavTab key={partyNight} to={`/promoter/parties/create/${partyNight}`}>
+      <NavTab key={partyNight} to={`/promoter/parties/${partyNight}`}>
         {moment(partyNight).format("ll")}
       </NavTab>
     );
-  }
-  private renderVenueOptions(parties: Array<IParty>) {
-    return this.model.venues.map(v => {
-      const party = parties.find(p => p.venue.venueID === v.venueID);
-      return party ? (
-        <NavTab key={party.partyID} to={`/promoter/parties/${party.partyID}`}>
-          {party.partyName} as {v.venueName}
-        </NavTab>
-      ) : (
-          <NavTab key={`v:${v.venueID}`} to={`/promoter/parties/create/`}>
-            Create Party at {v.venueName}
-          </NavTab>
-        );
-    });
   }
 
   public render() {
     return (
       <section className="section" >
         <div className="columns">
-          <div className="column is-one-fifth">
+          <div className="column is-2">
             <aside className="menu">
               <ul className="menu-list">
                 {
@@ -47,24 +34,19 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
               </ul>
             </aside>
           </div>
-          <div className="column is-one-fifth">
-            <aside className="menu">
-              <ul className="menu-list">
-                {
-                  this.model.partyNights.map(pn => this.renderVenueOptions(pn.parties))
-                }
-              </ul>
-            </aside>
+          <div className="column is-2">
+            <Route path="/promoter/parties/:partyNight/"
+              render={(m) => <VenueSelector model={this.model} {...m} />} />
           </div>
           <div className="column">
             <Switch>
               <Route path="/promoter/parties/import/" component={ImportParty} />
-              <Route path="/promoter/parties/create/:partyNight" component={CreateParty} />
-              <Route path="/promoter/parties/:partyID" component={PartyID} />
+              <Route path="/promoter/parties/:partyNight/create/:venueID" component={CreateParty} />
+              <Route path="/promoter/parties/:partyNight/:partyID" component={PartyID} />
             </Switch>
           </div>
         </div>
-      </section >
+      </section>
     );
   }
 }
