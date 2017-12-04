@@ -24,7 +24,6 @@ export default class PartyID extends React.Component<RouteComponentProps<PPartyI
   public render() {
     if (this.model.isReady) {
       const partyID = this.props.match.params.partyID;
-      const partyNight = this.props.match.params.partyNight;
       return (
         <div>
           <nav className="navbar" role="navigation" aria-label="squad navigation">
@@ -32,12 +31,12 @@ export default class PartyID extends React.Component<RouteComponentProps<PPartyI
               <div className="navbar-start">
                 <div className="tabs is-boxed">
                   <ul className="menu">
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}`}>View Party Profile</NavTab>
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}/edit`}>Edit Party Profile</NavTab>
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}/filters`}>Edit Party Filters</NavTab>
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}/photos`}>Edit Party Photos</NavTab>
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}/social`}>Edit Social Media Preferences</NavTab>
-                    <NavTab to={`/promoter/parties/${partyNight}/${partyID}/auction`}>Auction</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}`}>View Party Profile</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}/edit`}>Edit Party Profile</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}/filters`}>Edit Party Filters</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}/photos`}>Edit Party Photos</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}/social`}>Edit Social Media Preferences</NavTab>
+                    <NavTab to={`/promoter/parties/${partyID}/auction`}>Auction</NavTab>
                   </ul>
                 </div>
               </div>
@@ -45,12 +44,12 @@ export default class PartyID extends React.Component<RouteComponentProps<PPartyI
           </nav>
           <section className="section">
             <Switch>
-              <Route exact path="/promoter/parties/:partyNight/:partyID" render={(p) => <ShowParty model={this.model} {...p} />} />
-              <Route exact path="/promoter/parties/:partyNight/:partyID/edit" render={(p) => <EditParty model={this.model} {...p} />} />
-              <Route exact path="/promoter/parties/:partyNight/:partyID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
-              <Route exact path="/promoter/parties/:partyNight/:partyID/photos" render={(p) => <EditPhotos model={this.model} {...p} />} />
-              <Route exact path="/promoter/parties/:partyNight/:partyID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
-              <Route exact path="/promoter/parties/:partyNight/:partyID/auction" render={(p) => <Auction {...p} />} />
+              <Route exact path="/promoter/parties/:partyID" render={(p) => <ShowParty model={this.model} {...p} />} />
+              <Route exact path="/promoter/parties/:partyID/edit" render={(p) => <EditParty model={this.model} {...p} />} />
+              <Route exact path="/promoter/parties/:partyID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
+              <Route exact path="/promoter/parties/:partyID/photos" render={(p) => <EditPhotos model={this.model} {...p} />} />
+              <Route exact path="/promoter/parties/:partyID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
+              <Route exact path="/promoter/parties/:partyID/auction" render={(p) => <Auction {...p} />} />
             </Switch>
           </section>
         </div>
