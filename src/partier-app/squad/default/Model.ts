@@ -48,6 +48,6 @@ export default class SquadJoinModel {
   }
   constructor(partyNight: string) {
     this.partyNight = partyNight;
-    this.refresh();
+    this.init();
   }
 }
