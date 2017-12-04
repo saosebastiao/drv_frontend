@@ -7,6 +7,7 @@ import {
 } from "modules/DroverClient";
 
 export default class CreatePartyModel {
+  @observable public venueID: number;
   @observable public _partyNight: string;
   @computed get partyNight() {
     return this._partyNight;
@@ -16,7 +17,6 @@ export default class CreatePartyModel {
     this.refresh();
   }
   @observable public partyName: string = "";
-  @observable public venueID: number;
   @observable public venues: Array<IVenue> = [];
   @observable public auctions: Array<IAuction> = [];
   @computed get isReady() {
@@ -48,8 +48,9 @@ export default class CreatePartyModel {
       this.auctions = auctions;
     });
   }
-  constructor(partyNight: string) {
+  constructor(partyNight: string, venueID: number) {
     this.partyNight = partyNight;
+    this.venueID = venueID;
     this.refresh();
   }
 }

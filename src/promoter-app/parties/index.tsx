@@ -25,7 +25,7 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
     return (
       <section className="section" >
         <div className="columns">
-          <div className="column is-2">
+          <div className="column is-narrow">
             <aside className="menu">
               <ul className="menu-list">
                 {
@@ -34,7 +34,7 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
               </ul>
             </aside>
           </div>
-          <div className="column is-2">
+          <div className="column is-narrow">
             <Route path="/promoter/parties/:partyNight/"
               render={(m) => <VenueSelector model={this.model} {...m} />} />
           </div>
