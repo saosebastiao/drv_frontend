@@ -1,7 +1,7 @@
 import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import FriendsWidget from "./FriendsWidget";
 import ProfileModel from "../Model";
 import { getUserID } from "modules/DroverClient";
@@ -47,41 +47,6 @@ export default class Profile extends React.Component<PProfile> {
               {this.profile.name}<br />
               {this.profile.defaultRegion}<br />
               {this.profile.gender}<br />
-              <div className="form-group">
-                <Link to="/partier/profile/edit">
-                  <button className="btn btn-md btn-primary">
-                    Edit profile information
-                  </button>
-                </Link>
-              </div>
-              <div className="form-group">
-                <Link to="/partier/profile/photos">
-                  <button className="btn btn-md btn-primary">
-                    Edit photos
-                    </button>
-                </Link>
-              </div>
-              <div className="form-group">
-                <Link to="/partier/profile/filters">
-                  <button className="btn btn-md btn-primary">
-                    Edit default filters
-                  </button>
-                </Link>
-              </div>
-              <div className="form-group">
-                <Link to="/partier/profile/friends">
-                  <button className="btn btn-md btn-primary">
-                    Edit friend connections
-                  </button>
-                </Link>
-              </div>
-              <div className="form-group">
-                <Link to="/partier/profile/social">
-                  <button className="btn btn-md btn-primary">
-                    Edit social media connections
-                    </button>
-                </Link>
-              </div>
               <div className="form-group">
                 <a
                   className="btn btn-md btn-primary"
