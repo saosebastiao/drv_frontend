@@ -59,37 +59,35 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
 
   public render() {
     return (
-      <section className="section" >
-        <div className="columns">
-          <div className="column is-narrow">
-            <div>Select a Party Night</div>
-            <div className="select">
-              <select onChange={this.changePartyNight} value={this.model.partyNight}>
-                {
-                  this.model.partyNights.map(pn => this.renderPartyNight(pn.partyNight))
-                }
-              </select>
-            </div>
-          </div>
-          <div className="column is-narrow">
-            <div>Select a Venue</div>
-            <div className="menu">
-              <ul>
-                {
-                  this.model.venues.map(v => this.renderVenue(v))
-                }
-              </ul>
-            </div>
-          </div>
-          <div className="column">
-            <Switch>
-              <Route path="/promoter/parties/import/" component={ImportParty} />
-              <Route path="/promoter/parties/create" render={(m) => <CreateParty model={this.model} {...m} />} />
-              <Route path="/promoter/parties/:partyID" component={PartyID} />
-            </Switch>
+      <div className="columns">
+        <div className="column is-narrow">
+          <div>Select a Party Night</div>
+          <div className="select">
+            <select onChange={this.changePartyNight} value={this.model.partyNight}>
+              {
+                this.model.partyNights.map(pn => this.renderPartyNight(pn.partyNight))
+              }
+            </select>
           </div>
         </div>
-      </section>
+        <div className="column is-narrow">
+          <div>Select a Venue</div>
+          <div className="menu">
+            <ul>
+              {
+                this.model.venues.map(v => this.renderVenue(v))
+              }
+            </ul>
+          </div>
+        </div>
+        <div className="column">
+          <Switch>
+            <Route path="/promoter/parties/import/" component={ImportParty} />
+            <Route path="/promoter/parties/create" render={(m) => <CreateParty model={this.model} {...m} />} />
+            <Route path="/promoter/parties/:partyID" component={PartyID} />
+          </Switch>
+        </div>
+      </div>
     );
   }
 }

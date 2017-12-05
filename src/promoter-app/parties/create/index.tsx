@@ -22,19 +22,15 @@ export default class CreateParty extends React.Component<PCreateParty> {
   public render() {
     const venueName = this.props.model.venue && this.props.model.venue.venueName || "";
     return (
-      <div>
-        <div >
+      <section className="section">
+        <div>Create a Party for {this.props.model.partyNight} {venueName ? `at ${venueName}` : ""} <div />
           <div>
-            <div>Create a Party for {this.props.model.partyNight} {venueName ? `at ${venueName}` : ""} <div />
-              <div>
-                <label>Choose a name for your party </label>
-                <input value={this.partyName} onChange={(e) => this.partyName = e.target.value} />
-              </div>
-              <button type="button" onClick={() => this.submit()}>Create</button>
-            </div>
+            <label>Choose a name for your party </label>
+            <input value={this.partyName} onChange={(e) => this.partyName = e.target.value} />
           </div>
+          <button type="button" onClick={() => this.submit()}>Create</button>
         </div>
-      </div>
+      </section>
     );
   }
 }

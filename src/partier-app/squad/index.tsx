@@ -34,7 +34,7 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
 
   public render() {
     return (
-      <section className="section">
+      <div>
         <div className="columns">
           <div className="column is-narrow">
             <aside className="menu">
@@ -53,7 +53,7 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
             </Switch>
           </div>
         </div>
-      </section >
+      </div >
     );
   }
 }

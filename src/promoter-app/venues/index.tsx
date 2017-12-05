@@ -13,9 +13,9 @@ export default class Venues extends React.Component<RouteComponentProps<any>, {}
 
   public render() {
     return (
-      <section className="section">
+      <div>
         <div className="columns">
-          <div className="column is-one-fifth">
+          <div className="column is-narrow">
             <aside className="menu">
               <div className="menu-list">
                 <ul>
@@ -45,16 +45,14 @@ export default class Venues extends React.Component<RouteComponentProps<any>, {}
             </aside>
           </div>
           <div className="column">
-            <section className="section">
-              <Switch>
-                <Route exact path="/promoter/venues/create" component={CreateVenue} />
-                <Route exact path="/promoter/venues/import" component={ImportVenue} />
-                <Route path="/promoter/venues/:venueID" component={VenueID} />
-              </Switch>
-            </section>
+            <Switch>
+              <Route exact path="/promoter/venues/create" component={CreateVenue} />
+              <Route exact path="/promoter/venues/import" component={ImportVenue} />
+              <Route path="/promoter/venues/:venueID" component={VenueID} />
+            </Switch>
           </div>
         </div>
-      </section >
+      </div >
     );
   }
 }
