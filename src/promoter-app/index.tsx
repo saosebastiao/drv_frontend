@@ -36,7 +36,7 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
           <NavTab to="/promoter/venues">Venues</NavTab>
           <NavTab to="/promoter/parties">Parties</NavTab>
         </Header>
-        <section className="section">
+        <div>
           {this.loggedIn ?
             <Switch>
               <Route exact path="/promoter" render={() => <Redirect to="/promoter/profile" />} />
@@ -47,7 +47,7 @@ export default class PromoterHome extends React.Component<RouteComponentProps<{}
             </Switch>
             : <span>Logging In...</span>
           }
-        </section>
+        </div>
         <Footer />
       </div>
     );

@@ -7,10 +7,19 @@ import CreateParty from "./create";
 import ImportParty from "./import";
 import PartyListModel from "./Model";
 import NavTab from "shared/NavTab";
+import * as qs from "qs";
 
 @observer
 export default class Parties extends React.Component<RouteComponentProps<{}>, {}> {
+  constructor(props: RouteComponentProps<{}>) {
+    super(props);
+  }
   private model = new PartyListModel;
+  public componentWillReceiveProps(next: RouteComponentProps<{}>) {
+    const { partyNight, venueID } = qs.parse(next.location.search.slice(1));
+    // tslint:disable-next-line:no-console
+    console.log(partyNight, venueID);
+  }
 
   private changePartyNight = (e: any) => {
     const partyNight = e.target.value;
