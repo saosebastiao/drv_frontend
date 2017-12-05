@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import SquadID from "./$squadID";
-import NavTab from "shared/NavTab";
+import MenuTab from "shared/MenuTab";
 import NewSquad from "./default";
 import SquadListModel from "./Model";
 import * as moment from "moment";
@@ -19,15 +19,15 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
   private renderPartyNight(pn: IPartyNight) {
     if (pn.squadID) {
       return (
-        <NavTab key={pn.partyNight} to={`/partier/squad/${pn.squadID}`}>
+        <MenuTab key={pn.partyNight} to={`/partier/squad/${pn.squadID}`}>
           {moment(pn.partyNight).format("ll")}
-        </NavTab>
+        </MenuTab>
       );
     } else {
       return (
-        <NavTab key={pn.partyNight} to={`/partier/squad/new/${pn.partyNight}`}>
+        <MenuTab key={pn.partyNight} to={`/partier/squad/new/${pn.partyNight}`}>
           {moment(pn.partyNight).format("ll")}
-        </NavTab>
+        </MenuTab>
       );
     }
   }
