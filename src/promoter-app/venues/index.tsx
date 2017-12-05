@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
-import NavTab from "shared/NavTab";
+import MenuTab from "shared/MenuTab";
 import VenueID from "./$venueID";
 import CreateVenue from "./create";
 import ImportVenue from "./import";
@@ -19,12 +19,12 @@ export default class Venues extends React.Component<RouteComponentProps<any>, {}
             <aside className="menu">
               <div className="menu-list">
                 <ul>
-                  <NavTab to={`/promoter/venues/create`}>
+                  <MenuTab to={`/promoter/venues/create`}>
                     Create a new Venue
-                  </NavTab>
-                  <NavTab to={`/promoter/venues/import`}>
+                  </MenuTab>
+                  <MenuTab to={`/promoter/venues/import`}>
                     Import a new Venue
-                  </NavTab>
+                  </MenuTab>
                 </ul>
               </div>
               <div className="menu-label">
@@ -34,10 +34,10 @@ export default class Venues extends React.Component<RouteComponentProps<any>, {}
                 {
                   this.model.list.map((venue) => {
                     return (
-                      <NavTab key={venue.venueID}
+                      <MenuTab key={venue.venueID}
                         to={`/promoter/venues/${venue.venueID}`}>
                         {venue.venueName}
-                      </NavTab>
+                      </MenuTab>
                     );
                   })
                 }

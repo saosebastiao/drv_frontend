@@ -13,10 +13,12 @@ export default class Header extends React.Component<{}, {}> {
   public render() {
     return (
       <nav className="navbar header" role="navigation" aria-label="main navigation">
-        <div className="logo">
-          <Link to="/">
-            <img src="./shared/logo/svg/color_logo_transparent.svg" />
-          </Link>
+        <div className="navbar-brand">
+          <div className="logo">
+            <Link to="/">
+              <img src="./shared/logo/svg/color_logo_transparent.svg" />
+            </Link>
+          </div>
         </div>
         <div className="navbar-menu">
           <div className="navbar-start">
@@ -27,10 +29,13 @@ export default class Header extends React.Component<{}, {}> {
             </div>
           </div>
           <div className="navbar-end logout">
-            <button
-              onClick={this.logout}>
-              Logout
-            </button>
+            <div className="navbar-item">
+              <button
+                className="button is-outlined"
+                onClick={this.logout}>
+                Logout
+              </button>
+            </div>
           </div>
         </div>
       </nav >

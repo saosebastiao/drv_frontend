@@ -6,7 +6,7 @@ import PartyID from "./$partyID";
 import CreateParty from "./create";
 import ImportParty from "./import";
 import PartyListModel from "./Model";
-import NavTab from "shared/NavTab";
+import MenuTab from "shared/MenuTab";
 import * as qs from "qs";
 
 @observer
@@ -41,17 +41,17 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
     if (hasParty) {
       return (
         <div key={hasParty.partyID} onClick={changeVenue}>
-          <NavTab to={`/promoter/parties/${hasParty.partyID}`}>
+          <MenuTab to={`/promoter/parties/${hasParty.partyID}`}>
             {hasParty.partyName} at {venue.venueName}
-          </NavTab>
+          </MenuTab>
         </ div>
       );
     } else {
       return (
         <div key={`v:${venue.venueID}`} onClick={changeVenue}>
-          <NavTab to={`/promoter/parties/create`}>
+          <MenuTab to={`/promoter/parties/create`}>
             Create Party at {venue.venueName}
-          </NavTab>
+          </MenuTab>
         </ div>
       );
     }
