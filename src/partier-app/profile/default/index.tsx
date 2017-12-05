@@ -56,7 +56,10 @@ export default class Profile extends React.Component<PProfile> {
             <h1 className="title">
               {this.profile.name} &nbsp;
               <span className="icon">
-                <i className="fa fa-venus" aria-hidden="true" />
+                {this.profile.gender === "female" ?
+                  <i className="fa fa-venus" aria-hidden="true" /> : null}
+                {this.profile.gender === "male" ?
+                  <i className="fa fa-mars" aria-hidden="true" /> : null}
               </span>
             </h1>
             <h2 className="subtitle">
@@ -71,14 +74,16 @@ export default class Profile extends React.Component<PProfile> {
               </a>
             </div>
           </div>
-          <div className="box">
-            <h2 className="subtitle">Invitations From Friends</h2>
-            <ul className="list-group">
-              {this.profile.invitations.map((x) => {
-                return (<PartierCard key={x} userID={x} />);
-              })}
-            </ul>
-          </div>
+          {this.profile.invitations.length > 0 ?
+            <div className="box">
+              <h2 className="subtitle">Invitations From Friends</h2>
+              <ul className="list-group">
+                {this.profile.invitations.map((x) => {
+                  return (<PartierCard key={x} userID={x} />);
+                })}
+              </ul>
+            </div> : null
+          }
           <div className="box">
             <h2 className="subtitle">Accepted Friends</h2>
             <ul className="list-group">
