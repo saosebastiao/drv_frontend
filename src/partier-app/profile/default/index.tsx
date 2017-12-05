@@ -72,22 +72,6 @@ export default class Profile extends React.Component<PProfile> {
             </div>
           </div>
           <div className="box">
-            <h2 className="subtitle">Potential Friends</h2>
-            <ul className="list-group">
-              {this.profile.potential.map((x) => {
-                return (<PartierCard key={x} userID={x} />);
-              })}
-            </ul>
-          </div>
-          <div className="box">
-            <h2 className="subtitle">Invited Friends</h2>
-            <ul className="list-group">
-              {this.profile.invited.map((x) => {
-                return (<PartierCard key={x} userID={x} />);
-              })}
-            </ul>
-          </div>
-          <div className="box">
             <h2 className="subtitle">Invitations From Friends</h2>
             <ul className="list-group">
               {this.profile.invitations.map((x) => {
@@ -99,14 +83,6 @@ export default class Profile extends React.Component<PProfile> {
             <h2 className="subtitle">Accepted Friends</h2>
             <ul className="list-group">
               {this.profile.accepted.map((x) => {
-                return (<PartierCard key={x} userID={x} />);
-              })}
-            </ul>
-          </div>
-          <div className="box">
-            <h2 className="subtitle">Rejected Friends</h2>
-            <ul className="list-group">
-              {this.profile.rejected.map((x) => {
                 return (<PartierCard key={x} userID={x} />);
               })}
             </ul>
