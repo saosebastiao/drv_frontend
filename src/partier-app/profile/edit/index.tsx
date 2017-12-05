@@ -41,85 +41,77 @@ export default class EditProfile extends React.Component<PProfileModel> {
 
   public render() {
     return this.profile.isReady ? (
-      <div className="profile-edit-wrapper">
-        <div className="profile-edit-contents">
-          <div className="profile-top-contents">
-            <div className="profile-form">
-              <div className="form-group">
-                <label htmlFor="input-name" className="label-col control-label">
-                  <span
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Display Name"
-                  >
-                    Display Name
-                  </span>
-                </label>
-                <div className="value-col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    aria-describedby="input-name"
-                    value={this.profile.name}
-                    onChange={this.changeName}
-                  />
-                </div>
+      <div className="columns">
+        <div className="column is-4">
+          <div className="box">
+            <div className="field">
+              <label htmlFor="input-name" className="label">
+                <span title="Display Name">Display Name</span>
+              </label>
+              <div className="control">
+                <input
+                  type="text"
+                  className="input"
+                  aria-describedby="input-name"
+                  value={this.profile.name}
+                  onChange={this.changeName}
+                />
               </div>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="input-home" className="label-col control-label">
-                  <span
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Hometown"
-                  >
-                    Hometown
-                  </span>
-                </label>
-                <div className="value-col">
-                  <select
-                    className="form-control"
-                    aria-describedby="input-home"
-                    value={this.profile.defaultRegion}
-                    onChange={this.changeHome}
-                  >
-                    <option key="none" value="none">Please Select a Hometown</option>
-                    {this.profile.availRegions.map((x) => <option key={x} value={x}>{x}</option>)}
-                  </select>
-                </div>
+            <div className="field">
+              <label htmlFor="input-home" className="label">
+                <span title="Display Name">Hometown</span>
+              </label>
+              <div className="select">
+                <select
+                  className="form-control"
+                  aria-describedby="input-home"
+                  value={this.profile.defaultRegion}
+                  onChange={this.changeHome}
+                >
+                  <option key="none" value="none">Please Select a Hometown</option>
+                  {this.profile.availRegions.map((x) => <option key={x} value={x}>{x}</option>)}
+                </select>
               </div>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="input-gender" className="label-col control-label">
-                  <span data-toggle="tooltip" data-placement="top" title="Gender">Gender</span>
+            <div className="field">
+              <div className="control">
+                <label htmlFor="gender" className="label">
+                  <span title="Gender">Gender</span>
                 </label>
-                <div className="value-col">
-                  <label className="radio-inline">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="male"
+                <div className="radio">
+                  <label className="radio">
+                    <input type="radio" name="gender" value="male"
                       checked={this.profile.gender === "male"}
-                      onChange={this.changeGender}
-                    />Male
-                </label>
-                  <label className="radio-inline">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="female"
+                      onChange={this.changeGender} />
+                    <span>Male</span>
+                    <span className="icon">
+                      <i className="fa fa-mars" aria-hidden="true" />
+                    </span>
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="gender" value="female"
                       checked={this.profile.gender === "female"}
-                      onChange={this.changeGender}
-                    />Female
-                </label>
+                      onChange={this.changeGender} />
+                    <span>Female</span>
+                    <span className="icon">
+                      <i className="fa fa-venus" aria-hidden="true" />
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
+            <div className="field is-grouped">
+              <div className="control">
+                <button className="button is-primary" onClick={this.clickSave}>Save</button>
+              </div>
+              <div className="control">
+                <button className="button is-danger" onClick={this.deleteProfile}>Delete Profile</button>
+              </div>
+            </div>
           </div>
-          <br /><br />
-          <button className="btn btn-lg btn-primary" onClick={this.clickSave}>Save</button>
-          <br />
-          <button className="btn btn-lg btn-danger" onClick={this.deleteProfile}>Delete Profile</button>
         </div>
       </div>
     ) : null;

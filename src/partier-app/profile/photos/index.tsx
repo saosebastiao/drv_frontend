@@ -97,6 +97,7 @@ export default class EditPhotos extends React.Component<PProfile> {
             onSelection={this.onImageSelect}
           />
         }
+        Photos!
       </div>
     ) : null;
   }
