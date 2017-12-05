@@ -1,9 +1,8 @@
-import { range as _range } from "lodash";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import FriendsWidget from "./FriendsWidget";
 import ProfileModel from "../Model";
+import PartierCard from "shared/cards/PartierCard";
 import { getUserID } from "modules/DroverClient";
 
 interface PProfile extends RouteComponentProps<{}> {
@@ -21,44 +20,97 @@ export default class Profile extends React.Component<PProfile> {
 
   public render() {
     return (
-      <div className="profile-wrapper">
-        <div className="profile-contents">
-          <div className="profile-top-contents">
-            <div className="photo-container">
-              <div
-                className="main-photo"
-                style={this.profile.profilePhoto}
-              />
-              <div className="other-photos-container">
-                <div className="other-photos-row" key="other_photos_row_1">
-                  {
-                    _range(4).map((colIndex: number) => {
-                      return <div
-                        className="other-photos-col"
-                        style={this.profile.otherPhotos[colIndex]}
-                        key={`other_photos_col_${colIndex}`}
-                      />;
-                    })
-                  }
+      <div className="columns">
+        <div className="column is-4">
+          <div className="box">
+            <div className="tile is-ancestor is-verticle">
+              <div className="tile is-parent is-vertical">
+                <div className="box">
+                  <div className="tile">
+                    <img src="https://bulma.io/images/placeholders/640x480.png" alt="Placeholder image" />
+                  </div>
+                </div>
+                <div className="tile is-parent">
+                  <div className="tile is-child">
+                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  </div>
+                  <div className="tile is-child">
+                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  </div>
+                  <div className="tile is-child">
+                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  </div>
+                  <div className="tile is-child">
+                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  </div>
+                  <div className="tile is-child">
+                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="profile-list">
-              {this.profile.name}<br />
-              {this.profile.defaultRegion}<br />
-              {this.profile.gender}<br />
-              <div className="form-group">
-                <a
-                  className="btn btn-md btn-primary"
-                  href={`/api/partier/${getUserID()}/stripe`}
-                  target="_blank">
-                  {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
-                </a>
-              </div>
+          </div>
+        </div>
+        <div className="column is-4">
+          <div className="box">
+            <h1 className="title">
+              {this.profile.name} &nbsp;
+              <span className="icon">
+                <i className="fa fa-venus" aria-hidden="true" />
+              </span>
+            </h1>
+            <h2 className="subtitle">
+              {this.profile.defaultRegion}
+            </h2>
+            <div>
+              <a
+                className="btn btn-md btn-primary"
+                href={`/api/partier/${getUserID()}/stripe`}
+                target="_blank">
+                {this.profile.stripeAccountID ? "Manage Payment Account" : "Create Payment Account"}
+              </a>
             </div>
           </div>
-          <br />
-          <FriendsWidget />
+          <div className="box">
+            <h2 className="subtitle">Potential Friends</h2>
+            <ul className="list-group">
+              {this.profile.potential.map((x) => {
+                return (<PartierCard key={x} userID={x} />);
+              })}
+            </ul>
+          </div>
+          <div className="box">
+            <h2 className="subtitle">Invited Friends</h2>
+            <ul className="list-group">
+              {this.profile.invited.map((x) => {
+                return (<PartierCard key={x} userID={x} />);
+              })}
+            </ul>
+          </div>
+          <div className="box">
+            <h2 className="subtitle">Invitations From Friends</h2>
+            <ul className="list-group">
+              {this.profile.invitations.map((x) => {
+                return (<PartierCard key={x} userID={x} />);
+              })}
+            </ul>
+          </div>
+          <div className="box">
+            <h2 className="subtitle">Accepted Friends</h2>
+            <ul className="list-group">
+              {this.profile.accepted.map((x) => {
+                return (<PartierCard key={x} userID={x} />);
+              })}
+            </ul>
+          </div>
+          <div className="box">
+            <h2 className="subtitle">Rejected Friends</h2>
+            <ul className="list-group">
+              {this.profile.rejected.map((x) => {
+                return (<PartierCard key={x} userID={x} />);
+              })}
+            </ul>
+          </div>
         </div>
       </div >
     );
