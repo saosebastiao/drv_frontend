@@ -4,6 +4,8 @@ import { getPromoterVenues, getPromoterParties, getAuctionsForPartyNight, create
 export default class PartyListModel {
   @observable public partyNights: Array<IPromoterPartyNight> = [];
   @observable public venues: Array<IVenue> = [];
+  @observable public partyList: Array<IParty> | null = null;
+  @observable public venue: IVenue | null = null;
   @observable public partyID: number | null = null;
   @observable private _venueID: number;
   @computed get venueID() {
@@ -11,7 +13,8 @@ export default class PartyListModel {
   }
   set venueID(val: number) {
     this._venueID = val;
-    this.setPartyID();
+    this.venue = this.venues.find(x => x.venueID === val) || null;
+    this.update();
   }
   @observable private _partyNight: string;
   @computed get partyNight() {
@@ -19,9 +22,11 @@ export default class PartyListModel {
   }
   set partyNight(val: string) {
     this._partyNight = val;
-    this.setPartyID();
+    const allParties = this.partyNights.find(x => x.partyNight === val) as IPromoterPartyNight;
+    this.partyList = allParties && allParties.parties || null;
+    this.update();
   }
-  @action private setPartyID() {
+  @action private update() {
     if (this._venueID && this._partyNight) {
       const defaultPn: IPromoterPartyNight = { partyNight: "", parties: [] };
       const pn = this.partyNights.find(p => p.partyNight === this.partyNight) || defaultPn;

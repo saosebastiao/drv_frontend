@@ -6,15 +6,12 @@ import PartyID from "./$partyID";
 import CreateParty from "./create";
 import ImportParty from "./import";
 import PartyListModel from "./Model";
+import NavTab from "shared/NavTab";
 
 @observer
 export default class Parties extends React.Component<RouteComponentProps<{}>, {}> {
   private model = new PartyListModel;
 
-  private changeVenue = (e: any) => {
-    const venueID = parseInt(e.target.value, 10);
-    this.model.venueID = venueID;
-  }
   private changePartyNight = (e: any) => {
     const partyNight = e.target.value;
     this.model.partyNight = partyNight;
@@ -27,11 +24,28 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
     );
   }
   private renderVenue(venue: IVenue) {
-    return (
-      <option key={venue.venueID} value={venue.venueID}>
-        {venue.venueName}
-      </option>
-    );
+    const changeVenue = () => {
+      this.model.venueID = venue.venueID;
+    };
+    const hasParty = this.model.partyList &&
+      this.model.partyList.find(x => x.venue.venueID === venue.venueID);
+    if (hasParty) {
+      return (
+        <div key={hasParty.partyID} onClick={changeVenue}>
+          <NavTab to={`/promoter/parties/${hasParty.partyID}`}>
+            {hasParty.partyName} at {venue.venueName}
+          </NavTab>
+        </ div>
+      );
+    } else {
+      return (
+        <div key={`v:${venue.venueID}`} onClick={changeVenue}>
+          <NavTab to={`/promoter/parties/create`}>
+            Create Party at {venue.venueName}
+          </NavTab>
+        </ div>
+      );
+    }
   }
 
   public render() {
@@ -50,12 +64,12 @@ export default class Parties extends React.Component<RouteComponentProps<{}>, {}
           </div>
           <div className="column is-narrow">
             <div>Select a Venue</div>
-            <div className="select">
-              <select onChange={this.changeVenue} value={this.model.partyNight}>
+            <div className="menu">
+              <ul>
                 {
                   this.model.venues.map(v => this.renderVenue(v))
                 }
-              </select>
+              </ul>
             </div>
           </div>
           <div className="column">
