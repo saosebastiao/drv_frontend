@@ -47,28 +47,17 @@ export default class EditPhotos extends React.Component<PProfile> {
       <div className="columns">
         <div className="column is-4">
           <div className="box">
-            <div className="tile is-ancestor is-verticle">
-              <div className="tile is-parent is-vertical">
-                <div className="box">
-                  <div className="tile">
-                    <img src="https://bulma.io/images/placeholders/640x480.png" alt="Placeholder image" />
-                  </div>
-                </div>
-                <div className="tile is-parent">
-                  {[0, 1, 2, 3, 4].map(idx =>
-                    <div key={idx} className="tile is-child">
-                      {this.model.photos[idx] ?
-                        <figure className="image is-square">
-                          <img src={this.model.photos[idx]} onClick={this.setPhotoIdx(idx)} />
-                          <a className="delete" onClick={this.deletePhotoIdx(idx)} />
-                        </figure> :
-                        <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
-                      }
-                    </div>
-                  )}
-                </div>
+            {[0, 1, 2, 3, 4].map(idx =>
+              <div key={idx} className="box">
+                {this.model.photos[idx] ?
+                  <figure className="image is-square">
+                    <img src={this.model.photos[idx]} onClick={this.setPhotoIdx(idx)} />
+                    <a className="delete" onClick={this.deletePhotoIdx(idx)} />
+                  </figure> :
+                  <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
+                }
               </div>
-            </div>
+            )}
           </div>
           <button type="button" className="button" onClick={this.save}>Save</button>
         </div>
