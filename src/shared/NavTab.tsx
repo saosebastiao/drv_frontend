@@ -16,7 +16,7 @@ export default class NavTab extends React.Component<PNavTab>{
     const to = this.props.to;
     const rest = this.rest || [];
     return (
-      <Route exact path={to} children={({ match }) => {
+      <Route path={to} children={({ match }) => {
         return (
           <li className={match ? "is-active" : ""}>
             <Link to={to} {...rest} className="navbar-item">

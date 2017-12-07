@@ -14,11 +14,9 @@ export default class Header extends React.Component<{}, {}> {
     return (
       <nav className="navbar header" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <div className="logo">
-            <Link to="/">
-              <img src="./shared/logo/svg/color_logo_transparent.svg" />
-            </Link>
-          </div>
+          <Link to="/" className="navbar-item">
+            <img src="./shared/logo/png/color_logo_transparent@2x.png" />
+          </Link>
         </div>
         <div className="navbar-menu">
           <div className="navbar-start">

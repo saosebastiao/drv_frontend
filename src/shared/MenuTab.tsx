@@ -16,7 +16,7 @@ export default class MenuTab extends React.Component<PMenuTab>{
     const to = this.props.to;
     const rest = this.rest || [];
     return (
-      <Route exact path={to} children={({ match }) => {
+      <Route path={to} children={({ match }) => {
         return (
           <li>
             <Link to={to} {...rest} className={match ? "is-active" : ""} >
