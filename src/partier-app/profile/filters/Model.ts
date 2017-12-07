@@ -1,7 +1,7 @@
 import { computed, observable, runInAction } from "mobx";
 import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
 
-export default class ProfileModel {
+export default class EditFiltersModel {
   @observable public userID: string;
   @observable public email: string;
   @computed get isReady() {
