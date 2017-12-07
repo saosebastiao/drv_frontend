@@ -1,6 +1,5 @@
 import { map as _map } from "lodash";
 import * as React from "react";
-import "./FacebookImageSelector.scss";
 
 const ErrorMessages = {
   default: "Some error occured while loading, Please try again after some time.",

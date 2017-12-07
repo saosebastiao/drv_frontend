@@ -2,7 +2,6 @@ import { extend as _extend } from "lodash";
 import { observer } from "mobx-react";
 import Logger from "modules/Logger";
 import * as React from "react";
-import "./FacebookImageSelector.scss";
 import ImageLoader from "./ImageLoader";
 
 const ErrorMessages = {
@@ -16,6 +15,7 @@ const ErrorMessages = {
 interface PFacebookImageSelector {
   getURL: boolean;
   appId: string;
+  photoIdx?: number;
   onCloseModal: () => void;
   onSelection: (url: any) => void;
 }
@@ -201,24 +201,28 @@ export default class FacebookImageSelector extends React.Component<PFacebookImag
 
   public render() {
     const state = this.state;
-    return (
-      <div className="facebookImageSelector">
-        {(state.showOverlay) ?
-          <ImageLoader
-            data={state.albumsLoaded ? state.albumDataLoaded : state.photoDataLoaded}
-            type={state.albumsLoaded}
-            closeOverlay={this.closeOverlay}
-            itemSelector={this.itemSelector}
-            albumSelector={this.getAlbumData}
-            onImageSelect={this.props.onSelection}
-            isError={state.showError}
-            /* loadMore={this.getMoreItems} */
-            customError={state.customError}
-            paging={state.albumsLoaded ? state.albumPaging : state.photoPaging}
-          /> : null
-        }
-      </div>
-    );
+    const photoIdx = this.props.photoIdx != null && this.props.photoIdx >= 0;
+    if (photoIdx) {
+      Logger.debug(`Editing photo ${this.props.photoIdx}`);
+      return (
+        <div className="facebookImageSelector">
+          {(state.showOverlay && photoIdx) ?
+            <ImageLoader
+              data={state.albumsLoaded ? state.albumDataLoaded : state.photoDataLoaded}
+              type={state.albumsLoaded}
+              closeOverlay={this.closeOverlay}
+              itemSelector={this.itemSelector}
+              albumSelector={this.getAlbumData}
+              onImageSelect={this.props.onSelection}
+              isError={state.showError}
+              /* loadMore={this.getMoreItems} */
+              customError={state.customError}
+              paging={state.albumsLoaded ? state.albumPaging : state.photoPaging}
+            /> : null
+          }
+        </div>
+      );
+    } else return null;
   }
 
 }

@@ -1,5 +1,5 @@
 import { computed, observable, runInAction } from "mobx";
-import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
+import { getPartierProfile, getRegions } from "modules/DroverClient";
 
 export default class ProfileModel {
   @observable public userID: string;
@@ -10,18 +10,7 @@ export default class ProfileModel {
   @observable public name: string = "";
   @observable public defaultRegion: string = "none";
   @observable public gender: string = "";
-  @observable public photos: Array<string> = [];
-  @computed get profilePhoto() {
-    if (this.photos.length > 0) {
-      return { backgroundImage: `url(${this.photos[0]})` };
-
-    } else return undefined;
-  }
-  @computed get otherPhotos() {
-    return this.photos.slice(1).map((url) => {
-      return { backgroundImage: `url(${url})` };
-    });
-  }
+  @observable public photos: Array<string | undefined> = [, , , ,];
   @observable public validated: boolean = false;
   @observable public complete: boolean = false;
   @observable public availRegions: Array<string> = [];
@@ -41,9 +30,12 @@ export default class ProfileModel {
       photos: this.photos,
       defaultRegion: this.defaultRegion
     };
-    const newProfile = await updatePartierProfile(data);
-    Object.assign(this, newProfile);
-    return true;
+    // tslint:disable-next-line:no-console
+    console.log(data);
+    // const newProfile = await updatePartierProfile(data);
+
+    // Object.assign(this, newProfile);
+    // return true;
   }
   constructor() {
     this.refresh();

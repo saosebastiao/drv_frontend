@@ -37,13 +37,7 @@
       "generic"
     ],
     "variable-name": false,
-    "trailing-comma": [
-      true,
-      {
-        "multiline": "never",
-        "singleline": "never"
-      }
-    ],
+    "trailing-comma": false,
     "curly": [
       true,
       "ignore-same-line"
