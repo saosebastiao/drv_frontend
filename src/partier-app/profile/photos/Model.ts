@@ -1,5 +1,5 @@
 import { computed, observable, runInAction } from "mobx";
-import { getPartierProfile, getRegions } from "modules/DroverClient";
+import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
 
 export default class ProfileModel {
   @observable public userID: string;
@@ -27,15 +27,13 @@ export default class ProfileModel {
       userID: this.userID,
       name: this.name,
       gender: this.gender,
-      photos: this.photos,
+      photos: this.photos.filter(x => x) as Array<string>,
       defaultRegion: this.defaultRegion
     };
-    // tslint:disable-next-line:no-console
-    console.log(data);
-    // const newProfile = await updatePartierProfile(data);
+    const newProfile = await updatePartierProfile(data);
 
-    // Object.assign(this, newProfile);
-    // return true;
+    Object.assign(this, newProfile);
+    return true;
   }
   constructor() {
     this.refresh();

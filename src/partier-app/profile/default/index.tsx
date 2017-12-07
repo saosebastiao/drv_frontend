@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import ProfileModel from "../Model";
 import PartierCard from "shared/cards/PartierCard";
 import { getUserID } from "modules/DroverClient";
+import { observable } from "mobx";
 
 interface PProfile extends RouteComponentProps<{}> {
   model: ProfileModel;
@@ -12,6 +13,9 @@ interface PProfile extends RouteComponentProps<{}> {
 @observer
 export default class Profile extends React.Component<PProfile> {
   private profile: ProfileModel;
+
+  @observable private selectedPhoto: 0 | 1 | 2 | 3 | 4 = 0;
+  private selectPhoto = (idx: 0 | 1 | 2 | 3 | 4) => () => this.selectedPhoto = idx;
 
   constructor(props: RouteComponentProps<{}> & PProfile) {
     super(props);
@@ -27,24 +31,42 @@ export default class Profile extends React.Component<PProfile> {
               <div className="tile is-parent is-vertical">
                 <div className="box">
                   <div className="tile">
-                    <img src="https://bulma.io/images/placeholders/640x480.png" alt="Placeholder image" />
+                    {this.profile.photos[this.selectedPhoto] ?
+                      <img src={this.profile.photos[this.selectedPhoto]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
                 </div>
                 <div className="tile is-parent">
-                  <div className="tile is-child">
-                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  <div className="tile is-child" onClick={this.selectPhoto(0)}>
+                    {this.profile.photos[0] ?
+                      <img src={this.profile.photos[0]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
-                  <div className="tile is-child">
-                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  <div className="tile is-child" onClick={this.selectPhoto(1)}>
+                    {this.profile.photos[1] ?
+                      <img src={this.profile.photos[1]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
-                  <div className="tile is-child">
-                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  <div className="tile is-child" onClick={this.selectPhoto(2)}>
+                    {this.profile.photos[2] ?
+                      <img src={this.profile.photos[2]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
-                  <div className="tile is-child">
-                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  <div className="tile is-child" onClick={this.selectPhoto(3)}>
+                    {this.profile.photos[3] ?
+                      <img src={this.profile.photos[3]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
-                  <div className="tile is-child">
-                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                  <div className="tile is-child" onClick={this.selectPhoto(4)}>
+                    {this.profile.photos[4] ?
+                      <img src={this.profile.photos[4]} /> :
+                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
+                    }
                   </div>
                 </div>
               </div>
