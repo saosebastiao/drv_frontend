@@ -24,6 +24,8 @@ export default class EditPhotos extends React.Component<PProfile> {
 
   private setPhotoIdx = (idx: number) => () => this.idx = idx;
 
+  private deletePhotoIdx = (idx: number) => () => this.model.photos[idx] = undefined;
+
   private onImageSelect = (url: any) => {
     const idx = this.idx || -1;
     if (this.model.photos.length > idx) {
@@ -53,36 +55,17 @@ export default class EditPhotos extends React.Component<PProfile> {
                   </div>
                 </div>
                 <div className="tile is-parent">
-                  <div className="tile is-child" onClick={this.setPhotoIdx(0)}>
-                    {this.model.photos[0] ?
-                      <img src={this.model.photos[0]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
-                  <div className="tile is-child" onClick={this.setPhotoIdx(1)}>
-                    {this.model.photos[1] ?
-                      <img src={this.model.photos[1]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
-                  <div className="tile is-child" onClick={this.setPhotoIdx(2)}>
-                    {this.model.photos[2] ?
-                      <img src={this.model.photos[2]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
-                  <div className="tile is-child" onClick={this.setPhotoIdx(3)}>
-                    {this.model.photos[3] ?
-                      <img src={this.model.photos[3]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
-                  <div className="tile is-child" onClick={this.setPhotoIdx(4)}>
-                    {this.model.photos[4] ?
-                      <img src={this.model.photos[4]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
+                  {[0, 1, 2, 3, 4].map(idx =>
+                    <div key={idx} className="tile is-child">
+                      {this.model.photos[idx] ?
+                        <figure className="image is-square">
+                          <img src={this.model.photos[idx]} onClick={this.setPhotoIdx(idx)} />
+                          <a className="delete" onClick={this.deletePhotoIdx(idx)} />
+                        </figure> :
+                        <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
+                      }
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
