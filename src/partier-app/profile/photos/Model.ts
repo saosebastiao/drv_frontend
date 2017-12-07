@@ -11,7 +11,6 @@ export default class ProfileModel {
   @observable public defaultRegion: string = "none";
   @observable public gender: string = "";
   @observable public photos: Array<string> = [];
-  @observable public stripeAccountID: string;
   @computed get profilePhoto() {
     if (this.photos.length > 0) {
       return { backgroundImage: `url(${this.photos[0]})` };
