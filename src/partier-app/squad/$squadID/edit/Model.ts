@@ -1,5 +1,5 @@
 import { computed, observable } from "mobx";
-import { updateSquad } from "modules/DroverClient";
+import { updateSquad, inviteToSquad, uninviteFromSquad } from "modules/DroverClient";
 
 export default class EditSquadModel {
   @observable public squadID: number;
@@ -15,6 +15,13 @@ export default class EditSquadModel {
 
   @computed get isReady() {
     return true;
+  }
+
+  public inviteUser = async (userID: string) => {
+    await inviteToSquad(this.squadID, userID);
+  }
+  public uninviteUser = async (userID: string) => {
+    await uninviteFromSquad(this.squadID, userID);
   }
 
   public updateSquad = async () => {

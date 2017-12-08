@@ -92,65 +92,15 @@ export default class ViewSquad extends React.Component<PViewSquad> {
             <div className="column">
               <h4 className="title is-4">Members</h4>
               <div className="member-wrapper">
-                {this.model.accepted.length > 0 ? <h2 className="subtitle">Accepted</h2> : null}
-                {this.model.accepted.map((x) => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      {this.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.model.rejectInvite}>
-                          Reject
-                          </button>
-                      ) : null}
-                    </PartierCard>
-                  );
-                })}
-                {this.model.invited.length > 0 ? <h2 className="subtitle">Invited</h2> : null}
-                {this.model.invited.map((x) => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      {this.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.model.acceptInvite}
-                        >
-                          Accept
-                          </button>
-                      ) : null}
-                      {this.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.model.rejectInvite}
-                        >
-                          Reject
-                          </button>
-                      ) : null}
-                    </PartierCard>
-                  );
-                })}
-                {this.model.rejected.length > 0 ? <h2 className="subtitle">Rejected</h2> : null}
-                {this.model.rejected.map((x) => {
-                  return (
-                    <PartierCard key={x} userID={x}>
-                      {this.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.model.acceptInvite}
-                        >
-                          Accept
-                          </button>
-                      ) : null}
-                    </PartierCard>
-                  );
-                })}
+                {this.model.accepted.length > 0 ? <h5 className="subtitle is-5">Accepted</h5> : null}
+                {this.model.accepted.map(x => <PartierCard key={x} userID={x} />)}
+                {this.model.invited.length > 0 ? <h5 className="subtitle is-5">Invited</h5> : null}
+                {this.model.invited.map(x => <PartierCard key={x} userID={x} />)}
+                {this.model.rejected.length > 0 ? <h5 className="subtitle is-5">Rejected</h5> : null}
+                {this.model.rejected.map(x => <PartierCard key={x} userID={x} />)}
               </div>
             </div>
-          </div >
+          </div>
         </div >
       );
     } else {
