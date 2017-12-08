@@ -22,6 +22,14 @@ export default class EditSquad extends React.Component<PEditSquad> {
     await this.props.model.refresh();
     this.props.history.push(`/partier/squad/${this.props.model.squadID}`);
   }
+  private inviteUser = async (userID: string) => {
+    await this.model.inviteUser(userID);
+    await this.props.model.refresh();
+  }
+  private uninviteUser = async (userID: string) => {
+    await this.model.uninviteUser(userID);
+    await this.props.model.refresh();
+  }
 
   public render() {
     if (this.props.model.isReady && this.model.isReady) {
@@ -96,6 +104,7 @@ export default class EditSquad extends React.Component<PEditSquad> {
                   </div>
                 </div>
               </div>
+              <button className="button is-primary" onClick={this.updateSquad}>Save</button>
             </div>
             <div className="column">
               <h4 className="title is-4">Members</h4>
@@ -104,14 +113,10 @@ export default class EditSquad extends React.Component<PEditSquad> {
                 {this.props.model.accepted.map((x) => {
                   return (
                     <PartierCard key={x} userID={x}>
-                      {this.props.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.props.model.rejectInvite}>
-                          Reject
-                          </button>
-                      ) : null}
+                      <button type="button" className="button is-danger"
+                        onClick={() => this.uninviteUser(x)}>
+                        Uninvite
+                        </button>
                     </PartierCard>
                   );
                 })}
@@ -119,24 +124,10 @@ export default class EditSquad extends React.Component<PEditSquad> {
                 {this.props.model.invited.map((x) => {
                   return (
                     <PartierCard key={x} userID={x}>
-                      {this.props.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.props.model.acceptInvite}
-                        >
-                          Accept
-                          </button>
-                      ) : null}
-                      {this.props.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.props.model.rejectInvite}
-                        >
-                          Reject
-                          </button>
-                      ) : null}
+                      <button type="button" className="button is-danger"
+                        onClick={() => this.uninviteUser(x)}>
+                        Uninvite
+                        </button>
                     </PartierCard>
                   );
                 })}
@@ -144,22 +135,27 @@ export default class EditSquad extends React.Component<PEditSquad> {
                 {this.props.model.rejected.map((x) => {
                   return (
                     <PartierCard key={x} userID={x}>
-                      {this.props.model.isSelf(x) ? (
-                        <button
-                          type="button"
-                          className="btn btn-xs btn-primary"
-                          onClick={this.props.model.acceptInvite}
-                        >
-                          Accept
-                          </button>
-                      ) : null}
+                      <button type="button" className="button is-danger"
+                        onClick={() => this.uninviteUser(x)}>
+                        Uninvite
+                        </button>
+                    </PartierCard>
+                  );
+                })}
+                {this.props.model.potential.length > 0 ? <h2 className="subtitle">Potential Invites</h2> : null}
+                {this.props.model.potential.map((x) => {
+                  return (
+                    <PartierCard key={x} userID={x}>
+                      <button type="button" className="button is-primary"
+                        onClick={() => this.inviteUser(x)}>
+                        Invite
+                      </button>
                     </PartierCard>
                   );
                 })}
               </div>
             </div>
           </div >
-          <button className="button is-primary" onClick={this.updateSquad}>Save</button>
         </div >
       );
     } else {

@@ -14,7 +14,7 @@ export default class EditFilters extends React.Component<PEditFilters> {
 
   public render() {
     return this.model.isReady ? (
-      <div className="squad-wrapper">
+      <div className="box">
         Filters Placeholder
       </div>
     ) : null;

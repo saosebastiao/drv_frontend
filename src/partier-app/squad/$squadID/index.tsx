@@ -5,7 +5,6 @@ import { Route, RouteComponentProps, Switch } from "react-router-dom";
 import NavTab from "shared/NavTab";
 import EditSquad from "./edit";
 import EditFilters from "./filters";
-import EditMembers from "./members";
 import EditPayouts from "./payouts";
 import EditSocial from "./social";
 import ViewSquad from "./default";
@@ -32,7 +31,6 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
                   <ul className="menu">
                     <NavTab to={`/partier/squad/${squadID}`} >View Squad</NavTab>
                     {this.model.isOwned ? <NavTab to={`/partier/squad/${squadID}/edit`} >Edit Squad</NavTab> : null}
-                    <NavTab to={`/partier/squad/${squadID}/members`} >Manage Squad Members</NavTab>
                     <NavTab to={`/partier/squad/${squadID}/filters`} >Manage Filters</NavTab>
                     <NavTab to={`/partier/squad/${squadID}/payouts`} >Manage Payouts</NavTab>
                     <NavTab to={`/partier/squad/${squadID}/social`} >Manage Social Media Commitments</NavTab>
@@ -47,7 +45,6 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
             <Switch>
               <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/edit" render={(p) => <EditSquad model={this.model} {...p} />} />
-              <Route exact path="/partier/squad/:squadID/members" render={(p) => <EditMembers model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/filters" render={(p) => <EditFilters model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/payouts" render={(p) => <EditPayouts model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
