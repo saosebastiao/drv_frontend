@@ -35,7 +35,7 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
                     {this.model.isOwned ? <NavTab to={`/partier/squad/${squadID}/payouts`} >Edit Payouts</NavTab> : null}
                     <NavTab to={`/partier/squad/${squadID}/social`} >Manage Social Media Commitments</NavTab>
                     <NavTab to={`/partier/squad/${squadID}/auction`} >View Auction</NavTab>
-                    <NavTab to={`/partier/squad/${squadID}/party`} >View Assigned Party</NavTab>
+                    {this.model.winningBid ? <NavTab to={`/partier/squad/${squadID}/party`} >View Assigned Party</NavTab> : null}
                   </ul>
                 </div>
               </div>
