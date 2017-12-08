@@ -17,10 +17,49 @@ export default class ViewSquad extends React.Component<PViewSquad> {
     this.model = this.props.model;
   }
 
+  private renderMyInvite() {
+    const myself = this.model.myself;
+    if (myself && myself.invited) {
+      return (
+        <div className="box">
+          <div className="field">
+            {myself.accepted ?
+              <label className="label">You are a member of this squad!</label> :
+              <label className="label">You have been invited!</label>
+            }
+            <div className="field is-grouped">
+              {!myself.accepted ? (
+                <p className="control">
+                  <button className="button is-primary" onClick={this.model.acceptInvite}>
+                    Join Squad
+                    </button>
+                </p>
+              ) : null}
+              {myself.accepted === true ? (
+                <p className="control">
+                  <button className="button is-danger" onClick={this.model.rejectInvite}>
+                    Leave Squad
+                    </button>
+                </p>
+              ) : null}
+              {myself.accepted == null ? (
+                <p className="control">
+                  <button className="button is-light" onClick={this.model.rejectInvite}>
+                    Reject Invite
+                    </button>
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      );
+    } else return null;
+  }
   public render() {
     if (this.model.isReady) {
       return (
         <div className="box">
+          {this.renderMyInvite()}
           <div className="columns">
             <div className="column">
               <h4 className="title is-4">Squad Information</h4>
@@ -91,14 +130,12 @@ export default class ViewSquad extends React.Component<PViewSquad> {
             </div>
             <div className="column">
               <h4 className="title is-4">Members</h4>
-              <div className="member-wrapper">
-                {this.model.accepted.length > 0 ? <h5 className="subtitle is-5">Accepted</h5> : null}
-                {this.model.accepted.map(x => <PartierCard key={x} userID={x} />)}
-                {this.model.invited.length > 0 ? <h5 className="subtitle is-5">Invited</h5> : null}
-                {this.model.invited.map(x => <PartierCard key={x} userID={x} />)}
-                {this.model.rejected.length > 0 ? <h5 className="subtitle is-5">Rejected</h5> : null}
-                {this.model.rejected.map(x => <PartierCard key={x} userID={x} />)}
-              </div>
+              {this.model.accepted.length > 0 ? <h5 className="subtitle is-5">Accepted</h5> : null}
+              {this.model.accepted.map(x => <PartierCard key={x} userID={x} />)}
+              {this.model.invited.length > 0 ? <h5 className="subtitle is-5">Invited</h5> : null}
+              {this.model.invited.map(x => <PartierCard key={x} userID={x} />)}
+              {this.model.rejected.length > 0 ? <h5 className="subtitle is-5">Rejected</h5> : null}
+              {this.model.rejected.map(x => <PartierCard key={x} userID={x} />)}
             </div>
           </div>
         </div >
