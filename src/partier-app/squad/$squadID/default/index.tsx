@@ -23,7 +23,19 @@ export default class ViewSquad extends React.Component<PViewSquad> {
         <div className="box">
           <div className="columns">
             <div className="column">
-              <div className="title">{this.model.squadName}</div>
+              <h4 className="title is-4">Squad Information</h4>
+              <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                  <label className="label">Squad Name</label>
+                </div>
+                <div className="field-body">
+                  <div className="field">
+                    <p className="control">
+                      <input type="text" className="input is-static" value={this.model.squadName} readOnly />
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
                   <label className="label">Owner</label>
@@ -36,6 +48,7 @@ export default class ViewSquad extends React.Component<PViewSquad> {
                   </div>
                 </div>
               </div>
+              <h4 className="title is-4">Auction Information</h4>
               <div className="field is-horizontal">
                 <div className="field-label is-normal">
                   <label className="label">City</label>
@@ -77,7 +90,7 @@ export default class ViewSquad extends React.Component<PViewSquad> {
               </div>
             </div>
             <div className="column">
-              <h1 className="title">Members</h1>
+              <h4 className="title is-4">Members</h4>
               <div className="member-wrapper">
                 {this.model.accepted.length > 0 ? <h2 className="subtitle">Accepted</h2> : null}
                 {this.model.accepted.map((x) => {
