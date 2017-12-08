@@ -15,16 +15,30 @@ export default class NavTab extends React.Component<PNavTab>{
   public render() {
     const to = this.props.to;
     const rest = this.rest || [];
-    return (
-      <Route path={to} children={({ match }) => {
-        return (
-          <li className={match ? "is-active" : ""}>
-            <Link to={to} {...rest} className="navbar-item">
-              {this.props.children}
-            </Link>
-          </li >
-        );
-      }} />
-    );
+    if (this.props.exact) {
+      return (
+        <Route path={to} children={({ match }) => {
+          return (
+            <li className={match.isExact ? "is-active" : ""}>
+              <Link to={to} {...rest} className="navbar-item">
+                {this.props.children}
+              </Link>
+            </li >
+          );
+        }} />
+      );
+    } else {
+      return (
+        <Route path={to} children={({ match }) => {
+          return (
+            <li className={match ? "is-active" : ""}>
+              <Link to={to} {...rest} className="navbar-item">
+                {this.props.children}
+              </Link>
+            </li >
+          );
+        }} />
+      );
+    }
   }
 }

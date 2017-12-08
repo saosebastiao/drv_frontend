@@ -59,38 +59,41 @@ export default class SquadAuction extends React.Component<PSquadAuction> {
       </div>
     );
   }
+  private renderAuctionInfo() {
+    return (
+      <AuctionInfo auction={this.model.mySquad.auction} currentState={this.model.auctionState}>
+        <button type="button" className="button" onClick={this.refresh}>Refresh</button>
+      </AuctionInfo>
+    );
+  }
+  private renderMySquad() {
+    return (
+      <SquadCard squadID={this.model.squadID} />
+    );
+  }
   public refresh = () => this.model.getState();
 
   public render() {
     if (this.model.isReady) {
       return (
-        <div className="auction-wrapper">
-          <div className="auction-details-contents">
-            <div className="auction-details-row">
-              <div className="details-col">
-                <div className="parties-wrapper has-border">
-                  <div className="details-title">Parties</div>
-                  {this.renderPartiesCard()}
-                </div>
-              </div>
-              <div className="details-col">
-                <div className="squads-wrapper has-border">
-                  <div className="details-title">Squads</div>
-                  {this.renderSquadsCard()}
-                </div>
-              </div>
-              <div className="details-col">
-                <AuctionInfo auction={this.model.mySquad.auction} currentState={this.model.auctionState}>
-                  <button type="button" onClick={this.refresh}>Refresh</button>
-                </AuctionInfo>
-                <div className="squad-info-wrapper">
-                  <div className="details-title">Your Squad Info</div>
-                  <SquadCard squadID={this.model.squadID} />
-                </div>
-              </div>
+        <div className="box">
+          <div className="columns">
+            <div className="column">
+              <h4 className="title is-4">Parties</h4>
+              {this.renderPartiesCard()}
+            </div>
+            <div className="column">
+              <h4 className="title is-4">Squads</h4>
+              {this.renderSquadsCard()}
+            </div>
+            <div className="column">
+              <h4 className="title is-4">Auction Info</h4>
+              {this.renderAuctionInfo()}
+              <h4 className="title is-4">My Squad</h4>
+              {this.renderMySquad()}
             </div>
           </div>
-        </div>);
+        </div >);
     } else return null;
   }
 }

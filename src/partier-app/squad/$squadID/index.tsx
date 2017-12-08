@@ -29,7 +29,7 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
               <div className="navbar-start">
                 <div className="tabs is-boxed">
                   <ul>
-                    <NavTab to={`/partier/squad/${squadID}`} >View Squad</NavTab>
+                    <NavTab exact to={`/partier/squad/${squadID}`} >View Squad</NavTab>
                     {this.model.isOwned ? <NavTab to={`/partier/squad/${squadID}/edit`} >Edit Squad</NavTab> : null}
                     {this.model.isOwned ? <NavTab to={`/partier/squad/${squadID}/filters`} >Edit Filters</NavTab> : null}
                     {this.model.isOwned ? <NavTab to={`/partier/squad/${squadID}/payouts`} >Edit Payouts</NavTab> : null}
@@ -38,9 +38,6 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
                     {this.model.winningBid ? <NavTab to={`/partier/squad/${squadID}/party`} >View Assigned Party</NavTab> : null}
                   </ul>
                 </div>
-              </div>
-              <div className="navbar-end" >
-                <span className="navbar-item">Yo</span>
               </div>
             </div>
           </nav>
