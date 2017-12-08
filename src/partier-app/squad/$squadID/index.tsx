@@ -43,7 +43,7 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
               </div>
             </div>
           </nav>
-          <section className="section">
+          <div>
             <Switch>
               <Route exact path="/partier/squad/:squadID" render={(p) => <ViewSquad model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/edit" render={(p) => <EditSquad model={this.model} {...p} />} />
@@ -54,7 +54,7 @@ export default class SquadID extends React.Component<RouteComponentProps<PSquadI
               <Route exact path="/partier/squad/:squadID/auction" render={(p) => <ViewAuction model={this.model} {...p} />} />
               <Route exact path="/partier/squad/:squadID/party" render={() => <NotImplemented />} />
             </Switch>
-          </section>
+          </div>
         </div>
       );
     } else return null;

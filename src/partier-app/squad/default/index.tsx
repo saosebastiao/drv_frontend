@@ -4,6 +4,7 @@ import SquadJoinModel from "./Model";
 import SquadCard from "shared/cards/SquadCard";
 import PartyNightModel from "../Model";
 import { RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
 
 interface IPartyNight {
   partyNight: string;
@@ -26,31 +27,44 @@ export default class SquadJoin extends React.Component<PNewSquad> {
 
   public render() {
     return (
-      <div>
-        <div>
-          <div>
-            <div>Create a new Squad for {this.model.partyNight}<div />
-              <div>
-                <select value={this.model.regionID} onChange={(e: any) => this.model.regionID = e.target.value}>
-                  <option value="">Select a Region</option>
-                  {this.model.auctions.map((x) => <option key={x.regionID} value={x.regionID}>{x.regionID}</option>)}
+      <div className="columns">
+        <div className="column">
+          <h2 className="subtitle">Create a Squad</h2>
+          <div className="field">
+            <label className="label">Select a Region</label>
+            <div className="control">
+              <div className="select">
+                <select
+                  value={this.model.regionID}
+                  onChange={(e: any) => this.model.regionID = e.target.value}>
+                  {this.model.auctions.map((x) =>
+                    <option key={x.regionID} value={x.regionID}>{x.regionID}</option>)}
                 </select>
               </div>
-              <div>
-                <label>Squad Name</label>
-                <input value={this.model.squadName} onChange={(e: any) => this.model.squadName = e.target.value} />
-              </div>
-              <button type="button" onClick={() => this.submit()}>Create</button>
             </div>
           </div>
-        </div>
-        <div className="squad-wrapper">
-          <span>Or join an existing squad</span>
-          <div className="squad-contents">
-            {this.model.invites.map((s) => <SquadCard key={s} squadID={s} />)}
+          <div className="field">
+            <label className="label">Squad Name</label>
+            <input className="input"
+              value={this.model.squadName}
+              onChange={(e: any) => this.model.squadName = e.target.value} />
           </div>
+          <button className="button is-primary" type="button" onClick={() => this.submit()}>Create</button>
         </div>
-      </div>
+        {
+          this.model.invites.length > 0 ?
+            <div className="column">
+              <h2 className="subtitle">Join an existing Squad</h2>
+              <div>
+                {this.model.invites.map((s) => (
+                  <Link to={`/partier/squad/${s}`}>
+                    <SquadCard key={s} squadID={s} />)}
+                  </Link>
+                ))}
+              </div>
+            </div> : null
+        }
+      </div >
     );
   }
 }
