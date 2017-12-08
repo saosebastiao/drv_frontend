@@ -55,7 +55,8 @@ export default class ViewSquad extends React.Component<PViewSquad> {
                 <div className="field-body">
                   <div className="field">
                     <p className="control">
-                      <input type="text" className="input is-static" value={this.model.auction.partyNight} readOnly />
+                      <input type="text" className="input is-static"
+                        value={moment(this.model.auction.partyNight).format("ll")} readOnly />
                     </p>
                   </div>
                 </div>

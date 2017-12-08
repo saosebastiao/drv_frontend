@@ -20,36 +20,25 @@ export default class EditSquad extends React.Component<PEditSquad> {
   }
 
   public render() {
-    return this.model.isReady ? (
-      <div className="squad-wrapper">
-        <div className="squad-details-contents">
-          <div className="squad-details-row">
-            <div className="details-col">
-              <div className="info-wrapper">
-                <div className="info-title">Squad Information</div>
-                <div className="info-row">
-                  <div className="info-label">Name</div>
-                  <input
-                    type="text"
-                    value={this.model.squadName}
-                    onChange={this.changeSquadName}
-                  />
-                </div>
-                <div className="info-row">
-                  <div className="info-value">
-                    <button
-                      type="button"
-                      className="btn btn-xs btn-primary"
-                      onClick={this.updateSquad}>
-                      Save
-                    </button>
-                  </div>
-                </div>
+    return (
+      <div className="box">
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">Squad Name</label>
+              <div className="control">
+                <input type="text" className="input"
+                  onChange={this.changeSquadName} value={this.model.squadName} />
+              </div>
+            </div>
+            <div className="field">
+              <div className="control">
+                <button type="button" onClick={this.updateSquad} className="button">Save</button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    ) : null;
+        </div >
+      </div >
+    );
   }
 }
