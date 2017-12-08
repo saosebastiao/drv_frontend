@@ -45,7 +45,7 @@ export default class Squad extends React.Component<RouteComponentProps<{}>, {}> 
               </ul>
             </aside>
           </div>
-          <div className="column is-narrow">
+          <div className="column">
             <Switch>
               <Route path="/partier/squad/new/:partyNight" render={(m) =>
                 <NewSquad model={this.model} {...m} />} />

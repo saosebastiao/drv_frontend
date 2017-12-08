@@ -15,7 +15,7 @@ export default class ViewAssignedParty extends React.Component<PEditPayouts> {
   public render() {
     return this.model.isReady ? (
       <div className="box">
-        Payouts Placeholder
+        View Assigned Party Placeholder
       </div>
     ) : null;
   }
