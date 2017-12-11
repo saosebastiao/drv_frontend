@@ -16,8 +16,6 @@ const photos = [
   "https://bulma.io/images/placeholders/256x256.png",
   "https://bulma.io/images/placeholders/256x256.png",
   "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
   "https://bulma.io/images/placeholders/256x256.png"
 ];
 

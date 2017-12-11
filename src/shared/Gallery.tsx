@@ -21,38 +21,39 @@ export default class Gallery extends React.Component<PGallery> {
     return (
       <div style={{ height, width }}>
         <div className="box">
-          <div className="column">
-            <figure className="image is-square">
-              <img src="https://bulma.io/images/placeholders/256x256.png" />
-            </figure>
-            <br />
-            <div className="columns is-gapless">
-              <div className="column is-1"
-                style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
-                <a className="button" >
-                  <span className="icon is-small">
-                    <i className="fa fa-chevron-left" />
-                  </span>
-                </a>
-              </div>
-              {
-                this.props.photos.slice(this.wStart, this.wEnd).map((x, idx) => {
-                  return (
-                    <div key={idx} className="column">
-                      <figure className="image is-square">
-                        <img src={x} />
-                      </figure>
-                    </div>
-                  );
-                })}
-              <div className="column is-1"
-                style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
-                <a className="button">
-                  <span className="icon is-small">
-                    <i className="fa fa-chevron-right" />
-                  </span>
-                </a>
-              </div>
+          <div className="columns">
+            <div className="column">
+              <figure className="image is-square">
+                <img src="https://bulma.io/images/placeholders/256x256.png" />
+              </figure>
+              <div className="columns is-gapless">
+                {this.props.photos.length > 5 ? (
+                  <div className="column is-1"
+                    style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                    <span className="icon is-small">
+                      <i className="fa fa-chevron-left" />
+                    </span>
+                  </div>) : null
+                }
+                {
+                  this.props.photos.slice(this.wStart, this.wEnd).map((x, idx) => {
+                    return (
+                      <div key={idx} className="column">
+                        <figure className="image is-square">
+                          <img src={x} />
+                        </figure>
+                      </div>
+                    );
+                  })}
+                {this.props.photos.length > 5 ? (
+                  <div className="column is-1"
+                    style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                    <span className="icon is-small">
+                      <i className="fa fa-chevron-right" />
+                    </span>
+                  </div>) : null
+                }
+              </div >
             </div >
           </div >
         </div >
