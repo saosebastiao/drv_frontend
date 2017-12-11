@@ -1,19 +1,52 @@
+// tslint:disable:no-console
 import * as React from "react";
-import { observable, computed } from "mobx";
+import { observable, autorun, action } from "mobx";
 import { observer } from "mobx-react";
 
 interface PGallery {
   photos: Array<string>;
   height?: number;
   width?: number;
+  range?: number;
 }
 
 @observer
 export default class Gallery extends React.Component<PGallery> {
-  @observable public idx: number;
-  @observable public wStart: number = 0;
-  @computed get wEnd() {
-    return this.wStart + 5;
+  public static defaultProps: PGallery = {
+    range: 5,
+    height: 480,
+    width: 480,
+    photos: []
+  };
+  constructor(props: PGallery) {
+    super(props);
+    Object.assign(this, Gallery.defaultProps, props);
+  }
+  public componentWillReceiveProps(props: PGallery) {
+    Object.assign(this, Gallery.defaultProps, props);
+  }
+  @observable private range: number = 5;
+  @observable private photos: Array<string>;
+  @observable private idx: number = 0;
+  @observable private wStart: number = 0;
+  @observable private wEnd: number = 5;
+
+  public boop = autorun(() => {
+    console.log(this.idx);
+    console.log(this.props.photos.length);
+    console.log(this.wStart);
+    console.log(this.wEnd);
+  });
+
+  @action private scrollRight = () => {
+    const max = this.props.photos.length;
+    this.wEnd = Math.min(this.wEnd + 1, max);
+    this.wStart = Math.min(max - this.range, this.wStart + 1);
+  }
+  @action private scrollLeft = () => {
+    const min = 0;
+    this.wStart = Math.max(min, this.wStart - 1);
+    this.wEnd = Math.max(this.wEnd - 1, min + this.range);
   }
 
   public render() {
@@ -24,34 +57,41 @@ export default class Gallery extends React.Component<PGallery> {
           <div className="columns">
             <div className="column">
               <figure className="image is-square">
-                <img src="https://bulma.io/images/placeholders/256x256.png" />
+                <img src={this.photos[this.idx as number]} />
               </figure>
               <div className="columns is-gapless">
                 {this.props.photos.length > 5 ? (
-                  <div className="column is-1"
-                    style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                  <a className="column is-1"
+                    onClick={this.scrollLeft}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <span className="icon is-small">
                       <i className="fa fa-chevron-left" />
                     </span>
-                  </div>) : null
+                  </a>) : null
                 }
                 {
-                  this.props.photos.slice(this.wStart, this.wEnd).map((x, idx) => {
-                    return (
-                      <div key={idx} className="column">
-                        <figure className="image is-square">
+                  this.props.photos.map((x, idx) => {
+                    return idx >= this.wStart && idx < this.wEnd ? (
+                      <a key={idx}
+                        className="column"
+                        onClick={() => this.idx = idx}>
+                        <figure
+                          className="image is-square"
+                          style={{ border: idx === this.idx ? "1px solid #000" : "" }}>
                           <img src={x} />
                         </figure>
-                      </div>
-                    );
-                  })}
+                      </a>
+                    ) : null;
+                  })
+                }
                 {this.props.photos.length > 5 ? (
-                  <div className="column is-1"
-                    style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                  <a className="column is-1"
+                    onClick={this.scrollRight}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <span className="icon is-small">
                       <i className="fa fa-chevron-right" />
                     </span>
-                  </div>) : null
+                  </a>) : null
                 }
               </div >
             </div >

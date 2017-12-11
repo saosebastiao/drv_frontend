@@ -10,13 +10,13 @@ interface PEditSocial extends RouteComponentProps<{}> {
 }
 
 const photos = [
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png",
-  "https://bulma.io/images/placeholders/256x256.png"
+  "https://bulma.io/images/placeholders/16x16.png",
+  "https://bulma.io/images/placeholders/24x24.png",
+  "https://bulma.io/images/placeholders/32x32.png",
+  "https://bulma.io/images/placeholders/48x48.png",
+  "https://bulma.io/images/placeholders/64x64.png",
+  "https://bulma.io/images/placeholders/96x96.png",
+  "https://bulma.io/images/placeholders/128x128.png"
 ];
 
 @observer
