@@ -15,6 +15,7 @@ interface PGallery {
   height?: number;
   width?: number;
   range?: number;
+  update?: (photos: Array<string>) => void;
 }
 
 @observer
@@ -23,7 +24,8 @@ export default class Gallery extends React.Component<PGallery> {
     range: 5,
     height: 480,
     width: 480,
-    photos: []
+    photos: [],
+    update: (photos: Array<string>) => console.log(photos)
   };
   constructor(props: PGallery) {
     super(props);

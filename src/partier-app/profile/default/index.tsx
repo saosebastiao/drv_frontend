@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import ProfileModel from "../Model";
 import PartierCard from "shared/cards/PartierCard";
 import { getUserID } from "modules/DroverClient";
-import { observable } from "mobx";
+import Gallery from "shared/Gallery";
 
 interface PProfile extends RouteComponentProps<{}> {
   model: ProfileModel;
@@ -14,9 +14,6 @@ interface PProfile extends RouteComponentProps<{}> {
 export default class Profile extends React.Component<PProfile> {
   private model: ProfileModel;
 
-  @observable private selectedPhoto: number = 0;
-  private selectPhoto = (idx: number) => () => this.selectedPhoto = idx;
-
   constructor(props: RouteComponentProps<{}> & PProfile) {
     super(props);
     this.model = this.props.model;
@@ -25,34 +22,7 @@ export default class Profile extends React.Component<PProfile> {
   public render() {
     return (
       <div className="columns">
-        <div className="column is-4">
-          <div className="box">
-            <div className="tile is-ancestor is-verticle">
-              <div className="tile is-parent is-vertical">
-                <div className="box">
-                  <div className="tile">
-                    {this.model.photos[this.selectedPhoto] ?
-                      <img src={this.model.photos[this.selectedPhoto]} /> :
-                      <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                    }
-                  </div>
-                </div>
-                <div className="tile is-parent">
-                  {[0, 1, 2, 3, 4].map(idx =>
-                    <div key={idx} className="tile is-child">
-                      {this.model.photos[idx] ?
-                        <figure className="image is-square">
-                          <img src={this.model.photos[idx]} onClick={this.selectPhoto(idx)} />
-                        </figure> :
-                        <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                      }
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Gallery photos={this.model.photos} />
         <div className="column is-4">
           <div className="box">
             <h1 className="title">
