@@ -13,7 +13,7 @@ export default class Gallery extends React.Component<PGallery> {
   @observable public idx: number;
   @observable public wStart: number = 0;
   @computed get wEnd() {
-    return this.wStart + 4;
+    return this.wStart + 5;
   }
 
   public render() {
@@ -27,37 +27,33 @@ export default class Gallery extends React.Component<PGallery> {
             </figure>
             <br />
             <div className="columns is-gapless">
-              <div className="column">
-                <div className="level">
-                  <div className="level-left">
-                    <div className="level-item">
-                      <a className="button" >
-                        <span className="icon is-small">
-                          <i className="fa fa-chevron-left" />
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                  {
-                    this.props.photos.slice(this.wStart, this.wEnd).map((x, idx) => {
-                      return (
-                        <div key={idx} className="column is-one-fifth">
-                          <figure className="image is-square">
-                            <img src={x} />
-                          </figure>
-                        </div>
-                      );
-                    })}
-                  <div className="level-item">
-                    <a className="button" >
-                      <span className="icon is-small">
-                        <i className="fa fa-chevron-left" />
-                      </span>
-                    </a>
-                  </div>
-                </div>
+              <div className="column is-1"
+                style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                <a className="button" >
+                  <span className="icon is-small">
+                    <i className="fa fa-chevron-left" />
+                  </span>
+                </a>
               </div>
-            </div>
+              {
+                this.props.photos.slice(this.wStart, this.wEnd).map((x, idx) => {
+                  return (
+                    <div key={idx} className="column">
+                      <figure className="image is-square">
+                        <img src={x} />
+                      </figure>
+                    </div>
+                  );
+                })}
+              <div className="column is-1"
+                style={{ "display": "flex", "align-items": "center", "justify-content": "center" }}>
+                <a className="button">
+                  <span className="icon is-small">
+                    <i className="fa fa-chevron-right" />
+                  </span>
+                </a>
+              </div>
+            </div >
           </div >
         </div >
       </div >
