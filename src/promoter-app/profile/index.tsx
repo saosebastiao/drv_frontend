@@ -21,7 +21,7 @@ export default class Profile extends React.Component<{}> {
             <div className="navbar-start">
               <div className="tabs is-boxed">
                 <ul>
-                  <NavTab to={`/promoter/profile`} >View Profile</NavTab>
+                  <NavTab exact to={`/promoter/profile`} >View Profile</NavTab>
                   <NavTab to={`/promoter/profile/edit`}>Edit Profile</NavTab>
                   <NavTab to={`/promoter/profile/payment`} >Edit Payment Methods</NavTab>
                   <NavTab to={`/promoter/profile/filters`} >Edit Filters</NavTab>
@@ -30,14 +30,14 @@ export default class Profile extends React.Component<{}> {
             </div>
           </div>
         </nav>
-        <section className="section">
+        <div className="box">
           <Switch>
             <Route exact path="/promoter/profile" render={(p) => <ShowProfile model={this.model} {...p} />} />
             <Route exact path="/promoter/profile/edit" render={(p) => <EditProfile model={this.model} {...p} />} />
             <Route exact path="/promoter/profile/payment" render={(p) => <EditPayment model={this.model} {...p} />} />
             <Route exact path="/promoter/profile/filters" render={() => <NotImplemented />} />
           </Switch>
-        </section>
+        </div>
       </div>
     );
   }

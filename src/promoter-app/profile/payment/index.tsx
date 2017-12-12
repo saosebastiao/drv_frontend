@@ -121,81 +121,51 @@ export default class EditPayment extends React.Component<PProfile> {
   }
   public render() {
     return (
-      <div className="profile-edit-wrapper">
-        <div className="profile-edit-contents">
-          <div className="profile-top-contents">
-            <div className="profile-form">
-              <div className="form-group">
-                <label htmlFor="input-name" className="label-col control-label">
-                  <span data-toggle="tooltip" data-placement="top" title="Display Name">Display Name</span>
-                </label>
-                <div className="value-col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    aria-describedby="input-name"
-                    value={this.profile.name}
-                    onChange={this.changeName}
-                  />
-                </div>
+      <div className="box">
+        <div className="columns is-4">
+          <div className="profile-form">
+            <div className="field">
+              <label htmlFor="card-number" className="label">
+                Credit Card Number
+              </label>
+              <div className="control">
+                <div id="card-number" className="form-control" />
+                <div id="card-number-errors" role="alert" />
               </div>
-              <div className="form-group">
-                <label htmlFor="input-email" className="label-col control-label">
-                  <span data-toggle="tooltip" data-placement="top" title="Email">Email</span>
-                </label>
-                <div className="value-col">
-                  <input
-                    type="text"
-                    className="form-control"
-                    aria-describedby="input-email"
-                    value={this.profile.email}
-                    onChange={this.changeEmail}
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="card-number" className="label-col control-label">
-                  Credit Card Number
-                </label>
-                <div className="value-col">
-                  <div id="card-number" className="form-control" />
-                  <div id="card-number-errors" role="alert" />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="card-expiration" className="label-col control-label">
-                  Expiration
-                </label>
-                <div className="value-col">
-                  <div id="card-expiration" className="form-control" />
-                  <div id="card-expiration-errors" role="alert" />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="card-cvc" className="label-col control-label">
-                  Expiration
-                </label>
-                <div className="value-col">
-                  <div id="card-cvc" className="form-control" />
-                  <div id="card-cvc-errors" role="alert" />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="card-postal" className="label-col control-label">
-                  Postal Code
-                </label>
-                <div className="value-col">
-                  <div id="card-postal" className="form-control" />
-                  <div id="card-postal-errors" role="alert" />
-                </div>
-              </div>
-              <button
-                type="button"
-                className="btn btn-md btn-primary"
-                onClick={this.submit}>Create New Payment Method</button>
-              <br />
-              <button type="button" className="btn btn-md btn-primary" onClick={this.clickSave}>Save</button>
             </div>
+            <div className="field">
+              <label htmlFor="card-expiration" className="label">
+                Expiration
+              </label>
+              <div className="control">
+                <div id="card-expiration" className="form-control" />
+                <div id="card-expiration-errors" role="alert" />
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="card-cvc" className="label">
+                Expiration
+              </label>
+              <div className="control">
+                <div id="card-cvc" className="form-control" />
+                <div id="card-cvc-errors" role="alert" />
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="card-postal" className="label">
+                Postal Code
+              </label>
+              <div className="control">
+                <div id="card-postal" className="form-control" />
+                <div id="card-postal-errors" role="alert" />
+              </div>
+            </div>
+            <button
+              type="button"
+              className="button is-primary"
+              onClick={this.submit}>
+              Create New Payment Method
+            </button>
           </div>
         </div>
       </div>
