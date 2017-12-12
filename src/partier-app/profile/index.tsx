@@ -33,7 +33,7 @@ export default class Profile extends React.Component<{}> {
             </div>
           </div>
         </nav>
-        <section className="section">
+        <div className="box">
           <Switch>
             <Route exact path="/partier/profile" render={(p) =>
               <ShowProfile model={this.model} {...p} />} />} />
@@ -48,7 +48,7 @@ export default class Profile extends React.Component<{}> {
             <Route exact path="/partier/profile/social" render={(p) =>
               <EditSocial model={this.model} {...p} />} />} />
           </Switch>
-        </section>
+        </div>
       </div>
     );
   }
