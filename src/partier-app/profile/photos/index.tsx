@@ -52,7 +52,6 @@ export default class EditPhotos extends React.Component<PProfile> {
                   <img src={photo.url} onClick={this.setPhotoIdx(idx)} />
                   <a className="delete" onClick={this.deletePhotoIdx(idx)} />
                 </figure>
-                <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
               </div>
             )}
             <div className="box">

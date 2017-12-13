@@ -38,7 +38,7 @@ export default class Gallery extends React.Component<PGallery> {
   @observable private wStart: number = 0;
   @observable private wEnd: number = 5;
   @computed get selectedPhoto() {
-    return this.photos[this.idx];
+    return this.photos[this.idx] || { url: "https://bulma.io/images/placeholders/256x256.png" };
   }
 
   @action private scrollRight = () => {
@@ -54,15 +54,14 @@ export default class Gallery extends React.Component<PGallery> {
 
   public render() {
     const { height, width } = this.props;
-    return (
+    console.log(this.photos[0]);
+    return this.photos ? (
       <div style={{ height, width }}>
         <div className="box">
           <div className="columns">
             <div className="column">
               <figure className="image is-square">
-                {/*
                 <img src={this.selectedPhoto.url} />
-                */}
               </figure>
               <div className="columns is-gapless">
                 {this.props.photos.length > 5 ? (
@@ -103,7 +102,7 @@ export default class Gallery extends React.Component<PGallery> {
           </div >
         </div >
       </div >
-    );
+    ) : null;
   }
 
 }
