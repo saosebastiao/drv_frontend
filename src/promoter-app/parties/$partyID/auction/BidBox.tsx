@@ -39,46 +39,75 @@ export default class BidBox extends React.Component<PBidBox>{
     const bid = this.props.bid;
     if (bid && bid.msg === "SquadBidSuccessful") {
       return (
-        <div>
-          Squad Bid Successful!: {this.formatCurrency(bid.price)}
+        <div className="box">
+          <h4 className="title is-4">
+            Squad Bid Successful!
+          </h4>
+          <h5 className="subtitle is-5">
+            {this.formatCurrency(bid.price)}
+          </h5>
         </div>
       );
     } else if (bid && bid.msg === "SquadBidFailed") {
       return (
-        <div>
-          Squad Bid Failed!: {this.formatCurrency(bid.price)}
+        <div className="box">
+          <h4 className="title is-4">
+            Squad Bid Failed!
+          </h4>
+          <h5 className="subtitle is-5">
+            {this.formatCurrency(bid.price)}
+          </h5>
         </div>
       );
     } else if (bid && bid.msg === "SquadTaken") {
       return (
-        <div>
-          Squad Taken!: {this.formatCurrency(bid.price)}
+        <div className="box">
+          <h4 className="title is-4">
+            Squad Taken!
+          </h4>
+          <h5 className="subtitle is-5">
+            {this.formatCurrency(bid.price)}
+          </h5>
         </div>
       );
     } else if (bid && bid.msg === "SquadBidReceived") {
       return (
-        <div>
-          Current Bid: {this.formatCurrency(bid.price)}
-          <div>
-            <button type="button" onClick={this.revokeBid}>
-              Revoke Bid
-            </button>
-            <div>
+        <div className="box">
+          <h4 className="title is-4">
+            Current Bid: {this.formatCurrency(bid.price)}
+          </h4>
+          <div className="field">
+            <div className="control">
+              <button
+                className="button is-danger"
+                type="button" onClick={this.revokeBid}>
+                Revoke Bid
+              </button>
+            </div>
+          </div>
+          <div className="field has-addons">
+            <div className="control has-icons-left">
+              <span className="icon is-left">
+                <i className="fa fa-usd" />
+              </span>
               <input type="number"
+                className="input"
                 value={this.sealedBid}
                 min={this.props.squad.filters.minimumPrice || 0}
                 step={5}
                 onChange={this.setSealedBid} />
-              <button type="button" onClick={this.submitSealedBid}>
+            </div>
+            <div className="control">
+              <button type="button" className="button is-primary" onClick={this.submitSealedBid}>
                 Submit Sealed Bid
               </button>
             </div>
-          </div >
-        </div>
+          </div>
+        </div >
       );
     } else {
       return (
-        <div>
+        <div className="box">
           {
             this.auctionState.state === "ActiveAuction" ?
               <div className="field">
@@ -90,7 +119,10 @@ export default class BidBox extends React.Component<PBidBox>{
               </div> : null
           }
           <div className="field has-addons">
-            <div className="control">
+            <div className="control has-icons-left">
+              <span className="icon is-left">
+                <i className="fa fa-usd" />
+              </span>
               <input type="number"
                 className="input"
                 value={this.sealedBid}

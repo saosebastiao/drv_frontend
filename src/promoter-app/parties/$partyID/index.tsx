@@ -42,7 +42,7 @@ export default class PartyID extends React.Component<RouteComponentProps<PPartyI
               </div>
             </div>
           </nav>
-          <section className="section">
+          <div className="box">
             <Switch>
               <Route exact path="/promoter/parties/:partyID" render={(p) => <ShowParty model={this.model} {...p} />} />
               <Route exact path="/promoter/parties/:partyID/edit" render={(p) => <EditParty model={this.model} {...p} />} />
@@ -51,7 +51,7 @@ export default class PartyID extends React.Component<RouteComponentProps<PPartyI
               <Route exact path="/promoter/parties/:partyID/social" render={(p) => <EditSocial model={this.model} {...p} />} />
               <Route exact path="/promoter/parties/:partyID/auction" render={(p) => <Auction {...p} />} />
             </Switch>
-          </section>
+          </div>
         </div>
       );
     } else return null;

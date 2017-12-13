@@ -39,16 +39,8 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
       <div className="squads-contents">
         {
           this.model.allSquadsSorted.map((squad: ISquadConfig) => (
-            <SquadCard key={squad.squadID} squadID={squad.squadID} squad={squad} >
-              <BidBox
-                squad={squad}
-                party={this.model.myParty}
-                bid={this.model.myBids.get(squad.squadID)}
-                auctionState={this.model.auctionState}
-                submitBid={this.model.submitBid}
-                revokeBid={this.model.dropBid}
-                submitSealedBid={this.model.submitSealedBid}
-              />
+            <div className="box">
+              <SquadCard key={squad.squadID} squadID={squad.squadID} squad={squad} />
               {/*
               <div className="field">
                 <label className="label">
@@ -62,7 +54,16 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                 </div>
               </div>
               */}
-            </SquadCard>
+              <BidBox
+                squad={squad}
+                party={this.model.myParty}
+                bid={this.model.myBids.get(squad.squadID)}
+                auctionState={this.model.auctionState}
+                submitBid={this.model.submitBid}
+                revokeBid={this.model.dropBid}
+                submitSealedBid={this.model.submitSealedBid}
+              />
+            </div>
           ))
         }
       </div>

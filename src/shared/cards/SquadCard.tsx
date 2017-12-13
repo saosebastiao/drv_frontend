@@ -68,9 +68,6 @@ export default class SquadCard extends React.Component<PSquadCard, {}>{
             </div>
           </div>
         </div>
-        <footer>
-          {this.props.children}
-        </footer>
       </div>
     ) : null;
   }
