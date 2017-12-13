@@ -16,13 +16,10 @@ interface PPartyID {
 export default class AuctionID extends React.Component<RouteComponentProps<PPartyID>, {}> {
 
   private model = new AuctionModel(this.props.match.params.partyID);
+  private refresh = () => this.model.getState();
 
   public componentWillUnmount() {
     this.model.quit();
-  }
-
-  private handleSortChange = (e: any) => {
-    this.model.sortType = e.target.value;
   }
 
   private renderPartiesCard() {
@@ -52,14 +49,19 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
                 revokeBid={this.model.dropBid}
                 submitSealedBid={this.model.submitSealedBid}
               />
-              <div>
-                <label>
+              {/*
+              <div className="field">
+                <label className="label">
+                  Blacklist Squad
+                  </label>
+                <div className="control">
                   <input type="checkbox"
+                    className="checkbox"
                     checked={this.model.isSquadBlacklisted(squad.squadID)}
                     onChange={() => this.model.toggleSquadBlacklist(squad.squadID)} />
-                  Blacklist Squad
-                </label>
+                </div>
               </div>
+              */}
             </SquadCard>
           ))
         }
@@ -67,54 +69,40 @@ export default class AuctionID extends React.Component<RouteComponentProps<PPart
     );
   }
 
-  private refresh = () => this.model.getState();
+  private renderAuctionInfo() {
+    return (
+      <AuctionInfo auction={this.model.myParty.auction} currentState={this.model.auctionState}>
+        <button type="button" className="button" onClick={this.refresh}>Refresh</button>
+      </AuctionInfo>
+    );
+  }
+  private renderMyParty() {
+    return (
+      <PartyCard partyID={this.model.myParty.partyID} />
+    );
+  }
 
   public render() {
+
     if (this.model.isReady) {
-      const myParty = this.model.myParty;
       return (
-        <div className="auction-wrapper">
-          <div className="auction-details-contents">
-            <div className="auction-details-row">
-              <div className="details-col">
-                <div className="parties-wrapper has-border">
-                  <div className="details-title">Parties</div>
-                  {this.renderPartiesCard()}
-                </div>
-              </div>
-              <div className="details-col">
-                <div className="squads-wrapper has-border">
-                  <div className="details-title">Squads</div>
-                  <div className="radio">
-                    <span>Sort By:</span>
-                    <label>
-                      <input type="radio" value="f"
-                        checked={this.model.sortType === "f"}
-                        onChange={this.handleSortChange} />
-                      Sort 1
-                  </label>
-                    <label>
-                      <input type="radio" value="r"
-                        checked={this.model.sortType === "r"}
-                        onChange={this.handleSortChange} />
-                      Sort 2
-                  </label>
-                  </div>
-                  {this.renderSquadsCard()}
-                </div>
-              </div>
-              <div className="details-col">
-                <AuctionInfo auction={myParty.auction} currentState={this.model.auctionState}>
-                  <button type="button" onClick={this.refresh}>Refresh</button>
-                </AuctionInfo>
-                <div className="squad-info-wrapper">
-                  <div className="details-title">Your Party Info</div>
-                  <PartyCard partyID={myParty.partyID} />
-                  <div>{JSON.stringify(myParty.filters)}</div>
-                </div>
-              </div>
+        <div className="box">
+          <div className="columns">
+            <div className="column">
+              <h4 className="title is-4">Parties</h4>
+              {this.renderPartiesCard()}
             </div>
-          </div >
+            <div className="column">
+              <h4 className="title is-4">Squads</h4>
+              {this.renderSquadsCard()}
+            </div>
+            <div className="column">
+              <h4 className="title is-4">Auction Info</h4>
+              {this.renderAuctionInfo()}
+              <h4 className="title is-4">My Party</h4>
+              {this.renderMyParty()}
+            </div>
+          </div>
         </div >
       );
     } else return null;

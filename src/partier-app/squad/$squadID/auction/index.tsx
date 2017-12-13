@@ -21,7 +21,7 @@ export default class SquadAuction extends React.Component<PSquadAuction> {
   }
   public renderPartiesCard() {
     return (
-      <div className="parties-contents">
+      <div>
         {
           this.model.allParties.map((party: IPartyConfig, idx: number) => (
             <PartyCard key={`party:${idx}`} partyID={party.partyID} >
@@ -50,7 +50,7 @@ export default class SquadAuction extends React.Component<PSquadAuction> {
 
   public renderSquadsCard() {
     return (
-      <div className="squads-contents">
+      <div>
         {
           this.model.allSquads.map((squad: ISquadConfig, idx: number) => (
             <SquadCard key={`squad:${idx}`} squadID={squad.squadID} />
@@ -93,7 +93,8 @@ export default class SquadAuction extends React.Component<PSquadAuction> {
               {this.renderMySquad()}
             </div>
           </div>
-        </div >);
+        </div >
+      );
     } else return null;
   }
 }

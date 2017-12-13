@@ -30,14 +30,38 @@ export default class AuctionInfo extends React.Component<PAuctionInfo>{
     if (currentState.state === "PreAuction") {
       return (
         <div className="box">
-          <h4 className="subtitle is-4">{auction.regionID}</h4>
-          <h5 className="subtitle is-5">{this.formatDate(auction.partyNight)}</h5>
-          <div>Auction Entries freeze at {this.formatTime(auction.entryFreeze)}</div>
-          <div>Auction starts at {this.formatTime(auction.startTime)}</div>
-          <div>Auction ends at {this.formatTime(auction.endTime)}</div>
-          <div>Prices start at {this.formatCurrency(auction.priceStart)}</div>
-          <div>
-            Prices drop by {this.formatCurrency(auction.priceDrop)} every {this.formatInterval(auction.dropInterval)}
+          <h4 className="subtitle is-4">{auction.regionID} {this.formatDate(auction.partyNight)}</h4>
+          <div className="field">
+            <label className="label">Entry Freeze</label>
+            <p className="control">
+              <span >
+                {this.formatTime(auction.entryFreeze)}
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <label className="label">Starting Price</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(auction.priceStart)}
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <label className="label">Price Drop Interval</label>
+            <p className="control">
+              <span >
+                {this.formatInterval(auction.dropInterval)}
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <label className="label">Price Drop</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(auction.priceDrop)}
+              </span>
+            </p>
           </div>
           {this.props.children}
         </div>
@@ -45,63 +69,60 @@ export default class AuctionInfo extends React.Component<PAuctionInfo>{
     } else if (currentState.state === "EntryFreeze") {
       return (
         <div className="box">
-          <h4 className="subtitle is-4">{auction.regionID}</h4>
-          <h5 className="subtitle is-5">{this.formatDate(auction.partyNight)}</h5>
-          <div>Auction Entries are frozen</div>
-          <div>Auction starts at {this.formatTime(auction.startTime)}</div>
-          <div>Auction ends at {this.formatTime(auction.endTime)}</div>
-          <div>Prices start at {this.formatCurrency(auction.priceStart)}</div>
-          <div>
-            Prices drop by {this.formatCurrency(auction.priceDrop)} every {this.formatInterval(auction.dropInterval)}
+          <h4 className="subtitle is-4">{auction.regionID} {this.formatDate(auction.partyNight)}</h4>
+          <div className="field">
+            <label className="label">Starting Price</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(auction.priceStart)}
+              </span>
+            </p>
           </div>
-          {this.props.children}
+          <div className="field">
+            <label className="label">Price Drop Interval</label>
+            <p className="control">
+              <span >
+                {this.formatInterval(auction.dropInterval)}
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <label className="label">Price Drop</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(auction.priceDrop)}
+              </span>
+            </p>
+          </div>
         </div>
       );
     } else if (currentState.state === "ActiveAuction") {
       return (
         <div className="box">
           <h4 className="subtitle is-4">{auction.regionID} {this.formatDate(auction.partyNight)}</h4>
-          <div className="field is-horizontal">
-            <div className="field-label">
-              <label className="label">Current Price</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <span >
-                    {this.formatCurrency(currentState.price)}
-                  </span>
-                </p>
-              </div>
-            </div>
+          <div className="field">
+            <label className="label">Current Price</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(currentState.price)}
+              </span>
+            </p>
           </div>
-          <div className="field is-horizontal">
-            <div className="field-label">
-              <label className="label">Price Drop Interval</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <span >
-                    {this.formatInterval(auction.dropInterval)}
-                  </span>
-                </p>
-              </div>
-            </div>
+          <div className="field">
+            <label className="label">Price Drop Interval</label>
+            <p className="control">
+              <span >
+                {this.formatInterval(auction.dropInterval)}
+              </span>
+            </p>
           </div>
-          <div className="field is-horizontal">
-            <div className="field-label">
-              <label className="label">Price Drop</label>
-            </div>
-            <div className="field-body">
-              <div className="field">
-                <p className="control">
-                  <span >
-                    {this.formatCurrency(auction.priceDrop)}
-                  </span>
-                </p>
-              </div>
-            </div>
+          <div className="field">
+            <label className="label">Price Drop</label>
+            <p className="control">
+              <span >
+                {this.formatCurrency(auction.priceDrop)}
+              </span>
+            </p>
           </div>
           {this.props.children}
         </div>
@@ -109,9 +130,8 @@ export default class AuctionInfo extends React.Component<PAuctionInfo>{
     } else {
       return (
         <div className="box">
-          <h4 className="subtitle is-4">{auction.regionID}</h4>
-          <h5 className="subtitle is-5">{this.formatDate(auction.partyNight)}</h5>
-          <div>Auction has Ended</div>
+          <h4 className="subtitle is-4">{auction.regionID} {this.formatDate(auction.partyNight)}</h4>
+          <span>Auction Ended</span>
           {this.props.children}
         </div>
       );

@@ -15,7 +15,7 @@ export default class Header extends React.Component<{}, {}> {
       <nav className="navbar header" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link to="/" className="navbar-item">
-            <img src="./shared/logo/png/color_logo_transparent@2x.png" />
+            <img src="./logo/png/color_logo_transparent@2x.png" />
           </Link>
         </div>
         <div className="navbar-menu">

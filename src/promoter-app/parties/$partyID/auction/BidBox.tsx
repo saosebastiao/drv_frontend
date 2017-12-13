@@ -81,21 +81,28 @@ export default class BidBox extends React.Component<PBidBox>{
         <div>
           {
             this.auctionState.state === "ActiveAuction" ?
-              <div>
-                <button type="button" onClick={this.submitBid}>
-                  Bid {this.formatCurrency(this.auctionState.price)}
-                </button>
+              <div className="field">
+                <div className="control">
+                  <button type="button" className="button is-primary" onClick={this.submitBid}>
+                    Submit Bid for {this.formatCurrency(this.auctionState.price)}
+                  </button>
+                </div>
               </div> : null
           }
-          <div>
-            <input type="number"
-              value={this.sealedBid}
-              min={this.props.squad.filters.minimumPrice || 0}
-              step={5}
-              onChange={this.setSealedBid} />
-            <button type="button" onClick={this.submitSealedBid}>
-              Submit Sealed Bid
-          </button>
+          <div className="field has-addons">
+            <div className="control">
+              <input type="number"
+                className="input"
+                value={this.sealedBid}
+                min={this.props.squad.filters.minimumPrice || 0}
+                step={5}
+                onChange={this.setSealedBid} />
+            </div>
+            <div className="control">
+              <button type="button" className="button is-primary" onClick={this.submitSealedBid}>
+                Submit Sealed Bid
+              </button>
+            </div>
           </div>
         </div >
       );
