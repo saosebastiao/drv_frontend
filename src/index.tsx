@@ -1,26 +1,23 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Admin from "./admin-app";
 import Home from "./home";
-import Partier from "./partier-app";
-import Promoter from "./promoter-app";
-// import DevTool from "mobx-react-devtools";
+import { AppContainer } from "react-hot-loader";
 
 import "./styles/index.scss";
 
-class AppRouter extends React.Component<{}, {}> {
-  public render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/partier" component={Partier} />
-          <Route path="/promoter" component={Promoter} />
-          <Route path="/admin" component={Admin} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+render(
+  <AppContainer>
+    <Home />
+  </AppContainer>,
+  document.getElementById("root"));
+
+if ((module as any).hot) {
+  (module as any).hot.accept("./home", () => {
+    const NextRootContainer = require("./home").default;
+    render(
+      <AppContainer>
+        <NextRootContainer />
+      </AppContainer>,
+      document.getElementById("root"));
+  });
 }
-render(<AppRouter />, document.getElementById("root"));

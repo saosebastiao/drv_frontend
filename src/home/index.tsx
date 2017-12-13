@@ -1,7 +1,9 @@
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { BrowserRouter, RouteComponentProps, Route, Switch } from "react-router-dom";
+import Partier from "../partier-app";
+import Promoter from "../promoter-app";
 
-export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
+class HomePage extends React.Component<RouteComponentProps<{}>, {}> {
 
   public render() {
     return (
@@ -21,4 +23,18 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
     );
   }
 
+}
+
+export default class Home extends React.Component<{}, {}> {
+  public render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/partier" component={Partier} />
+          <Route path="/promoter" component={Promoter} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }

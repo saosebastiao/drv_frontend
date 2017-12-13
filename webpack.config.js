@@ -11,7 +11,7 @@ console.log(`BACKEND: ${BACKEND}`);
 
 module.exports = {
   entry: {
-    index: ["./src/index.tsx"]
+    index: ["react-hot-loader/patch", "./src/index.tsx"]
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -22,7 +22,10 @@ module.exports = {
     rules: [
       // loaders will work with webpack 1 or 2; but will be renamed "rules" in future
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      {
+        test: /\.tsx?$/,
+        loaders: ["react-hot-loader/webpack", "ts-loader"]
+      },
       {
         test: /\.scss$/,
         use: [
