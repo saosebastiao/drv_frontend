@@ -58,7 +58,7 @@ export default class SquadJoin extends React.Component<PNewSquad> {
               <div>
                 {this.model.invites.map((s) => (
                   <Link to={`/partier/squad/${s}`}>
-                    <SquadCard key={s} squadID={s} />)}
+                    <SquadCard key={s} squadID={s} />
                   </Link>
                 ))}
               </div>
