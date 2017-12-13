@@ -5,6 +5,7 @@ import { RouteComponentProps } from "react-router-dom";
 import FacebookImageSelector from "shared/facebook/FacebookImageSelector";
 import ProfileModel from "../Model";
 import EditPhotosModel from "./Model";
+import AvatarEditor from "react-avatar-editor";
 
 interface PProfile extends RouteComponentProps<{}> {
   model: ProfileModel;
@@ -62,7 +63,11 @@ export default class EditPhotos extends React.Component<PProfile> {
           <button type="button" className="button" onClick={this.save}>Save</button>
         </div>
         <div className="column is-4">
-          {/* */}
+          <div className="box">
+            {this.model.photos[0] ?
+              <AvatarEditor image={this.model.photos[0].url} /> : null
+            }
+          </div>
           <FacebookImageSelector
             getURL
             appId="1063753666981488"

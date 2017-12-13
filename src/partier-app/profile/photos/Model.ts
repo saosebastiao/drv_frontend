@@ -1,6 +1,5 @@
 import { computed, observable, runInAction } from "mobx";
 import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
-import { autorun } from "mobx";
 
 export default class ProfileModel {
   @observable public userID: string;
@@ -12,10 +11,6 @@ export default class ProfileModel {
   @observable public defaultRegion: string = "none";
   @observable public gender: string = "";
   @observable public photos: Array<IPhoto> = [];
-  public x = autorun(() => {
-    // tslint:disable-next-line:no-console
-    console.log(this.photos[0]);
-  });
   @observable public validated: boolean = false;
   @observable public complete: boolean = false;
   @observable public availRegions: Array<string> = [];
