@@ -21,7 +21,7 @@ export default class MenuTab extends React.Component<PMenuTab>{
           return (
             <li>
               <Link to={to}
-                {...rest} className={match.isExact ? "is-active" : ""} >
+                {...rest} className={match && match.isExact ? "is-active" : ""} >
                 {this.props.children}
               </Link>
             </li >

@@ -12,13 +12,16 @@ import ViewAuction from "./auction";
 import ViewAssignedPartyModel from "./party";
 import ViewSquadModel from "./Model";
 
-interface PSquadID {
+interface PSquadID extends RouteComponentProps<{
   squadID: string;
-}
+}> { }
 
 @observer
-export default class SquadID extends React.Component<RouteComponentProps<PSquadID>> {
+export default class SquadID extends React.Component<PSquadID> {
   private model = new ViewSquadModel(parseInt(this.props.match.params.squadID, 10));
+  public componentWillReceiveProps(next: PSquadID) {
+    this.model = new ViewSquadModel(parseInt(next.match.params.squadID, 10));
+  }
   public render() {
     if (this.model.isReady) {
       const squadID = this.model.squadID;
