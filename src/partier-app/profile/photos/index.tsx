@@ -24,15 +24,14 @@ export default class EditPhotos extends React.Component<PProfile> {
 
   private setPhotoIdx = (idx: number) => () => this.idx = idx;
 
-  private deletePhotoIdx = (idx: number) => () => this.model.photos[idx] = undefined;
+  private deletePhotoIdx = (idx: number) => () => this.model.photos.splice(idx, 1);
 
   private onImageSelect = (url: any) => {
-    const idx = this.idx || -1;
-    if (this.model.photos.length > idx) {
-      this.model.photos[idx] = url.source;
-    } else {
-      this.model.photos.push(url.source);
-    }
+    // tslint:disable-next-line:no-console
+    console.log(url);
+    const x = this.model.photos.push({ url: url.source });
+    // tslint:disable-next-line:no-console
+    console.log(x);
   }
 
   public save = async () => {
@@ -47,17 +46,19 @@ export default class EditPhotos extends React.Component<PProfile> {
       <div className="columns">
         <div className="column is-4">
           <div className="box">
-            {[0, 1, 2, 3, 4].map(idx =>
+            {this.model.photos.map((photo, idx) =>
               <div key={idx} className="box">
-                {this.model.photos[idx] ?
-                  <figure className="image is-square">
-                    <img src={this.model.photos[idx]} onClick={this.setPhotoIdx(idx)} />
-                    <a className="delete" onClick={this.deletePhotoIdx(idx)} />
-                  </figure> :
-                  <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
-                }
+                <figure className="image is-square">
+                  <img src={photo.url} onClick={this.setPhotoIdx(idx)} />
+                  <a className="delete" onClick={this.deletePhotoIdx(idx)} />
+                </figure>
+                <img src="https://bulma.io/images/placeholders/256x256.png" onClick={this.setPhotoIdx(idx)} />
               </div>
             )}
+            <div className="box">
+              <img src="https://bulma.io/images/placeholders/256x256.png"
+                onClick={this.setPhotoIdx(this.model.photos.length)} />
+            </div>
           </div>
           <button type="button" className="button" onClick={this.save}>Save</button>
         </div>

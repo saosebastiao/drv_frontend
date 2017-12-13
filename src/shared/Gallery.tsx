@@ -1,6 +1,6 @@
 // tslint:disable:no-console
 import * as React from "react";
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import { observer } from "mobx-react";
 /*
   Test: tile layout
@@ -11,7 +11,7 @@ import { observer } from "mobx-react";
 */
 
 interface PGallery {
-  photos: Array<string>;
+  photos: Array<IPhoto>;
   height?: number;
   width?: number;
   range?: number;
@@ -33,10 +33,13 @@ export default class Gallery extends React.Component<PGallery> {
     Object.assign(this, Gallery.defaultProps, props);
   }
   @observable private range: number = 5;
-  @observable private photos: Array<string>;
+  @observable private photos: Array<IPhoto>;
   @observable private idx: number = 0;
   @observable private wStart: number = 0;
   @observable private wEnd: number = 5;
+  @computed get selectedPhoto() {
+    return this.photos[this.idx];
+  }
 
   @action private scrollRight = () => {
     const max = this.props.photos.length;
@@ -57,7 +60,9 @@ export default class Gallery extends React.Component<PGallery> {
           <div className="columns">
             <div className="column">
               <figure className="image is-square">
-                <img src={this.photos[this.idx as number]} />
+                {/*
+                <img src={this.selectedPhoto.url} />
+                */}
               </figure>
               <div className="columns is-gapless">
                 {this.props.photos.length > 5 ? (
@@ -78,7 +83,7 @@ export default class Gallery extends React.Component<PGallery> {
                         <figure
                           className="image is-square"
                           style={{ border: idx === this.idx ? "1px solid #000" : "" }}>
-                          <img src={x} />
+                          <img src={x.url} />
                         </figure>
                       </a>
                     ) : null;

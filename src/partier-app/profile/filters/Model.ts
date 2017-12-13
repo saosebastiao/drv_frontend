@@ -10,7 +10,7 @@ export default class EditFiltersModel {
   @observable public name: string = "";
   @observable public defaultRegion: string = "none";
   @observable public gender: string = "";
-  @observable public photos: Array<string> = [];
+  @observable public photos: Array<IPhoto> = [];
   @observable public stripeAccountID: string;
   @observable public validated: boolean = false;
   @observable public complete: boolean = false;

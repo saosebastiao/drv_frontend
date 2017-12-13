@@ -6,7 +6,7 @@ interface IPartierProfile {
   email?: string;
   defaultRegion?: string;
   gender?: string;
-  photos?: Array<string>;
+  photos?: Array<IPhoto>;
   stripeAccount?: string;
   validated: boolean;
   complete: boolean;
@@ -39,7 +39,7 @@ interface IUpdatePartierProfileReq {
   email?: string;
   defaultRegion?: string;
   gender?: string;
-  photos?: Array<string>;
+  photos?: Array<IPhoto>;
 }
 
 interface IUpdateAdminProfileReq {
@@ -79,6 +79,14 @@ interface IWinningBid {
   squadID: number;
   price: number;
   bidTime: string;
+}
+
+interface IPhoto {
+  url: string;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
 }
 
 interface ISquad {
