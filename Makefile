@@ -10,16 +10,16 @@ static:
 	--include='*.css' \
 	--include='*.svg' \
 	--include='*.png' \
-	-f 'hide,! */' staticassets/images/ dist/
+	-f 'hide,! */' static/images/ dist/
 
-htmlprod: staticassets/prod.html
-	cp staticassets/prod.html dist/index.html
+htmlprod: static/prod.html
+	cp static/prod.html dist/index.html
 
-htmlinteg: staticassets/integ.html
-	cp staticassets/integ.html dist/index.html
+htmlinteg: static/integ.html
+	cp static/integ.html dist/index.html
 
-htmldev: staticassets/dev.html
-	cp staticassets/integ.html dist/index.html
+htmldev: static/dev.html
+	cp static/integ.html dist/index.html
 
 ts:
 	./node_modules/.bin/tsc -p tsconfig.json 
@@ -31,10 +31,10 @@ scss:
 dev: clean static htmldev
 	export BACKEND=local && ./node_modules/.bin/webpack-dev-server --hot --inline
 
-integ: clean staticassets
+integ: clean static
 	export BACKEND=integ && ./node_modules/.bin/webpack-dev-server --hot --inline
 
-prod: clean staticassets
+prod: clean static
 	./node_modules/.bin/webpack -p
 
 test: clean ts
