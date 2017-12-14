@@ -16,6 +16,7 @@ interface PGallery {
   width?: number;
   range?: number;
 }
+const defaultPhoto = { url: "./images/profile-placeholder.png" };
 
 @observer
 export default class Gallery extends React.Component<PGallery> {
@@ -38,7 +39,7 @@ export default class Gallery extends React.Component<PGallery> {
   @observable private wStart: number = 0;
   @observable private wEnd: number = 5;
   @computed get selectedPhoto() {
-    return this.photos[this.idx] || { url: "https://bulma.io/images/placeholders/256x256.png" };
+    return this.photos[this.idx] || defaultPhoto;
   }
 
   @action private scrollRight = () => {
@@ -54,7 +55,6 @@ export default class Gallery extends React.Component<PGallery> {
 
   public render() {
     const { height, width } = this.props;
-    console.log(this.photos[0]);
     return this.photos ? (
       <div style={{ height, width }}>
         <div className="box">
@@ -80,7 +80,7 @@ export default class Gallery extends React.Component<PGallery> {
                         className="column"
                         onClick={() => this.idx = idx}>
                         <figure
-                          className="image is-square"
+                          className="image is-96x96"
                           style={{ border: idx === this.idx ? "1px solid #000" : "" }}>
                           <img src={x.url} />
                         </figure>

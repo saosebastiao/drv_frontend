@@ -4,21 +4,21 @@ clean:
 	find bin/ -type f -exec rm {} +
 	find dist/ -type f -exec rm {} +
 	
-static: 
+staticassets:
 	rsync -avm \
 	--include='*.html' \
 	--include='*.css' \
 	--include='*.svg' \
 	--include='*.png' \
-	-f 'hide,! */' static/images/ dist/
+	-f 'hide,! */' static/ dist/
 
-htmlprod: static/prod.html
+htmlprod:
 	cp static/prod.html dist/index.html
 
-htmlinteg: static/integ.html
+htmlinteg:
 	cp static/integ.html dist/index.html
 
-htmldev: static/dev.html
+htmldev:
 	cp static/integ.html dist/index.html
 
 ts:
@@ -28,13 +28,13 @@ scss:
 	./node_modules/.bin/node-sass -r src/ -o bin/ \
 	--include-path ./node_modules/bulma 
 
-dev: clean static htmldev
+dev: clean staticassets htmldev
 	export BACKEND=local && ./node_modules/.bin/webpack-dev-server --hot --inline
 
-integ: clean static
+integ: clean staticassets
 	export BACKEND=integ && ./node_modules/.bin/webpack-dev-server --hot --inline
 
-prod: clean static
+prod: clean staticassets
 	./node_modules/.bin/webpack -p
 
 test: clean ts

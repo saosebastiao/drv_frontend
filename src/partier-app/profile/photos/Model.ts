@@ -1,41 +1,23 @@
-import { computed, observable, runInAction } from "mobx";
-import { getPartierProfile, getRegions, updatePartierProfile } from "modules/DroverClient";
+import { computed, observable } from "mobx";
+import { updatePartierProfile, getUserID } from "modules/DroverClient";
 
 export default class ProfileModel {
-  @observable public userID: string;
-  @observable public email: string;
+  private userID: string;
   @computed get isReady() {
-    return this.userID != null;
+    return this.photos != null;
   }
-  @observable public name: string = "";
-  @observable public defaultRegion: string = "none";
-  @observable public gender: string = "";
-  @observable public photos: Array<IPhoto> = [];
-  @observable public validated: boolean = false;
-  @observable public complete: boolean = false;
-  @observable public availRegions: Array<string> = [];
-  public async refresh() {
-    const profile = await getPartierProfile();
-    const regions = await getRegions();
-    runInAction(() => {
-      Object.assign(this, profile);
-      this.availRegions = regions.map((x) => x.regionID);
-    });
-  }
-  public async save() {
+  @observable public photos: Array<IPhoto>;
+  public save = async (photos: Array<IPhoto>) => {
     const data = {
       userID: this.userID,
-      name: this.name,
-      gender: this.gender,
-      photos: this.photos,
-      defaultRegion: this.defaultRegion
+      photos
     };
     const newProfile = await updatePartierProfile(data);
-
-    Object.assign(this, newProfile);
-    return true;
+    this.photos = newProfile.photos || [];
+    return this.photos;
   }
-  constructor() {
-    this.refresh();
+  constructor(photos?: Array<IPhoto>) {
+    this.userID = getUserID() || "";
+    this.photos = photos || [];
   }
 }
