@@ -2,6 +2,7 @@
 import * as React from "react";
 import { observable, action, computed } from "mobx";
 import { observer } from "mobx-react";
+import PhotoContainer from "./PhotoContainer";
 /*
   Test: tile layout
   Test: column layout
@@ -60,9 +61,11 @@ export default class Gallery extends React.Component<PGallery> {
         <div className="box">
           <div className="columns">
             <div className="column">
-              <figure className="image is-square">
-                <img src={this.selectedPhoto.url} />
-              </figure>
+              <PhotoContainer url={this.selectedPhoto.url}
+                pixels={480}
+                x={50}
+                y={50}
+              />
               <div className="columns is-gapless">
                 {this.props.photos.length > 5 ? (
                   <a className="column is-1"

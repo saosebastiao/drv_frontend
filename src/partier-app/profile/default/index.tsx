@@ -22,7 +22,9 @@ export default class Profile extends React.Component<PProfile> {
   public render() {
     return (
       <div className="columns">
-        <Gallery photos={this.model.photos} />
+        <div className="column">
+          <Gallery photos={this.model.photos} />
+        </div>
         <div className="column is-4">
           <div className="box">
             <h1 className="title">

@@ -12,7 +12,10 @@ class PartierCardModel {
   @observable public defaultRegion: string;
   @observable public gender: IAuction;
   @observable public filters?: ISquadFilters;
-  @observable public photos?: Array<string>;
+  @observable public photos: Array<IPhoto> = [];
+  @computed get thumbnail() {
+    return (this.photos[0] || defaultPhoto).url;
+  }
   @computed get isReady() {
     return this.name != null;
   }
@@ -28,9 +31,12 @@ interface PPartierCard {
   userID: string;
 }
 
+const defaultPhoto = { url: "./images/profile-placeholder.png" };
+
 @observer
 export default class PartierCard extends React.Component<PPartierCard, {}>{
   public model = new PartierCardModel(this.props.userID);
+
   public render() {
     return this.model.isReady ? (
       <div className="partier-card">
@@ -38,7 +44,7 @@ export default class PartierCard extends React.Component<PPartierCard, {}>{
           <div role="photo-container">
             <div role="photo">
               <figure>
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                <img src={this.model.thumbnail} alt="Placeholder image" />
               </figure>
             </div>
             <div role="name">
