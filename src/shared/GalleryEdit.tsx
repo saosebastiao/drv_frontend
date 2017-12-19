@@ -40,18 +40,29 @@ export default class GalleryEdit extends React.Component<PGallery> {
     this.photosCopy[this.idxPhotoSelector as number] = { url: url.source };
     this.idxSelection = this.idxPhotoSelector as number;
   }
-
+  @action private setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.scale = parseFloat(e.target.value);
+  }
+  @action private setPosition = (position: AvatarPosition) => {
+    this.position = position;
+  }
   @observable private range: number = 5;
   @observable private photosCopy: Array<IPhoto> = [];
   @observable private idxPhotoSelector?: number;
   @observable private idxSelection: number = 0;
   @observable private wStart: number = 0;
   @observable private wEnd: number = 5;
+  @observable private scale: number = 1.0;
+  @observable private position = { x: 0.5, y: 0.5 };
   private selectedPhoto = () => {
-    return this.photosCopy[this.idxSelection] || defaultPhoto;
+    if (this.photosCopy.length > this.idxSelection) {
+      return this.photosCopy[this.idxSelection];
+    } else return defaultPhoto;
   }
   private photoByIdx = (idx: number) => {
-    return this.photosCopy[idx];
+    if (this.photosCopy.length > idx) {
+      return this.photosCopy[idx];
+    } else return defaultPhoto;
   }
   @action public deletePhotoIdx = (idx: number) => () => {
     runInAction(() => {
@@ -80,8 +91,18 @@ export default class GalleryEdit extends React.Component<PGallery> {
             <AvatarEditor image={this.selectedPhoto().url}
               height={480}
               width={480}
-              scale={1}
+              border={30}
+              scale={this.scale}
+              position={this.position}
+              onPositionChange={this.setPosition}
+              crossOrigin={"anonymous"}
             />
+            <div className="field">
+              <label className="label">Scale</label>
+              <div className="control">
+                <input type="range" value={this.scale} step={0.1} max={1.5} min={0.5} onChange={this.setScale} />
+              </div>
+            </div>
             <div className="columns is-gapless">
               <a className="column is-1"
                 onClick={this.scrollLeft}
