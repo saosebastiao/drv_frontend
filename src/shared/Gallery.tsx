@@ -17,7 +17,7 @@ interface PGallery {
   width?: number;
   range?: number;
 }
-const defaultPhoto = { url: "./images/profile-placeholder.png" };
+const defaultPhoto = "./images/profile-placeholder.png";
 
 @observer
 export default class Gallery extends React.Component<PGallery> {
@@ -61,7 +61,7 @@ export default class Gallery extends React.Component<PGallery> {
         <div className="box">
           <div className="columns">
             <div className="column">
-              <PhotoContainer url={this.selectedPhoto.url}
+              <PhotoContainer url={this.selectedPhoto}
                 pixels={480}
                 x={50}
                 y={50}
@@ -85,7 +85,7 @@ export default class Gallery extends React.Component<PGallery> {
                         <figure
                           className="image is-96x96"
                           style={{ border: idx === this.idx ? "1px solid #000" : "" }}>
-                          <img src={x.url} />
+                          <img src={x} />
                         </figure>
                       </a>
                     ) : null;

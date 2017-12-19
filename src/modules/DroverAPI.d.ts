@@ -81,13 +81,7 @@ interface IWinningBid {
   bidTime: string;
 }
 
-interface IPhoto {
-  url: string;
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-}
+type IPhoto = string;
 
 interface ISquad {
   squadID: number;

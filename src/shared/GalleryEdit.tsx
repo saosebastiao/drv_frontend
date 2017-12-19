@@ -17,7 +17,7 @@ interface PGallery {
   pixels?: number;
   save: (photos: Array<IPhoto>) => void;
 }
-const defaultPhoto = { url: "./images/profile-placeholder.png" };
+const defaultPhoto = "./images/profile-placeholder.png";
 
 @observer
 export default class GalleryEdit extends React.Component<PGallery> {
@@ -37,7 +37,7 @@ export default class GalleryEdit extends React.Component<PGallery> {
   }
   @action private onImageSelect = (url: any) => {
     console.log(this.idxPhotoSelector);
-    this.photosCopy[this.idxPhotoSelector as number] = { url: url.source };
+    this.photosCopy[this.idxPhotoSelector as number] = url.source;
     this.idxSelection = this.idxPhotoSelector as number;
   }
   @action private setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +88,7 @@ export default class GalleryEdit extends React.Component<PGallery> {
       <div className="box">
         <div className="columns">
           <div className="column">
-            <AvatarEditor image={this.selectedPhoto().url}
+            <AvatarEditor image={this.selectedPhoto()}
               height={480}
               width={480}
               border={30}
@@ -118,7 +118,7 @@ export default class GalleryEdit extends React.Component<PGallery> {
                       <figure key={x} className="image is-96x96"
                         style={{ border: x === this.idxPhotoSelector ? "1px solid #000" : "" }}>
                         <a className="delete" onClick={this.deletePhotoIdx(this.idxSelection)} />
-                        <img src={this.photoByIdx(x).url}
+                        <img src={this.photoByIdx(x)}
                           onClick={() => this.idxSelection = x} />
                       </figure>
                     </div>
@@ -128,7 +128,7 @@ export default class GalleryEdit extends React.Component<PGallery> {
                         onClick={() => this.idxPhotoSelector = x}>
                         <figure
                           className="image is-96x96">
-                          <img src={defaultPhoto.url} />
+                          <img src={defaultPhoto} />
                         </figure>
                       </a>
                     );

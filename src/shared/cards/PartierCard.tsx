@@ -14,7 +14,7 @@ class PartierCardModel {
   @observable public filters?: ISquadFilters;
   @observable public photos: Array<IPhoto> = [];
   @computed get thumbnail() {
-    return (this.photos[0] || defaultPhoto).url;
+    return this.photos[0] || defaultPhoto;
   }
   @computed get isReady() {
     return this.name != null;
@@ -31,7 +31,7 @@ interface PPartierCard {
   userID: string;
 }
 
-const defaultPhoto = { url: "./images/profile-placeholder.png" };
+const defaultPhoto = "./images/profile-placeholder.png";
 
 @observer
 export default class PartierCard extends React.Component<PPartierCard, {}>{
